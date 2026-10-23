@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>올인원 타바타 인터벌 타이머</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        timer: {
+                            prep: '#3b82f6',
+                            work: '#22c55e',
+                            rest: '#f97316',
+                            setRest: '#eab308',
+                            cooldown: '#06b6d4',
+                            paused: '#64748b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            min-height: 100dvh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .pulse-ring {
+            animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.03); }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col justify-between min-h-[100dvh] font-sans antialiased overflow-x-hidden">
+
+    <!-- 상단 네비게이션 헤더 -->
+    <header class="w-full max-w-md mx-auto px-4 py-3 flex justify-between items-center border-b border-slate-800/80">
+        <div class="flex items-center space-x-2">
+            <span class="text-xl">🔥</span>
+            <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">BURNBODY TABATA</h1>
+        </div>
+        <div class="flex items-center space-x-2">
+            <button id="preset-btn" onclick="openPresetModal()" class="px-3 py-1.5 bg-slate-900 border border-slate-700 text-xs font-semibold rounded-full hover:bg-slate-800 transition">
+                📋 프리셋
+            </button>
+            <button id="settings-toggle-btn" onclick="toggleSettings()" class="p-2 bg-slate-900 border border-slate-700 rounded-full hover:bg-slate-800 transition text-sm">
+                ⚙️
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="w-full max-w-md mx-auto px-4 flex-1 flex flex-col justify-center items-center py-4">
+
+        <!-- 설정 뷰 (기본 숨김) -->
+        <div id="settings-view" class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-5 mb-4 shadow-2xl backdrop-blur-md hidden">
+            <h2 class="text-base font-bold mb-4 flex items-center justify-between">
+                <span>⏱️ 타이머 커스텀 설정</span>
+                <span class="text-xs text-slate-400 font-normal">단위: 초(s)</span>
+            </h2>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1">준비 시간 (Prepare)</label>
+                    <input type="number" id="in-prep" value="10" min="0" max="60" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-center font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1">운동 시간 (Work)</label>
+                    <input type="number" id="in-work" value="20" min="1" max="300" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-center font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1">휴식 시간 (Rest)</label>
+                    <input type="number" id="in-rest" value="10" min="0" max="300" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-center font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1">라운드 수 (Rounds)</label>
+                    <input type="number" id="in-rounds" value="8" min="1" max="50" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-center font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1">세트 수 (Sets)</label>
+                    <input type="number" id="in-sets" value="1" min="1" max="20" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-center font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1">세트 휴식 (Set Rest)</label>
+                    <input type="number" id="in-set-rest" value="30" min="0" max="300" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-center font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+            <div class="mt-4 flex gap-2">
+                <button onclick="saveCurrentAsPresetPrompt()" class="flex-1 bg-slate-800 hover:bg-slate-700 py-2.5 rounded-xl text-xs font-bold transition border border-slate-700">현재 설정 저장</button>
+                <button onclick="applySettings()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-2.5 rounded-xl text-xs font-bold transition text-slate-950">설정 적용</button>
+            </div>
+        </div>
+
+        <!-- 타이머 대시보드 뷰 -->
+        <div id="timer-view" class="w-full flex flex-col items-center">
+            
+            <!-- 상단 요약 정보 (라운드 & 세트) -->
+            <div class="flex items-center justify-between w-full mb-6 px-2">
+                <div class="bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-slate-300">
+                    SET <span id="current-set-disp" class="text-white font-bold">1</span> / <span id="total-sets-disp">1</span>
+                </div>
+                <div class="bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-slate-300">
+                    ROUND <span id="current-round-disp" class="text-white font-bold">1</span> / <span id="total-rounds-disp">8</span>
+                </div>
+            </div>
+
+            <!-- 메인 상태 인디케이터 카드 -->
+            <div id="status-card" class="w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center shadow-2xl relative transition-all duration-300 mb-6">
+                
+                <!-- 현재 상태 텍스트 -->
+                <div id="status-text" class="text-sm font-bold tracking-widest text-blue-400 uppercase mb-2">준비 (READY)</div>
+
+                <!-- 대형 타이머 숫자 -->
+                <div class="my-4 flex items-center justify-center">
+                    <span id="time-display" class="text-7xl sm:text-8xl font-black tracking-tighter tabular-nums drop-shadow-lg">10</span>
+                </div>
+
+                <!-- 다음 동작 미리보기 -->
+                <div class="text-xs text-slate-400 bg-slate-950/60 py-2 px-4 rounded-xl inline-block border border-slate-800/80">
+                    다음 동작: <span id="next-action-text" class="text-slate-200 font-semibold">운동 시작 (20초)</span>
+                </div>
+
+                <!-- 원형 / 선형 프로그레스 바 -->
+                <div class="w-full bg-slate-800 h-2 rounded-full mt-6 overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-500 h-full w-full transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- 오디오 및 보이스 가이드 옵션 스위치 -->
+            <div class="flex items-center justify-center space-x-6 text-xs text-slate-400 mb-4">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" id="sound-toggle" checked class="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0">
+                    <span>효과음</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" id="tts-toggle" checked class="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0">
+                    <span>음성 안내(TTS)</span>
+                </label>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- 하단 조작 컨트롤 버튼 바 -->
+    <footer class="w-full max-w-md mx-auto px-4 py-4 bg-slate-950/80 backdrop-blur-md border-t border-slate-900">
+        <div class="grid grid-cols-4 gap-2">
+            <button onclick="resetTimer()" class="bg-slate-900 border border-slate-800 hover:bg-slate-800 py-3.5 rounded-2xl font-bold text-xs flex flex-col items-center justify-center transition active:scale-95 text-slate-300">
+                <span class="text-base mb-0.5">🔄</span> 초기화
+            </button>
+            <button onclick="skipPhase()" class="bg-slate-900 border border-slate-800 hover:bg-slate-800 py-3.5 rounded-2xl font-bold text-xs flex flex-col items-center justify-center transition active:scale-95 text-slate-300">
+                <span class="text-base mb-0.5">⏭️</span> 스킵
+            </button>
+            <button id="main-control-btn" onclick="togglePlayPause()" class="col-span-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 py-3.5 rounded-2xl font-black text-sm flex items-center justify-center space-x-2 transition shadow-lg shadow-emerald-500/20 active:scale-95">
+                <span id="main-btn-icon" class="text-lg">▶</span>
+                <span id="main-btn-text">시작하기</span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- 프리셋 모달 -->
+    <div id="preset-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-base">📋 운동 루틴 프리셋</h3>
+                <button onclick="closePresetModal()" class="text-slate-400 hover:text-white text-sm">✕</button>
+            </div>
+            <div id="preset-list" class="space-y-2 max-h-60 overflow-y-auto mb-4 pr-1">
+                <!-- 동적 생성 -->
+            </div>
+            <button onclick="closePresetModal()" class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-bold transition">닫기</button>
+        </div>
+    </div>
+
+    <!-- 자바스크립트 로직 -->
+    <script>
+        // 타이머 기본 설정값
+        let config = {
+            prep: 10,
+            work: 20,
+            rest: 10,
+            rounds: 8,
+            sets: 1,
+            setRest: 30
+        };
+
+        // 상태 관리 변수
+        let phases = [];
+        let currentPhaseIndex = 0;
+        let timeLeft = 0;
+        let timerId = null;
+        let isRunning = false;
+        let isPaused = false;
+        let wakeLock = null;
+
+        // Web Audio 비프음 생성기
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep(freq = 440, duration = 0.15, type = 'sine') {
+            if (!document.getElementById('sound-toggle').checked) return;
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        // TTS 음성 안내
+        function speak(text) {
+            if (!document.getElementById('tts-toggle').checked) return;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // 이전 음성 취소
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR';
+                utterance.rate = 1.1;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Wake Lock API (화면 꺼짐 방지)
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                }
+            } catch (err) { console.log(err); }
+        }
+        function releaseWakeLock() {
+            if (wakeLock) { wakeLock.release().then(() => { wakeLock = null; }); }
+        }
+
+        // 단계 배열 생성 (루틴 빌드)
+        function buildPhases() {
+            phases = [];
+            let pPrep = parseInt(document.getElementById('in-prep').value) || 0;
+            let pWork = parseInt(document.getElementById('in-work').value) || 20;
+            let pRest = parseInt(document.getElementById('in-rest').value) || 10;
+            let pRounds = parseInt(document.getElementById('in-rounds').value) || 8;
+            let pSets = parseInt(document.getElementById('in-sets').value) || 1;
+            let pSetRest = parseInt(document.getElementById('in-set-rest').value) || 30;
+
+            if (pPrep > 0) {
+                phases.push({ name: '준비', type: 'prep', duration: pPrep, round: 1, set: 1 });
+            }
+
+            for (let s = 1; s <= pSets; s++) {
+                for (let r = 1; r <= pRounds; r++) {
+                    phases.push({ name: `운동 (Round ${r})`, type: 'work', duration: pWork, round: r, set: s });
+                    if (!(s === pSets && r === pRounds)) {
+                        if (r === pRounds && pSetRest > 0 && s < pSets) {
+                            phases.push({ name: '세트 휴식', type: 'setRest', duration: pSetRest, round: r, set: s });
+                        } else if (pRest > 0) {
+                            phases.push({ name: '휴식', type: 'rest', duration: pRest, round: r, set: s });
+                        }
+                    }
+                }
+            }
+            phases.push({ name: '완료!', type: 'finished', duration: 0, round: pRounds, set: pSets });
+        }
+
+        // 설정 적용 및 초기화
+        function applySettings() {
+            config.prep = parseInt(document.getElementById('in-prep').value);
+            config.work = parseInt(document.getElementById('in-work').value);
+            config.rest = parseInt(document.getElementById('in-rest').value);
+            config.rounds = parseInt(document.getElementById('in-rounds').value);
+            config.sets = parseInt(document.getElementById('in-sets').value);
+            config.setRest = parseInt(document.getElementById('in-set-rest').value);
+
+            buildPhases();
+            currentPhaseIndex = 0;
+            resetTimerState();
+            document.getElementById('settings-view').classList.add('hidden');
+        }
+
+        function toggleSettings() {
+            const v = document.getElementById('settings-view');
+            v.classList.toggle('hidden');
+        }
+
+        function resetTimerState() {
+            stopTimer();
+            buildPhases();
+            currentPhaseIndex = 0;
+            if (phases.length > 0) {
+                timeLeft = phases[0].duration;
+            }
+            updateDisplay();
+        }
+
+        // 화면 업데이트
+        function updateDisplay() {
+            if (phases.length === 0) return;
+            const current = phases[currentPhaseIndex];
+            const next = phases[currentPhaseIndex + 1] || { name: '운동 종료' };
+
+            document.getElementById('time-display').innerText = timeLeft;
+            document.getElementById('current-round-disp').innerText = current.round || 1;
+            document.getElementById('total-rounds-disp').innerText = config.rounds;
+            document.getElementById('current-set-disp').innerText = current.set || 1;
+            document.getElementById('total-sets-disp').innerText = config.sets;
+            document.getElementById('next-action-text').innerText = `${next.name} (${next.duration ? next.duration + '초' : ''})`;
+
+            const card = document.getElementById('status-card');
+            const statusText = document.getElementById('status-text');
+            const pBar = document.getElementById('progress-bar');
+
+            // 테마별 색상 적용
+            card.className = "w-full bg-slate-900 border rounded-3xl p-6 text-center shadow-2xl relative transition-all duration-300 mb-6 ";
+            
+            if (current.type === 'prep') {
+                card.classList.add('border-blue-500/50', 'shadow-blue-900/20');
+                statusText.className = "text-sm font-bold tracking-widest text-blue-400 uppercase mb-2";
+                statusText.innerText = "준비 (PREPARE)";
+                pBar.className = "bg-blue-500 h-full transition-all duration-300";
+            } else if (current.type === 'work') {
+                card.classList.add('border-emerald-500/50', 'shadow-emerald-900/20', 'pulse-ring');
+                statusText.className = "text-sm font-bold tracking-widest text-emerald-400 uppercase mb-2";
+                statusText.innerText = "운동 중 (WORK)";
+                pBar.className = "bg-emerald-500 h-full transition-all duration-300";
+            } else if (current.type === 'rest') {
+                card.classList.add('border-orange-500/50', 'shadow-orange-900/20');
+                statusText.className = "text-sm font-bold tracking-widest text-orange-400 uppercase mb-2";
+                statusText.innerText = "휴식 (REST)";
+                pBar.className = "bg-orange-500 h-full transition-all duration-300";
+            } else if (current.type === 'setRest') {
+                card.classList.add('border-yellow-500/50', 'shadow-yellow-900/20');
+                statusText.className = "text-sm font-bold tracking-widest text-yellow-400 uppercase mb-2";
+                statusText.innerText = "세트 휴식 (SET REST)";
+                pBar.className = "bg-yellow-500 h-full transition-all duration-300";
+            } else if (current.type === 'finished') {
+                card.classList.add('border-cyan-500/50', 'shadow-cyan-900/20');
+                statusText.className = "text-sm font-bold tracking-widest text-cyan-400 uppercase mb-2";
+                statusText.innerText = "운동 완료! (FINISHED)";
+                pBar.className = "bg-cyan-500 h-full transition-all duration-300";
+                document.getElementById('time-display').innerText = "🎉";
+            }
+
+            // 프로그레스 바 계산
+            if (current.duration > 0) {
+                const pct = (timeLeft / current.duration) * 100;
+                pBar.style.width = `${pct}%`;
+            } else {
+                pBar.style.width = `100%`;
+            }
+        }
+
+        // 타이머 제어 함수들
+        function togglePlayPause() {
+            if (!isRunning) {
+                startTimer();
+            } else {
+                pauseTimer();
+            }
+        }
+
+        function startTimer() {
+            if (phases.length === 0) buildPhases();
+            if (currentPhaseIndex >= phases.length) currentPhaseIndex = 0;
+
+            isRunning = true;
+            isPaused = false;
+            requestWakeLock();
+
+            document.getElementById('main-btn-icon').innerText = '⏸';
+            document.getElementById('main-btn-text').innerText = '일시정지';
+            document.getElementById('main-control-btn').className = "col-span-2 bg-orange-500 hover:bg-orange-400 text-slate-950 py-3.5 rounded-2xl font-black text-sm flex items-center justify-center space-x-2 transition shadow-lg shadow-orange-500/25 active:scale-95";
+
+            if (timeLeft === undefined || timeLeft <= 0) {
+                timeLeft = phases[currentPhaseIndex].duration;
+                onPhaseStart();
+            }
+
+            timerId = setInterval(() => {
+                if (timeLeft > 1) {
+                    timeLeft--;
+                    if (timeLeft <= 3) {
+                        playBeep(600, 0.1, 'sine'); // 카운트다운 비프
+                    }
+                    updateDisplay();
+                } else {
+                    // 단계 종료
+                    playBeep(880, 0.3, 'triangle');
+                    currentPhaseIndex++;
+                    if (currentPhaseIndex < phases.length) {
+                        timeLeft = phases[currentPhaseIndex].duration;
+                        onPhaseStart();
+                        updateDisplay();
+                    } else {
+                        // 모든 루틴 완료
+                        stopTimer();
+                        playBeep(1046.5, 0.6, 'sine');
+                        speak("모든 운동이 완료되었습니다. 수고하셨습니다!");
+                        currentPhaseIndex = phases.length - 1;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        function onPhaseStart() {
+            const current = phases[currentPhaseIndex];
+            if (current.type === 'work') {
+                playBeep(800, 0.2);
+                speak("운동 시작");
+            } else if (current.type === 'rest') {
+                playBeep(400, 0.2);
+                speak("휴식");
+            } else if (current.type === 'prep') {
+                speak("준비하세요");
+            } else if (current.type === 'setRest') {
+                speak("세트 휴식입니다");
+            }
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            isPaused = true;
+            clearInterval(timerId);
+            releaseWakeLock();
+
+            document.getElementById('main-btn-icon').innerText = '▶';
+            document.getElementById('main-btn-text').innerText = '이어하기';
+            document.getElementById('main-control-btn').className = "col-span-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 py-3.5 rounded-2xl font-black text-sm flex items-center justify-center space-x-2 transition shadow-lg shadow-emerald-500/20 active:scale-95";
+        }
+
+        function stopTimer() {
+            isRunning = false;
+            isPaused = false;
+            clearInterval(timerId);
+            releaseWakeLock();
+
+            document.getElementById('main-btn-icon').innerText = '▶';
+            document.getElementById('main-btn-text').innerText = '시작하기';
+            document.getElementById('main-control-btn').className = "col-span-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 py-3.5 rounded-2xl font-black text-sm flex items-center justify-center space-x-2 transition shadow-lg shadow-emerald-500/20 active:scale-95";
+        }
+
+        function resetTimer() {
+            stopTimer();
+            currentPhaseIndex = 0;
+            if (phases.length > 0) timeLeft = phases[0].duration;
+            updateDisplay();
+            speak("초기화 되었습니다");
+        }
+
+        function skipPhase() {
+            if (currentPhaseIndex < phases.length - 1) {
+                currentPhaseIndex++;
+                timeLeft = phases[currentPhaseIndex].duration;
+                updateDisplay();
+                playBeep(500, 0.15);
+            }
+        }
+
+        // 로컬스토리지 프리셋 관리
+        const defaultPresets = [
+            { name: '기본 타바타 (20/10)', prep: 10, work: 20, rest: 10, rounds: 8, sets: 1, setRest: 30 },
+            { name: 'HIIT 고강도 (30/15)', prep: 10, work: 30, rest: 15, rounds: 10, sets: 2, setRest: 45 },
+            { name: '타바타 코어 (45/15)', prep: 10, work: 45, rest: 15, rounds: 6, sets: 1, setRest: 30 }
+        ];
+
+        function getPresets() {
+            const saved = localStorage.getItem('tabata_presets');
+            return saved ? JSON.parse(saved) : defaultPresets;
+        }
+
+        function openPresetModal() {
+            const listEl = document.getElementById('preset-list');
+            const presets = getPresets();
+            listEl.innerHTML = '';
+
+            presets.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = "flex items-center justify-between bg-slate-950 border border-slate-800 p-3 rounded-xl";
+                item.innerHTML = `
+                    <div>
+                        <div class="font-bold text-xs text-white">${p.name}</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5">운동 ${p.work}초 / 휴식 ${p.rest}초 / ${p.rounds}라운드</div>
+                    </div>
+                    <button onclick="loadPreset(${idx})" class="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition">불러오기</button>
+                `;
+                listEl.appendChild(item);
+            });
+
+            document.getElementById('preset-modal').classList.remove('hidden');
+        }
+
+        function closePresetModal() {
+            document.getElementById('preset-modal').classList.add('hidden');
+        }
+
+        function loadPreset(idx) {
+            const presets = getPresets();
+            const p = presets[idx];
+            document.getElementById('in-prep').value = p.prep;
+            document.getElementById('in-work').value = p.work;
+            document.getElementById('in-rest').value = p.rest;
+            document.getElementById('in-rounds').value = p.rounds;
+            document.getElementById('in-sets').value = p.sets;
+            document.getElementById('in-set-rest').value = p.setRest;
+
+            applySettings();
+            closePresetModal();
+        }
+
+        function saveCurrentAsPresetPrompt() {
+            const name = prompt("저장할 루틴 이름을 입력하세요:", "나만의 루틴");
+            if (!name) return;
+
+            const newPreset = {
+                name: name,
+                prep: parseInt(document.getElementById('in-prep').value),
+                work: parseInt(document.getElementById('in-work').value),
+                rest: parseInt(document.getElementById('in-rest').value),
+                rounds: parseInt(document.getElementById('in-rounds').value),
+                sets: parseInt(document.getElementById('in-sets').value),
+                setRest: parseInt(document.getElementById('in-set-rest').value)
+            };
+
+            const presets = getPresets();
+            presets.push(newPreset);
+            localStorage.setItem('tabata_presets', JSON.stringify(presets));
+            alert("프리셋이 성공적으로 저장되었습니다!");
+            openPresetModal();
+        }
+
+        // 초기 실행
+        window.onload = () => {
+            buildPhases();
+            if (phases.length > 0) timeLeft = phases[0].duration;
+            updateDisplay();
+        };
+    </script>
+</body>
+</html>
