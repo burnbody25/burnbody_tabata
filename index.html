@@ -41,6 +41,11 @@
 </head>
 <body class="bg-slate-950 text-slate-100 flex flex-col justify-between min-h-[100dvh] font-sans antialiased overflow-x-hidden">
 
+    <!-- 블루투스 오디오 스피커 채널 고정용 무음 오디오 트랙 -->
+    <audio id="silent-audio" loop playsinline preload="auto">
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==" type="audio/wav">
+    </audio>
+
     <!-- 상단 네비게이션 헤더 -->
     <header class="w-full max-w-md mx-auto px-4 py-3 flex justify-between items-center border-b border-slate-800/80">
         <div class="flex items-center space-x-2">
@@ -60,7 +65,7 @@
     <!-- 메인 컨텐츠 영역 -->
     <main class="w-full max-w-md mx-auto px-4 flex-1 flex flex-col justify-center items-center py-4">
 
-        <!-- 설정 뷰 (기본 숨김) -->
+        <!-- 설정 뷰 -->
         <div id="settings-view" class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-5 mb-4 shadow-2xl backdrop-blur-md hidden">
             <h2 class="text-base font-bold mb-4 flex items-center justify-between">
                 <span>⏱️ 타이머 커스텀 설정</span>
@@ -101,7 +106,6 @@
         <!-- 타이머 대시보드 뷰 -->
         <div id="timer-view" class="w-full flex flex-col items-center">
             
-            <!-- 상단 요약 정보 (라운드 & 세트) -->
             <div class="flex items-center justify-between w-full mb-6 px-2">
                 <div class="bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-slate-300">
                     SET <span id="current-set-disp" class="text-white font-bold">1</span> / <span id="total-sets-disp">1</span>
@@ -111,29 +115,22 @@
                 </div>
             </div>
 
-            <!-- 메인 상태 인디케이터 카드 -->
             <div id="status-card" class="w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center shadow-2xl relative transition-all duration-300 mb-6">
-                
-                <!-- 현재 상태 텍스트 -->
                 <div id="status-text" class="text-sm font-bold tracking-widest text-blue-400 uppercase mb-2">준비 (READY)</div>
 
-                <!-- 대형 타이머 숫자 -->
                 <div class="my-4 flex items-center justify-center">
                     <span id="time-display" class="text-7xl sm:text-8xl font-black tracking-tighter tabular-nums drop-shadow-lg">10</span>
                 </div>
 
-                <!-- 다음 동작 미리보기 -->
                 <div class="text-xs text-slate-400 bg-slate-950/60 py-2 px-4 rounded-xl inline-block border border-slate-800/80">
                     다음 동작: <span id="next-action-text" class="text-slate-200 font-semibold">운동 시작 (20초)</span>
                 </div>
 
-                <!-- 원형 / 선형 프로그레스 바 -->
                 <div class="w-full bg-slate-800 h-2 rounded-full mt-6 overflow-hidden">
                     <div id="progress-bar" class="bg-blue-500 h-full w-full transition-all duration-300"></div>
                 </div>
             </div>
 
-            <!-- 오디오 및 보이스 가이드 옵션 스위치 -->
             <div class="flex items-center justify-center space-x-6 text-xs text-slate-400 mb-4">
                 <label class="flex items-center space-x-2 cursor-pointer">
                     <input type="checkbox" id="sound-toggle" checked class="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0">
@@ -172,26 +169,14 @@
                 <h3 class="font-bold text-base">📋 운동 루틴 프리셋</h3>
                 <button onclick="closePresetModal()" class="text-slate-400 hover:text-white text-sm">✕</button>
             </div>
-            <div id="preset-list" class="space-y-2 max-h-60 overflow-y-auto mb-4 pr-1">
-                <!-- 동적 생성 -->
-            </div>
+            <div id="preset-list" class="space-y-2 max-h-60 overflow-y-auto mb-4 pr-1"></div>
             <button onclick="closePresetModal()" class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-bold transition">닫기</button>
         </div>
     </div>
 
     <!-- 자바스크립트 로직 -->
     <script>
-        // 타이머 기본 설정값
-        let config = {
-            prep: 10,
-            work: 20,
-            rest: 10,
-            rounds: 8,
-            sets: 1,
-            setRest: 30
-        };
-
-        // 상태 관리 변수
+        let config = { prep: 10, work: 20, rest: 10, rounds: 8, sets: 1, setRest: 30 };
         let phases = [];
         let currentPhaseIndex = 0;
         let timeLeft = 0;
@@ -201,10 +186,26 @@
         let wakeLock = null;
 
         // Web Audio 비프음 생성기
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioCtx = null;
+        
+        function initAudioSession() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            // 무음 오디오를 재생시켜 iOS 오디오 채널을 미디어 스피커(블루투스)로 강제 고정
+            const silentAudio = document.getElementById('silent-audio');
+            if (silentAudio && silentAudio.paused) {
+                silentAudio.play().catch(e => console.log("Silent audio play error:", e));
+            }
+        }
+
         function playBeep(freq = 440, duration = 0.15, type = 'sine') {
             if (!document.getElementById('sound-toggle').checked) return;
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            initAudioSession();
+            
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = type;
@@ -217,11 +218,12 @@
             osc.stop(audioCtx.currentTime + duration);
         }
 
-        // TTS 음성 안내
         function speak(text) {
             if (!document.getElementById('tts-toggle').checked) return;
+            initAudioSession();
+            
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // 이전 음성 취소
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ko-KR';
                 utterance.rate = 1.1;
@@ -229,7 +231,6 @@
             }
         }
 
-        // Wake Lock API (화면 꺼짐 방지)
         async function requestWakeLock() {
             try {
                 if ('wakeLock' in navigator) {
@@ -237,11 +238,11 @@
                 }
             } catch (err) { console.log(err); }
         }
+        
         function releaseWakeLock() {
             if (wakeLock) { wakeLock.release().then(() => { wakeLock = null; }); }
         }
 
-        // 단계 배열 생성 (루틴 빌드)
         function buildPhases() {
             phases = [];
             let pPrep = parseInt(document.getElementById('in-prep').value) || 0;
@@ -270,7 +271,6 @@
             phases.push({ name: '완료!', type: 'finished', duration: 0, round: pRounds, set: pSets });
         }
 
-        // 설정 적용 및 초기화
         function applySettings() {
             config.prep = parseInt(document.getElementById('in-prep').value);
             config.work = parseInt(document.getElementById('in-work').value);
@@ -286,21 +286,17 @@
         }
 
         function toggleSettings() {
-            const v = document.getElementById('settings-view');
-            v.classList.toggle('hidden');
+            document.getElementById('settings-view').classList.toggle('hidden');
         }
 
         function resetTimerState() {
             stopTimer();
             buildPhases();
             currentPhaseIndex = 0;
-            if (phases.length > 0) {
-                timeLeft = phases[0].duration;
-            }
+            if (phases.length > 0) timeLeft = phases[0].duration;
             updateDisplay();
         }
 
-        // 화면 업데이트
         function updateDisplay() {
             if (phases.length === 0) return;
             const current = phases[currentPhaseIndex];
@@ -317,7 +313,6 @@
             const statusText = document.getElementById('status-text');
             const pBar = document.getElementById('progress-bar');
 
-            // 테마별 색상 적용
             card.className = "w-full bg-slate-900 border rounded-3xl p-6 text-center shadow-2xl relative transition-all duration-300 mb-6 ";
             
             if (current.type === 'prep') {
@@ -348,17 +343,15 @@
                 document.getElementById('time-display').innerText = "🎉";
             }
 
-            // 프로그레스 바 계산
             if (current.duration > 0) {
-                const pct = (timeLeft / current.duration) * 100;
-                pBar.style.width = `${pct}%`;
+                pBar.style.width = `${(timeLeft / current.duration) * 100}%`;
             } else {
                 pBar.style.width = `100%`;
             }
         }
 
-        // 타이머 제어 함수들
         function togglePlayPause() {
+            initAudioSession(); // 터치 즉시 오디오 세션 승인
             if (!isRunning) {
                 startTimer();
             } else {
@@ -387,11 +380,10 @@
                 if (timeLeft > 1) {
                     timeLeft--;
                     if (timeLeft <= 3) {
-                        playBeep(600, 0.1, 'sine'); // 카운트다운 비프
+                        playBeep(600, 0.1, 'sine');
                     }
                     updateDisplay();
                 } else {
-                    // 단계 종료
                     playBeep(880, 0.3, 'triangle');
                     currentPhaseIndex++;
                     if (currentPhaseIndex < phases.length) {
@@ -399,7 +391,6 @@
                         onPhaseStart();
                         updateDisplay();
                     } else {
-                        // 모든 루틴 완료
                         stopTimer();
                         playBeep(1046.5, 0.6, 'sine');
                         speak("모든 운동이 완료되었습니다. 수고하셨습니다!");
@@ -464,7 +455,6 @@
             }
         }
 
-        // 로컬스토리지 프리셋 관리
         const defaultPresets = [
             { name: '기본 타바타 (20/10)', prep: 10, work: 20, rest: 10, rounds: 8, sets: 1, setRest: 30 },
             { name: 'HIIT 고강도 (30/15)', prep: 10, work: 30, rest: 15, rounds: 10, sets: 2, setRest: 45 },
@@ -536,7 +526,6 @@
             openPresetModal();
         }
 
-        // 초기 실행
         window.onload = () => {
             buildPhases();
             if (phases.length > 0) timeLeft = phases[0].duration;
