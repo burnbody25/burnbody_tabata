@@ -51,7 +51,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-main); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
@@ -598,7 +597,7 @@
   <div class="toast-box" id="toastBox"></div>
 
   <script>
-    // 40가지 전체 증상 데이터베이스 (손동작, 부위, 방향 상세 매뉴얼 탑재)
+    // 40가지 전체 증상 데이터베이스 (요청된 상세 4단계 가이드 반영)
     const SYMPTOM_DATA = [
       {
         "id": 1,
@@ -714,16 +713,16 @@
       },
       {
         "id": 9,
-        "title": "요추 과신전 및 만성 요통",
+        "title": "요추 과신전 및 만성 요통 (후관절 증후군 연계)",
         "category": "흉추및코어",
-        "keywords": ["요추 과신전", "만성 요통", "장요근", "데드버그", "골반 경사"],
-        "test": "복부 안정성 검사 / 펠빅 틸트 검사",
-        "trigger_points": "1) 요방형근 TP: 장골능 위 허리 깊은 부위. 2) 장요근 TP: 서혜부 깊은 곳.",
-        "direct": "요척추 기립근, 요방형근, 장요근",
+        "keywords": ["요추 과신전", "만성 요통", "후관절 증후군", "Facet Syndrome", "측굴 제한"],
+        "test": "요추 가동성 검사 및 후관절 압통/측굴 검사",
+        "trigger_points": "1) 요추 기립근/후관절 주위 심부 TP. 2) 요방형근/장요근 TP.",
+        "direct": "요척추 기립근, 요방형근, 다열근",
         "indirect": "대복사근, 둔근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 허리 기립근 및 요방형근을 척추 바깥쪽에서 가쪽으로 꾹꾹 눌러 지압 MFR (3분).",
-        "mobilization": "🔓 [손동작/방향] 누운 상태에서 무릎을 가슴으로 당겨 요추 수동 굴곡 가동술 (3분).",
-        "active": "⚡ [진행방법] 데드버그(Deadbug) & 펠빅 골반 후방 경사 훈련 12회x3세트.",
+        "mfr": "✋ [손동작/방향] 척추 후관절 주변 기립근 및 요방형근을 척추 바깥쪽에서 가쪽으로 지압하며 기계적 수용기를 자극하여 근육 긴장 완화 (3분).",
+        "mobilization": "🔓 [손동작/방향] 환자를 측와위(옆으로 눕기) 또는 복와위로 위치시키고, 치료사는 한 손으로 움직이고자 하는 척추 분절의 극돌기/횡돌기를 고정합니다. 다른 한 손으로 골반이나 다리를 부드럽게 움직이며 척추에 측굴 스트레스를 주어 후관절 유착을 해소합니다(메이틀랜드 Grade I~IV 적용).",
+        "active": "⚡ [진행방법] 척추 압박 분산 및 코어 안정화 데드버그(Deadbug) & 골반 후방 경사 훈련 12회x3세트.",
         "passive": "🌿 [진행방법] 수건을 발바닥에 걸고 다리를 펴서 햄스트링 및 요추부 패시브 스트레칭 30초x3세트."
       },
       {
@@ -1712,7 +1711,6 @@
       }
     });
 
-    // Close on backdrop click
     [sessionModal, assessmentModal, planResultModal, memoModal, logsModal].forEach(m => {
       m.addEventListener("click", (e) => {
         if (e.target === m) {
@@ -1722,7 +1720,6 @@
       });
     });
 
-    /* Init Badges & Grid */
     function init() {
       const bAll = document.getElementById("bAll");
       const bUpper = document.getElementById("bUpper");
