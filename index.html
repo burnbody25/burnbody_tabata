@@ -69,6 +69,7 @@
 
     .brand-title-wrap h1 { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px; }
     .brand-title-wrap h1 span { color: var(--lime); }
+    .brand-title-wrap h1 small { font-size: 0.65rem; color: var(--cyan); margin-left: 4px; vertical-align: middle; border: 1px solid var(--cyan); padding: 1px 4px; border-radius: 4px; }
     .brand-title-wrap p { font-size: 0.68rem; color: var(--cyan); font-weight: 600; letter-spacing: 0.3px; }
 
     .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -403,7 +404,7 @@
   <!-- Top Header Navigation -->
   <header class="app-header">
     <div class="brand-title-wrap">
-      <h1>REHAB <span>PRO</span></h1>
+      <h1>REHAB <span>PRO</span> <small>VERCEL BUILD READY</small></h1>
       <p>40대 증상 통합 컨디셔닝 시스템 & 30세션 맞춤 연계</p>
     </div>
     <div class="header-actions">
@@ -669,7 +670,7 @@
   <div class="toast-box" id="toastBox"></div>
 
   <script>
-    // 40가지 전체 증상 데이터베이스 [관절가동술(2단계) 포지셔닝/수기기법/등급 고도화 DB 결합][cite: 1, 4]
+    // 40가지 전체 증상 데이터베이스 [관절가동술(2단계) 포지셔닝/수기기법/등급 고도화 DB 결합]
     const SYMPTOM_DATA = [
       {
         "id": 1,
