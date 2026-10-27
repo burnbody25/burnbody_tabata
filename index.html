@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rehab Pro (리햅프로) - 맞춤형 모빌리티 & 컨디셔닝 솔루션</title>
+    <title>Rehab Pro (리햅프로) - 40증상 상세 가이드 통합 마스터 에디션</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -51,9 +51,9 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-wider text-white flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded bg-[#CCFF00]/10 text-[#CCFF00] border border-[#CCFF00]/30 font-semibold">v3.0 Master</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded bg-[#CCFF00]/10 text-[#CCFF00] border border-[#CCFF00]/30 font-semibold">v3.5 Master Detailed</span>
                     </h1>
-                    <p class="text-xs text-gray-400">1:1 맞춤형 컨디셔닝 & 30세션 체인 엔진</p>
+                    <p class="text-xs text-gray-400">1:1 맞춤형 컨디셔닝 & 상세 수기술 프로세스 엔진</p>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
         <section class="lg:col-span-5 bg-[#121824] rounded-2xl border border-[#1E293B] p-5 flex flex-col gap-4 shadow-xl">
             <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
                 <h2 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-[#CCFF00] fa-crosshairs text-[#CCFF00]"></i> 22가지 연쇄 통증 핫스팟 해부도
+                    <i class="fa-solid fa-crosshairs text-[#CCFF00]"></i> 22가지 연쇄 통증 핫스팟 해부도[cite: 1, 2]
                 </h2>
                 <span class="text-[11px] text-[#00E5FF] bg-[#00E5FF]/10 px-2 py-0.5 rounded border border-[#00E5FF]/20">Interactive Canvas</span>
             </div>
@@ -87,13 +87,13 @@
             <!-- Anatomy Tab Selection -->
             <div class="grid grid-cols-3 gap-2 bg-[#0A0E17] p-1 rounded-xl border border-[#1E293B]">
                 <button id="tab-upper" onclick="switchAnatomyTab('upper')" class="py-2 text-xs font-bold rounded-lg transition text-[#CCFF00] bg-[#121824] border border-[#CCFF00]/30 shadow">
-                    상체 (목/어깨)
+                    상체 (목/어깨)[cite: 1, 2]
                 </button>
                 <button id="tab-mid" onclick="switchAnatomyTab('mid')" class="py-2 text-xs font-bold rounded-lg transition text-gray-400 hover:text-white">
-                    중체 (골반/코어)
+                    중체 (골반/코어)[cite: 1, 2]
                 </button>
                 <button id="tab-lower" onclick="switchAnatomyTab('lower')" class="py-2 text-xs font-bold rounded-lg transition text-gray-400 hover:text-white">
-                    하체 (무릎/발목)
+                    하체 (무릎/발목)[cite: 1, 2]
                 </button>
             </div>
 
@@ -125,8 +125,8 @@
 
                 <!-- Hotspot Legend Overlay -->
                 <div class="absolute bottom-2 left-2 bg-[#121824]/90 backdrop-blur px-2.5 py-1.5 rounded-lg border border-[#1E293B] text-[10px] flex items-center gap-3">
-                    <span class="flex items-center gap-1 text-[#CCFF00]"><i class="fa-solid fa-circle text-[8px]"></i> Trigger Point(TP)</span>
-                    <span class="flex items-center gap-1 text-[#00E5FF]"><i class="fa-solid fa-arrow-right text-[8px]"></i> 방사통 Vector</span>
+                    <span class="flex items-center gap-1 text-[#CCFF00]"><i class="fa-solid fa-circle text-[8px]"></i> Trigger Point(TP)[cite: 1, 2]</span>
+                    <span class="flex items-center gap-1 text-[#00E5FF]"><i class="fa-solid fa-arrow-right text-[8px]"></i> 방사통 Vector[cite: 1, 2]</span>
                 </div>
             </div>
 
@@ -137,10 +137,10 @@
                         <span id="hotspot-title" class="text-xs font-bold text-[#CCFF00]">핫스팟을 선택하세요</span>
                         <span id="hotspot-code" class="text-[10px] text-gray-500">TP-00</span>
                     </div>
-                    <p id="hotspot-desc" class="text-[11px] text-gray-400">해부도 위 라임색 포인트를 클릭하면 관련 원격 통증 및 프로토콜이 연동됩니다.</p>
+                    <p id="hotspot-desc" class="text-[11px] text-gray-400">해부도 위 라임색 포인트를 클릭하면 관련 원격 통증 및 프로토콜이 연동됩니다[cite: 1, 2].</p>
                 </div>
                 <button id="hotspot-add-btn" onclick="addSelectedHotspotToCombo()" class="hidden mt-2 w-full py-1.5 bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold rounded-lg border border-[#00E5FF]/40 transition text-center">
-                    <i class="fa-solid fa-plus-circle"></i> 맞춤 프로토콜 조합에 추가
+                    <i class="fa-solid fa-plus-circle"></i> 맞춤 프로토콜 조합에 추가[cite: 1, 2]
                 </button>
             </div>
         </section>
@@ -156,13 +156,13 @@
                         <span id="chain-session-count" class="text-sm font-extrabold">0 / 30</span>
                     </div>
                     <div>
-                        <h3 class="text-xs font-bold text-gray-300">30세션 누적 연동 체인 엔진</h3>
+                        <h3 class="text-xs font-bold text-gray-300">30세션 누적 연동 체인 엔진[cite: 1, 2]</h3>
                         <p id="chain-prev-summary" class="text-xs text-[#00E5FF] mt-0.5">이전 세션 기록을 비교 불러오는 중...</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 z-10 w-full md:w-auto">
                     <button onclick="loadPreviousSessionData()" class="w-full md:w-auto bg-[#0A0E17] hover:bg-gray-900 text-xs text-gray-300 px-3 py-2 rounded-lg border border-gray-700 transition flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-clock-rotate-left text-[#CCFF00]"></i> N-1 세션 비교
+                        <i class="fa-solid fa-clock-rotate-left text-[#CCFF00]"></i> N-1 세션 비교[cite: 1, 2]
                     </button>
                 </div>
             </div>
@@ -172,12 +172,12 @@
                 <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
                     <div>
                         <h2 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-[#CCFF00]"></i> 40가지 증상 선택 & 맞춤 가공 (Combo)
+                            <i class="fa-solid fa-list-check text-[#CCFF00]"></i> 40가지 증상 선택 & 상세 4단계 가이드[cite: 1, 2]
                         </h2>
-                        <p class="text-xs text-gray-400 mt-0.5">다중 증상을 선택하면 공통 TP를 추출하여 통합 4단계 가이드서가 작성됩니다.</p>
+                        <p class="text-xs text-gray-400 mt-0.5">다중 증상을 선택하면 상세 수기술과 진행 방법이 포함된 통합 리포트가 생성됩니다[cite: 1, 2, 3, 5, 6, 7].</p>
                     </div>
                     <button onclick="generateCustomProgram()" class="bg-gradient-to-r from-[#CCFF00] to-[#00E5FF] hover:opacity-90 text-black text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> 프로그램 생성
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 프로그램 생성[cite: 1, 2]
                     </button>
                 </div>
 
@@ -199,10 +199,10 @@
             <div id="custom-program-preview" class="bg-[#121824] rounded-2xl border border-[#1E293B] p-5 hidden flex-col gap-4">
                 <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
                     <h3 class="text-sm font-bold text-[#CCFF00] flex items-center gap-2">
-                        <i class="fa-solid fa-file-medical"></i> 생성된 맞춤형 4단계 통합 리포트
+                        <i class="fa-solid fa-file-medical"></i> 생성된 맞춤형 4단계 통합 상세 리포트[cite: 1, 2, 3, 5, 6, 7]
                     </h3>
                     <button onclick="openFullReportModal()" class="text-xs text-[#00E5FF] underline hover:text-cyan-300">
-                        전체 가이드 모달 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        전체 상세 가이드 모달 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </button>
                 </div>
                 <div id="program-summary-box" class="text-xs text-gray-300 space-y-2 bg-[#0A0E17] p-3 rounded-xl border border-[#1E293B]">
@@ -217,14 +217,14 @@
     <div class="fixed bottom-0 left-0 right-0 bg-[#121824] border-t border-[#1E293B] z-30 px-4 py-2.5 shadow-2xl">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <i class="fa-solid fa-[#00E5FF] fa-images text-[#00E5FF] text-lg"></i>
+                <i class="fa-solid fa-images text-[#00E5FF] text-lg"></i>
                 <div>
-                    <h4 class="text-xs font-bold text-white">Before / After 체형 격자 사진 비교기</h4>
-                    <p class="text-[11px] text-gray-400">이동형 십자선 그리드로 전후 ROM 및 체형 교정 상태를 직관적으로 분석합니다.</p>
+                    <h4 class="text-xs font-bold text-white">Before / After 체형 격자 사진 비교기[cite: 1, 2]</h4>
+                    <p class="text-[11px] text-gray-400">이동형 십자선 그리드로 전후 ROM 및 체형 교정 상태를 분석합니다[cite: 1, 2].</p>
                 </div>
             </div>
             <button onclick="openPhotoModal()" class="bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold px-3 py-2 rounded-lg border border-[#00E5FF]/40 transition">
-                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> 사진 비교 스튜디오 열기
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> 사진 비교 스튜디오 열기[cite: 1, 2]
             </button>
         </div>
     </div>
@@ -232,7 +232,7 @@
     <!-- Medical Disclaimer Bottom Fixed Footer -->
     <footer class="bg-[#0A0E17] border-t border-[#1E293B] py-3 text-center text-[11px] text-gray-500 mb-10">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2">
-            <p>본 앱은 의료기기나 진단 프로그램이 아니며, 1:1 맞춤 컨디셔닝 보조용 툴입니다. 중증 통증 및 질환은 전문 의료기관의 진료를 받아야 합니다.</p>
+            <p>본 앱은 의료기기나 진단 프로그램이 아니며, 1:1 맞춤 컨디셔닝 보조용 툴입니다. 중증 통증 및 질환은 전문 의료기관의 진료를 받아야 합니다[cite: 1, 2].</p>
             <span class="text-gray-600">Fingerprint Token ID: <span id="fp-id-display" class="font-mono">Generating...</span></span>
         </div>
     </footer>
@@ -244,7 +244,7 @@
         <div class="bg-[#121824] rounded-2xl border border-[#1E293B] w-full max-w-lg p-6 flex flex-col gap-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-users text-[#CCFF00]"></i> 회원 등록 및 30세션 관리
+                    <i class="fa-solid fa-users text-[#CCFF00]"></i> 회원 등록 및 30세션 관리[cite: 1, 2]
                 </h3>
                 <button onclick="closeMemberModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -264,7 +264,7 @@
                 </div>
                 <input type="text" id="reg-complaint" placeholder="주요 주소증 (예: 오른쪽 어깨 충돌 및 요통)" required class="w-full bg-[#121824] border border-[#1E293B] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00E5FF]">
                 <button type="submit" class="w-full bg-[#CCFF00] hover:bg-lime-400 text-black text-xs font-extrabold py-2.5 rounded-lg transition">
-                    + 신규 회원 등록 (30세션 자동 할당)
+                    + 신규 회원 등록 (30세션 자동 할당)[cite: 1, 2]
                 </button>
             </form>
 
@@ -283,18 +283,15 @@
         <div class="bg-[#121824] rounded-2xl border border-[#00E5FF]/40 w-full max-w-4xl max-h-[90vh] flex flex-col p-6 shadow-2xl overflow-hidden">
             <div class="flex justify-between items-center border-b border-[#1E293B] pb-4">
                 <div>
-                    <span id="modal-protocol-tag" class="text-[10px] bg-[#CCFF00]/20 text-[#CCFF00] px-2 py-0.5 rounded border border-[#CCFF00]/30 font-bold">CUSTOM REPORT</span>
-                    <h2 id="modal-protocol-title" class="text-lg font-extrabold text-white mt-1">4단계 맞춤 모빌리티·컨디셔닝 통합 가이드</h2>
+                    <span id="modal-protocol-tag" class="text-[10px] bg-[#CCFF00]/20 text-[#CCFF00] px-2 py-0.5 rounded border border-[#CCFF00]/30 font-bold">DETAILED REPORT</span>
+                    <h2 id="modal-protocol-title" class="text-lg font-extrabold text-white mt-1">4단계 맞춤 모빌리티·컨디셔닝 상세 가이드[cite: 1, 2, 3, 5, 6, 7]</h2>
                 </div>
                 <button onclick="closeProtocolModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
 
             <!-- Scrollable 4-Step Details -->
             <div id="modal-protocol-body" class="flex-1 overflow-y-auto custom-scrollbar my-4 space-y-4 pr-2">
-                <!-- Step 1: MFR -->
-                <!-- Step 2: Joint Mobilization -->
-                <!-- Step 3: Active Movement -->
-                <!-- Step 4: Passive Stretching -->
+                <!-- Dynamic injection of detailed MFR, Joint Mobilization, Active Movement, Passive Stretching -->
             </div>
 
             <!-- Integrated 3-Minute Session Timer & Audio Cueing Bar -->
@@ -304,7 +301,7 @@
                         <i class="fa-solid fa-stopwatch text-[#CCFF00] text-xl"></i>
                     </div>
                     <div>
-                        <span class="text-[10px] text-gray-400">단계별 집중 세션 타이머</span>
+                        <span class="text-[10px] text-gray-400">단계별 집중 세션 타이머[cite: 1, 2]</span>
                         <div id="timer-display" class="text-2xl font-black text-[#CCFF00] font-mono">03:00</div>
                     </div>
                 </div>
@@ -317,7 +314,7 @@
                         리셋
                     </button>
                     <button onclick="completeCurrentSession()" class="bg-gradient-to-r from-[#00E5FF] to-blue-500 hover:opacity-90 text-black text-xs font-extrabold px-4 py-2.5 rounded-lg transition ml-2">
-                        <i class="fa-solid fa-check-double"></i> 세션 차감 및 완료 저장
+                        <i class="fa-solid fa-check-double"></i> 세션 차감 및 완료 저장[cite: 1, 2]
                     </button>
                 </div>
             </div>
@@ -329,7 +326,7 @@
         <div class="bg-[#121824] rounded-2xl border border-[#1E293B] w-full max-w-2xl p-6 flex flex-col gap-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
                 <h3 class="text-base font-bold text-[#00E5FF] flex items-center gap-2">
-                    <i class="fa-solid fa-clock-rotate-left"></i> 이전 세션 (Session N-1) 기록 비교
+                    <i class="fa-solid fa-clock-rotate-left"></i> 이전 세션 (Session N-1) 기록 비교[cite: 1, 2]
                 </h3>
                 <button onclick="closeHistoryModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -344,7 +341,7 @@
         <div class="bg-[#121824] rounded-2xl border border-[#1E293B] w-full max-w-5xl max-h-[92vh] flex flex-col p-6 shadow-2xl overflow-hidden">
             <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-images text-[#00E5FF]"></i> 2분할 Before / After 사진 격자 비교 스튜디오
+                    <i class="fa-solid fa-images text-[#00E5FF]"></i> 2분할 Before / After 사진 격자 비교 스튜디오[cite: 1, 2]
                 </h3>
                 <button onclick="closePhotoModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -407,9 +404,9 @@
             <!-- Controls -->
             <div class="flex justify-between items-center bg-[#0A0E17] p-3 rounded-xl border border-[#1E293B]">
                 <button onclick="toggleGridOverlay()" class="bg-[#1E293B] hover:bg-gray-800 text-xs text-white px-3 py-2 rounded-lg border border-gray-700 transition">
-                    <i class="fa-solid fa-border-all text-[#00E5FF]"></i> 격자 및 십자선 토글
+                    <i class="fa-solid fa-border-all text-[#00E5FF]"></i> 격자 및 십자선 토글[cite: 1, 2]
                 </button>
-                <span class="text-[11px] text-gray-400">사진 데이터는 LocalStorage 보안 영역에 자동 저장됩니다.</span>
+                <span class="text-[11px] text-gray-400">사진 데이터는 LocalStorage 보안 영역에 자동 저장됩니다[cite: 1, 2].</span>
             </div>
         </div>
     </div>
@@ -418,55 +415,97 @@
     <!-- ==================== JAVASCRIPT LOGIC ==================== -->
     <script>
         /* ==========================================================================
-           1. IMMUTABLE MASTER DATABASES (40 SYMPTOMS + 22 HOTSPOTS)
+           1. IMMUTABLE MASTER DATABASES (40 SYMPTOMS WITH DETAILED MFR, JM, ACTIVE, PASSIVE)
            ========================================================================== */
         
-        // 40 Symptoms Master DB
         const SYMPTOMS_DB = [
-            { id: 1, region: 'upper', name: '01. 거북목 및 일자목', tp: '후두하근, 사각근', mfr: '사각근 C3-C6 횡돌기 수직 침투 MFR', jm: 'C2-C7 후하방 활주 (Posterior-Inferior Glide)', active: 'Deep Cervical Flexor Chin Tuck (10회x3세트)', passive: '수동 후두하근 견인 스트레칭 (30초)' },
-            { id: 2, region: 'upper', name: '02. 경추성 두통', tp: '후두하근 C0-C1', mfr: '후두하반경근 핑거팁 Hook MFR', jm: 'C0-C1 상방 견인 및 전방 활주', active: 'Chin Tuck with Isometrics Extension', passive: '후두부 수동 견인 스트레칭' },
-            { id: 3, region: 'upper', name: '03. 경추 신경근 압박', tp: '판상근, 경추지대', mfr: '경추 후면 근막 기전 이완 MFR', jm: '측방 외측 견인 및 반대측 개폐 활주', active: 'Cervical Scapular Retraction', passive: '경추 측굴 수동 가동 신전' },
-            { id: 4, region: 'upper', name: '04. 라운드숄더 & 흉추 후만', tp: '소흉근, 대흉근', mfr: '소흉근 늑골 3-5번 수직 침투 MFR', jm: '흉추 T1-T8 전상방 신전 활주', active: 'Wall-Slide with Forearm Pressure', passive: '소흉근 3D 수동 신전 (30초)' },
-            { id: 5, region: 'upper', name: '05. 흉곽출구증후군 (TOS)', tp: '전/중사각근', mfr: '사각근 삼각 부위 미세 지압 MFR', jm: '1번 늑골 후하방 활주 (Inferior-Posterior)', active: 'First Rib Depression & Scalene Activation', passive: '사각근 및 쇄골하 공간 수동 신전' },
-            { id: 6, region: 'upper', name: '06. 오십견 (동결건)', tp: '관절낭 하부, 견갑하근', mfr: '견갑하근 겨드랑이 안쪽 깊은 MFR', jm: '상완골두 후하방 활주 (Posterior-Inferior)', active: 'Wand Active-Assisted Elevation', passive: '수동 굴곡 및 외회전 신전 (30초x4세트)' },
-            { id: 7, region: 'upper', name: '07. 어깨 충돌증후군', tp: '극상근, 견봉하', mfr: '극상근 건 결절간구 MFR', jm: '상완골 근위부 하방 활주 (Inferior Glide)', active: 'Side-Lying External Rotation', passive: 'Sleeper Stretch (후방 관절낭 수동 신전)' },
-            { id: 8, region: 'upper', name: '08. 극하근 건염', tp: '극하근 중앙', mfr: '극하근 라크로스 볼/핑거 MFR', jm: '상완골두 후방 활주 (Posterior Glide)', active: '회전근개 외회전 수축 운동', passive: '극하근 수동 교차 신전' },
-            { id: 9, region: 'upper', name: '09. 견갑골 고정 및 능형근 과수축', tp: '능형근, 견갑거근', mfr: '견갑골 내측연 능형근 MFR', jm: '견갑골 유격 및 상방회전 (Scapular Distraction)', active: 'Scapular Push-Up Plus', passive: '능형근 수동 교차 스트레칭' },
-            { id: 10, region: 'upper', name: '10. 익상견갑 (Winging)', tp: '전거근, 소흉근', mfr: '전거근 톱니 근복 MFR', jm: '견갑골 전내측 압박 활주', active: 'Scapular Push-Up Plus with Pause', passive: '소흉근 및 승모근 수동 신전' },
-            { id: 11, region: 'upper', name: '11. 테니스 엘보 (외측상과염)', tp: '단요측수근신근', mfr: '전완 외측 근복 수직 MFR', jm: '요골두 후외측 활주 (Posterior-Lateral)', active: 'Eccentric Wrist Extension', passive: '수근신근군 수동 신전 (30초)' },
-            { id: 12, region: 'upper', name: '12. 골퍼 엘보 (내측상과염)', tp: '요측수근굴근', mfr: '전완 내측 근복 스트리핑 MFR', jm: '척골 내하방 활주 (Medial-Inferior)', active: 'Eccentric Wrist Flexion', passive: '수근굴근군 수동 신전 (30초)' },
-            { id: 13, region: 'upper', name: '13. 수근관 증후군', tp: '정중신경, 수근골', mfr: '전완 굴근 및 횡수근인대 MFR', jm: '수근골 간 전후방 교차 활주', active: 'Median Nerve Gliding Exercises', passive: '수근굴근 및 정중신경 수동 신전' },
-            { id: 14, region: 'upper', name: '14. 삼두근 건염', tp: '삼두근 장두', mfr: '삼두근 겨드랑이 하단 기시부 MFR', jm: '주관절 수직 축 방향 견인 (Distraction)', active: 'Triceps Eccentric Extension', passive: '삼두근 장두 수동 만세 신전' },
+            {
+                id: 1, region: 'upper', name: '01. 거북목 및 일자목', tp: '후두하근, 사각근',
+                mfr: 'C3-C6 횡돌기 부근 삼각 지점을 핑거팁으로 수직 압박. 회원이 반대쪽으로 측굴/회전하도록 유도[cite: 5].',
+                jm: 'Grade I~II 초기 긴장 완화 및 Grade III C2-C7 후방 활주(Posterior-Inferior Glide) 유도[cite: 3].',
+                active: 'Deep Cervical Flexor (DCF) Chin Tuck: 시선 정면, 턱을 수평으로 당겨 이중턱 유지 (10회x3세트)[cite: 6].',
+                passive: '수동 후두하근 및 상부승모근 견인 스트레칭: 경추 상부 미세 굴곡 및 머리 방향 견인 (30초x3세트)[cite: 7].'
+            },
+            {
+                id: 2, region: 'upper', name: '02. 경추성 두통', tp: '후두하근 C0-C1',
+                mfr: '후두하근 사이에 손가락 끝을 갈고리 형태로 걸고 상방 견인 압박. 회원이 Chin-in 동작 수행[cite: 5].',
+                jm: 'Grade I~II 후두골 상방 미세 견인 및 C1 환추 전방 미끄러짐 (Anterior Glide)[cite: 3].',
+                active: 'Chin Tuck with Isometrics Extension: 턱 당긴 상태에서 뒤통수와 손이 미는 힘을 겨루는 등척성 운동 (8회x3세트)[cite: 6].',
+                passive: '경추 하부 전만 회복 견인 스트레칭: 수건으로 C4-C7 받쳐 들어 올리며 후신전 (20초x3세트)[cite: 7].'
+            },
+            {
+                id: 3, region: 'upper', name: '03. 경추 신경근 압박', tp: '판상근, 경추지대',
+                mfr: '경추 후면 근막 결을 따라 부드러운 수직 압박 및 스트리핑[cite: 5].',
+                jm: 'Grade I~II 측방 외측 견인(Lateral Distraction) 및 반대측 개폐 활주[cite: 3].',
+                active: 'Prone Cobra with Chin Tuck: 엎드린 상태에서 이마를 3cm 떼고 팔꿈치 및 견갑골 하각 수축 (10회x3세트)[cite: 6].',
+                passive: 'C7-T1 이행부 수동 압박 신전: 척도골로 고정 후 상체를 흉추 단위에서 신전 (25초x3세트)[cite: 7].'
+            },
+            {
+                id: 4, region: 'upper', name: '04. 라운드숄더 & 흉추 후만', tp: '소흉근, 대흉근',
+                mfr: '오구돌기 하단 2cm 부근 소흉근을 엄지나 전완으로 외하방 침투. 팔을 외회전/외전[cite: 5].',
+                jm: 'Grade III~IV 흉추 T1-T8 전상방 신전 활주(Anterior-Superior Glide)[cite: 3].',
+                active: 'Wall-Slide with Forearm Pressure: 전완을 벽에 대고 미는 힘 유지하며 상하 슬라이딩 (12회x3세트)[cite: 6].',
+                passive: '소흉근 수동 신전: 폼롤러 누운 상태에서 어깨 전면을 바닥 방향으로 수동 압박 (30초x3세트)[cite: 7].'
+            },
+            {
+                id: 5, region: 'upper', name: '05. 흉곽출구증후군 (TOS)', tp: '전/중사각근',
+                mfr: '사각근 삼각 부위 미세 지압 MFR 및 호흡 연동[cite: 5].',
+                jm: 'Grade II~III 1번 늑골(First Rib) 후하방 활주 (Inferior-Posterior Glide)[cite: 3].',
+                active: 'First Rib Depression & Scalene Activation: 소흉근 마사지 볼 압박 상태에서 팔을 Y자로 승강 (10회x3세트)[cite: 6].',
+                passive: '사각근 및 소흉근 수동 신전: 제1갈비뼈 고정 후 머리를 반대쪽으로 측굴 (25초x3세트)[cite: 7].'
+            },
+            {
+                id: 6, region: 'upper', name: '06. 오십견 (동결건)', tp: '관절낭 하부, 견갑하근',
+                mfr: '겨드랑이 안쪽 견갑하근면을 손가락 끝으로 깊숙이 침투하여 이완[cite: 5].',
+                jm: 'Grade III~IV 관절와순 고정 및 상완골두 후하방 수평 밀기(Posterior-Inferior Glide)[cite: 3].',
+                active: 'Wand Active-Assisted Elevation: 봉을 잡고 건측 힘으로 환측 팔을 통증 범위 내 만세 유도 (10회x3세트)[cite: 6].',
+                passive: '수동 굴곡 및 외회전 신전: 저항점에서 미세 지속 압박 유지 (30초x4세트)[cite: 7].'
+            },
+            {
+                id: 7, region: 'upper', name: '07. 어깨 충돌증후군', tp: '극상근, 견봉하',
+                mfr: '극상근 결절간구 부근을 횡방향(Cross-fiber) 스트리핑[cite: 5].',
+                jm: 'Grade II~III 견봉 고정 및 상완골 근위부 하방 견인 및 미끄러트림[cite: 3].',
+                active: 'Side-Lying External Rotation: 옆으로 누워 팔꿈치를 옆구리에 붙이고 외회전 (15회x3세트)[cite: 6].',
+                passive: 'Sleeper Stretch: 옆으로 누워 환측 손목을 바닥 방향으로 수동 내회전 (30초x3세트)[cite: 7].'
+            },
+            {
+                id: 8, region: 'upper', name: '08. 극하근 건염', tp: '극하근 중앙', mfr: '견갑골 극하와 중앙부 라크로스 볼/핑거 MFR[cite: 5].', jm: '상완골두 후방 활주 (Posterior Glide)[cite: 3].', active: '회전근개 외회전 수축 운동[cite: 6].', passive: '극하근 수동 교차 스트레칭[cite: 7].' },
+            { id: 9, region: 'upper', name: '09. 견갑골 고정 및 능형근 과수축', tp: '능형근, 견갑거근', mfr: '견갑골 내측연 능형근을 척추 반대 방향으로 쓸어내림[cite: 5].', jm: '견갑골 유격 및 상방회전 (Scapular Distraction & Upward Rotation)[cite: 3].', active: 'Scapular Push-Up Plus with Pause[cite: 6].', passive: '능형근 수동 교차 스트레칭[cite: 7].' },
+            { id: 10, region: 'upper', name: '10. 익상견갑 (Winging)', tp: '전거근, 소흉근', mfr: '전거근 톱니 근복 및 소흉근 수직 압박[cite: 5].', jm: '견갑골 전내측 압박 활주 (Anterior-Medial Compression)[cite: 3].', active: 'Scapular Push-Up Plus[cite: 6].', passive: '소흉근 및 승모근 수동 신전[cite: 7].' },
+            { id: 11, region: 'upper', name: '11. 테니스 엘보 (외측상과염)', tp: '단요측수근신근', mfr: '전완 외측 외측상과 하단 근복을 엄지로 압박[cite: 5].', jm: '요골두 후외측 활주 (Posterior-Lateral Radial Head Glide)[cite: 3].', active: 'Eccentric Wrist Extension: 손목을 신전 후 4세트 동안 천천히 내리기 (12회x3세트)[cite: 6].', passive: '수근신근군 수동 신전 (30초)[cite: 7].' },
+            { id: 12, region: 'upper', name: '12. 골퍼 엘보 (내측상과염)', tp: '요측수근굴근', mfr: '전완 내측 내측상과 하단 근복 스트리핑[cite: 5].', jm: '척골 내하방 활주 (Medial-Inferior Ulnar Glide)[cite: 3].', active: 'Eccentric Wrist Flexion: 손목 굴곡 후 천천히 아래로 펴기 (12회x3세트)[cite: 6].', passive: '수근굴근군 수동 신전 (30초)[cite: 7].' },
+            { id: 13, region: 'upper', name: '13. 수근관 증후군', tp: '정중신경, 수근골', mfr: '전완 굴근 및 횡수근인대 부근 이완[cite: 5].', jm: '수근골 간 전후방 교차 활주 (Anterior-Posterior Intercarpal Glide)[cite: 3].', active: 'Median Nerve Gliding Exercises[cite: 6].', passive: '수근굴근 및 정중신경 수동 신전[cite: 7].' },
+            { id: 14, region: 'upper', name: '14. 삼두근 건염', tp: '삼두근 장두', mfr: '삼두근 겨드랑이 하단 기시부 꼬집듯 압박[cite: 5].', jm: '주관절 수직 축 방향 견인 (Longitudinal Distraction)[cite: 3].', active: 'Triceps Eccentric Extension[cite: 6].', passive: '삼두근 장두 수동 만세 신전[cite: 7].' },
 
             // Mid / Core / Pelvis
-            { id: 15, region: 'mid', name: '15. 요추 디스크 (L5-S1)', tp: '요방형근, 이상근', mfr: '요방형근 장골릉 부착부 MFR', jm: 'L5-S1 하방 견인 및 외측 활주', active: 'Modified Curl-Up (McGill Core)', passive: '양무릎 가슴 당기기 수동 신전' },
-            { id: 16, region: 'mid', name: '16. 요방형근 통증 & 짝골반', tp: '요방형근 심부', mfr: '옆구리 12번 늑골-장골릉 침투 MFR', jm: '미측/발 방향 골반 미끄러짐', active: 'Side-Plank with Lateral Hold', passive: '요방근 비대칭 수동 신전' },
-            { id: 17, region: 'mid', name: '17. 척추관 협착증', tp: '척추기립근 하부', mfr: '요추 후면 기립근 이완 MFR', jm: '요추 후방 굴곡 활주 (Posterior Flexion)', active: 'Single/Double Knee to Chest Active', passive: 'Williams Flexion 수동 신전' },
-            { id: 18, region: 'mid', name: '18. 골반 전방경사 (APT)', tp: '대퇴직근, 장요근', mfr: 'AIIS 하단 대퇴직근 MFR', jm: '골반 후방 회전 활주 (Posterior Rotation)', active: 'Posterior Pelvic Tilt Marching', passive: 'Thomas Stretch (장요근/대퇴직근 수동)' },
-            { id: 19, region: 'mid', name: '19. 골반 후방경사 (PPT)', tp: '대둔근, 햄스트링', mfr: '좌골결절 햄스트링 기시부 MFR', jm: '전하방 요추 미끄러짐 (Anterior-Inferior)', active: 'Quadruped Cat-Cow Anterior Focus', passive: '햄스트링 및 대둔근 수동 신전' },
-            { id: 20, region: 'mid', name: '20. 천장관절 증후군 (SIJ)', tp: '천골 기저부, 이상근', mfr: '천장관절 테두리 근막 MFR', jm: '전하방 천골 숙임 활주 (Nutation)', active: 'Isometric Hip Switch', passive: 'FABER Patrick 수동 가동 신전' },
-            { id: 21, region: 'mid', name: '21. 이상근 증후군', tp: '이상근 중앙부', mfr: '이상근 Deep Elbow MFR', jm: '대퇴골두 후방 미끄러짐 (Posterior Glide)', active: 'Glute Max Bridge with Abduction', passive: '이상근 수동 굴곡/내전/외회전 신전' },
-            { id: 22, region: 'mid', name: '22. 고관절 충돌증후군 (FAI)', tp: 'TFL, 대퇴골두 전면', mfr: 'TFL 및 서타구니 전면 MFR', jm: '하외측 축 방향 견인 (Infero-Lateral)', active: 'Quadruped Rocking Neutral Spine', passive: '고관절 견인 및 후방 수동 신전' },
-            { id: 23, region: 'mid', name: '23. 장요근 단축 & 서타구니 찝힘', tp: '배꼽 외측 3cm, 소전자', mfr: '복벽 안쪽 장요근 핑거 MFR', jm: '대퇴골 후방 미끄러짐 (Posterior Glide)', active: 'Lunge Hip Flexor Active Stretch', passive: '수동 Thomas 장요근 이완' },
-            { id: 24, region: 'mid', name: '24. 중둔근 약화 & 짝엉덩이', tp: '중둔근 후부', mfr: '장골릉 하단 중둔근 MFR', jm: '외측 유격 미끄러짐 (Lateral Distraction)', active: 'Clamshell with Neutral Spine', passive: '중둔근 측면 수동 신전' },
-            { id: 25, region: 'mid', name: '25. 내덕근 단축 & 치골통증', tp: '장덕근 치골 부착부', mfr: '내덕근 개구리 자세 MFR', jm: '하외측 대퇴 미끄러짐 (Infero-Lateral)', active: 'Seated Hip Internal Rotation', passive: '개구리 자세 내덕근 수동 신전' },
-            { id: 26, region: 'mid', name: '26. 복직근/복사근 유착', tp: '늑골 연골 하단', mfr: '복부 상부 너클 MFR', jm: '하방 근막 미끄러짐 (Inferior Fascial)', active: 'Diaphragmatic Breathing Draw-in', passive: '복부 전면 3D 수동 신전' },
+            { id: 15, region: 'mid', name: '15. 요추 디스크 (L5-S1)', tp: '요방형근, 이상근', mfr: '측면와위에서 요방형근과 이상근 심부 수직 침투[cite: 5].', jm: 'L5-S1 하방 견인 및 외측 미끄러짐 (Inferior Distraction & Lateral Glide)[cite: 3].', active: 'Modified Curl-Up (McGill): 척추 아치 유지한 채 상체 살짝 들어올리기 (8회x3세트)[cite: 6].', passive: '양무릎 가슴 당기기 수동 신전 (30초)[cite: 7].' },
+            { id: 16, region: 'mid', name: '16. 요방형근 통증 & 짝골반', tp: '요방형근 심부', mfr: '옆구리 12번 늑골-장골릉 사이 심부 압박[cite: 5].', jm: 'Caudal Pelvic Glide (발 방향 골반 미끄러짐)[cite: 3].', active: 'Side-Plank with Lateral Hold[cite: 6].', passive: '요방근 비대칭 수동 신전[cite: 7].' },
+            { id: 17, region: 'mid', name: '17. 척추관 협착증', tp: '척추기립근 하부', mfr: '요추 후면 기립근 이완[cite: 5].', jm: '요추 후방 굴곡 활주 (Posterior Flexion Glide)[cite: 3].', active: 'Single/Double Knee to Chest Active[cite: 6].', passive: 'Williams Flexion 수동 신전[cite: 7].' },
+            { id: 18, region: 'mid', name: '18. 골반 전방경사 (APT)', tp: '대퇴직근, 장요근', mfr: 'AIIS 하단 대퇴직근 및 장요근 서타구니 핑거 MFR[cite: 5].', jm: '골반 후방 회전 활주 (Posterior Pelvic Rotation Glide)[cite: 3].', active: 'Posterior Pelvic Tilt Marching (20회x3세트)[cite: 6].', passive: 'Thomas Stretch (장요근/대퇴직근 수동 신전)[cite: 7].' },
+            { id: 19, region: 'mid', name: '19. 골반 후방경사 (PPT)', tp: '대둔근, 햄스트링', mfr: '좌골결절 햄스트링 기시부 MFR[cite: 5].', jm: '전하방 요추 미끄러짐 (Anterior-Inferior Lumbar Glide)[cite: 3].', active: 'Quadruped Cat-Cow Anterior Focus[cite: 6].', passive: '햄스트링 및 대둔근 수동 신전[cite: 7].' },
+            { id: 20, region: 'mid', name: '20. 천장관절 증후군 (SIJ)', tp: '천골 기저부, 이상근', mfr: '천장관절 테두리 근막 이완[cite: 5].', jm: '전하방 천골 숙임 활주 (Anterior-Inferior Sacral Nutation Glide)[cite: 3].', active: 'Isometric Hip Switch[cite: 6].', passive: 'FABER Patrick 수동 가동 신전[cite: 7].' },
+            { id: 21, region: 'mid', name: '21. 이상근 증후군', tp: '이상근 중앙부', mfr: '대전자와 천골 사이 이상근 Deep Elbow MFR[cite: 5].', jm: '대퇴골두 후방 미끄러짐 (Posterior Femoral Head Glide)[cite: 3].', active: 'Glute Max Bridge with Abduction Band (12회x3세트)[cite: 6].', passive: '이상근 수동 굴곡/내전/외회전 신전[cite: 7].' },
+            { id: 22, region: 'mid', name: '22. 고관절 충돌증후군 (FAI)', tp: 'TFL, 대퇴골두 전면', mfr: 'TFL 및 서타구니 전면 MFR[cite: 5].', jm: '하외측 축 방향 견인 (Infero-Lateral Axial Distraction)[cite: 3].', active: 'Quadruped Rocking Neutral Spine (12회x3세트)[cite: 6].', passive: '고관절 견인 및 후방 수동 신전[cite: 7].' },
+            { id: 23, region: 'mid', name: '23. 장요근 단축 & 서타구니 찝힘', tp: '배꼽 외측 3cm, 소전자', mfr: '복벽 안쪽 장요근 핑거 MFR 및 호흡 연동[cite: 5].', jm: '대퇴골 후방 미끄러짐 (Posterior Glide of Femur)[cite: 3].', active: 'Lunge Hip Flexor Active Stretch[cite: 6].', passive: '수동 Thomas 장요근 이완[cite: 7].' },
+            { id: 24, region: 'mid', name: '24. 중둔근 약화 & 짝엉덩이', tp: '중둔근 후부', mfr: '장골릉 하단 중둔근 후부 섬유 MFR[cite: 5].', jm: '외측 유격 미끄러짐 (Lateral Distraction Glide)[cite: 3].', active: 'Clamshell with Neutral Spine (15회x3세트)[cite: 6].', passive: '중둔근 측면 수동 신전[cite: 7].' },
+            { id: 25, region: 'mid', name: '25. 내덕근 단축 & 치골통증', tp: '장덕근 치골 부착부', mfr: '내덕근 개구리 자세 전완 MFR[cite: 5].', jm: '하외측 대퇴 미끄러짐 (Infero-Lateral Femoral Glide)[cite: 3].', active: 'Seated Hip Internal Rotation[cite: 6].', passive: '개구리 자세 내덕근 수동 신전[cite: 7].' },
+            { id: 26, region: 'mid', name: '26. 복직근/복사근 유착', tp: '늑골 연골 하단', mfr: '복부 상부 너클 MFR 및 호흡 연동[cite: 5].', jm: '하방 근막 미끄러짐 (Inferior Fascial Glide)[cite: 3].', active: 'Diaphragmatic Breathing Draw-in[cite: 6].', passive: '복부 전면 3D 수동 신전[cite: 7].' },
 
             // Lower / Ankle
-            { id: 27, region: 'lower', name: '27. 퇴행성 무릎 관절염', tp: '대퇴사두근, 오금', mfr: '대퇴 전면 및 슬와근 MFR', jm: '경골 장축 수직 견인 (Tibial Distraction)', active: 'Straight Leg Raise (SLR)', passive: '슬관절 수동 견인 및 하퇴 신전' },
-            { id: 28, region: 'lower', name: '28. 슬개대퇴 통증 (PFPS)', tp: '외사두근, 슬개골 상단', mfr: '외측광근 및 지지띠 MFR', jm: '슬개골 내하방 활주 (Medial-Inferior)', active: 'Terminal Knee Extension (TKE)', passive: '외측 지지띠 수동 내측 신전' },
-            { id: 29, region: 'lower', name: '29. 거위발건염 (내측통증)', tp: '봉공근, 박근, 반형상근', mfr: '경골 내측 건 부착부 MFR', jm: '경골 후방 내회전 미끄러짐', active: 'Wall-Sit with Ball Squeeze', passive: '거위발건 수동 내측 이완' },
-            { id: 30, region: 'lower', name: '30. 장경골단 증후군 (ITB)', tp: '대퇴근막장근, 비골두', mfr: 'ITB 라인 및 비골두 MFR', jm: '비골두 전후방 미끄러짐 (Anterior-Posterior)', active: 'Side-Lying Hip Abduction', passive: 'Ober Test 응용 장경인대 수동 신전' },
-            { id: 31, region: 'lower', name: '31. 십자인대 보상성 햄스트링', tp: '대퇴이두근 장두', mfr: '햄스트링 중앙 근복 MFR', jm: '경골 전/후방 활주 (Anterior/Posterior)', active: 'Single-Leg Balance Proprioception', passive: '무릎 완전 신전 수동 확보' },
-            { id: 32, region: 'lower', name: '32. 만성 발목 불안정성', tp: '전경골근, 비골근', mfr: '전경골근 외측 MFR', jm: '거골 후방 미끄러짐 (Posterior Talars)', active: 'Ankle Eversion with Resistance Band', passive: '아킬레스 및 비골근 수동 배구' },
-            { id: 33, region: 'lower', name: '33. 족저근막염', tp: '종골 내측 부착부', mfr: '발바닥 아치 종골 MFR', jm: '족중골 배/족저방 교차 활주', active: 'Big Toe Extension Calf Raise', passive: 'Windlass Mechanism 족저 수동 신전' },
-            { id: 34, region: 'lower', name: '34. 아킬레스 건염', tp: '가자미근 아킬레스 전환부', mfr: '종아리 심부 핑거 MFR', jm: '종골 하방 견인 (Inferior Calcaneal)', active: 'Alfredson Eccentric Heel Drop', passive: '비복근 및 가자미근 수동 신전' },
-            { id: 35, region: 'lower', name: '35. 무지외반증', tp: '제1 중족지절관절', mfr: '엄지발가락 기절골 MFR', jm: '원위부 견인 및 내측 회전 미끄러짐', active: 'Short Foot Exercise', passive: '제1 중족골 수동 견인 및 회전' },
-            { id: 36, region: 'lower', name: '36. 지간신경종', tp: '제3-4 중족골 간', mfr: '발바닥 중족골 공간 MFR', jm: '중족골 간 횡단 교차 미끄러짐', active: 'Toe Spreading Exercises', passive: '중족골 횡단 수동 유격 이완' },
-            { id: 37, region: 'lower', name: '37. Flat Foot (평발)', tp: '주상골 하단, 전경골근', mfr: '주상골 테두리 근막 MFR', jm: '주상골 상방/발등 방향 미끄러짐', active: 'Short Foot Intrinsic Activation', passive: '비복근 및 후경골근 수동 신전' },
-            { id: 38, region: 'lower', name: '38. Pes Cavus (요족)', tp: '족저근막, 족중골', mfr: '발바닥 높은 아치 MFR', jm: '족중골 발바닥 방향 미끄러짐 (Plantar)', active: 'Foot Pronation Mobility', passive: '족저근막 아치 펼침 수동 신전' },
-            { id: 39, region: 'lower', name: '39. 족하수 (Foot Drop)', tp: '원위 비경관절', mfr: '비골 하단 전경골근 MFR', jm: '원위 비골 후방 미끄러짐', active: 'Active Ankle Dorsiflexion Assist', passive: '발목 배측굴곡 수동 지속 신전' },
-            { id: 40, region: 'lower', name: '40. 대둔근 약화 & 햄스트링 과수축', tp: '대둔근 하부, 햄스트링', mfr: '둔부 및 햄스트링 경계 MFR', jm: '고관절 후방 활주 (Posterior Femoral)', active: 'Glute Thrust with Calf Focus', passive: '햄스트링 수동 슬라이딩 스트레칭' }
+            { id: 27, region: 'lower', name: '27. 퇴행성 무릎 관절염', tp: '대퇴사두근, 오금', mfr: '대퇴 전면 및 오금 슬와근 MFR[cite: 5].', jm: '경골 장축 수직 견인 (Longitudinal Tibial Distraction)[cite: 3].', active: 'Straight Leg Raise (SLR) in Supine (12회x3세트)[cite: 6].', passive: '슬관절 수동 견인 및 하퇴 신전[cite: 7].' },
+            { id: 28, region: 'lower', name: '28. 슬개대퇴 통증 (PFPS)', tp: '외사두근, 슬개골 상단', mfr: '외측광근 및 지지띠 MFR[cite: 5].', jm: '슬개골 내하방 활주 (Medial-Inferior Patellar Glide)[cite: 3].', active: 'Terminal Knee Extension (TKE) (15회x3세트)[cite: 6].', passive: '외측 지지띠 수동 내측 신전[cite: 7].' },
+            { id: 29, region: 'lower', name: '29. 거위발건염 (내측통증)', tp: '봉공근, 박근, 반형상근', mfr: '경골 내측 건 부착부 MFR[cite: 5].', jm: '경골 후방 내회전 미끄러짐 (Posterior-Internal Rotation Tibial Glide)[cite: 3].', active: 'Wall-Sit with Ball Squeeze[cite: 6].', passive: '거위발건 수동 내측 이완[cite: 7].' },
+            { id: 30, region: 'lower', name: '30. 장경골단 증후군 (ITB)', tp: '대퇴근막장근, 비골두', mfr: 'ITB 라인 및 비골두 MFR[cite: 5].', jm: '비골두 전후방 미끄러짐 (Anterior-Posterior Fibular Head Glide)[cite: 3].', active: 'Side-Lying Hip Abduction (12회x3세트)[cite: 6].', passive: 'Ober Test 응용 장경인대 수동 신전[cite: 7].' },
+            { id: 31, region: 'lower', name: '31. 십자인대 보상성 햄스트링', tp: '대퇴이두근 장두', mfr: '햄스트링 중앙 근복 MFR[cite: 5].', jm: '경골 전/후방 활주 (Anterior/Posterior Tibial Glide)[cite: 3].', active: 'Single-Leg Balance Proprioception (30초x3세트)[cite: 6].', passive: '무릎 완전 신전 수동 확보[cite: 7].' },
+            { id: 32, region: 'lower', name: '32. 만성 발목 불안정성', tp: '전경골근, 비골근', mfr: '전경골근 외측 MFR[cite: 5].', jm: '거골 후방 미끄러짐 (Posterior Talars Glide)[cite: 3].', active: 'Ankle Eversion with Resistance Band (15회x3세트)[cite: 6].', passive: '아킬레스 및 비골근 수동 배구[cite: 7].' },
+            { id: 33, region: 'lower', name: '33. 족저근막염', tp: '종골 내측 부착부', mfr: '발바닥 아치 종골 MFR[cite: 5].', jm: '족중골 배/족저방 교차 활주 (Plantar-Dorsal Midtarsal Glide)[cite: 3].', active: 'Big Toe Extension Calf Raise (10회x3세트)[cite: 6].', passive: 'Windlass Mechanism 족저 수동 신전[cite: 7].' },
+            { id: 34, region: 'lower', name: '34. 아킬레스 건염', tp: '가자미근 아킬레스 전환부', mfr: '종아리 심부 핑거 MFR[cite: 5].', jm: '종골 하방 견인 (Inferior Calcaneal Traction)[cite: 3].', active: 'Alfredson Eccentric Heel Drop (15회x3세트)[cite: 6].', passive: '비복근 및 가자미근 수동 신전[cite: 7].' },
+            { id: 35, region: 'lower', name: '35. 무지외반증', tp: '제1 중족지절관절', mfr: '엄지발가락 기절골 MFR[cite: 5].', jm: '원위부 견인 및 내측 회전 미끄러짐 (Distal Traction & Medial Rotation Glide)[cite: 3].', active: 'Short Foot Exercise (10회x3세트)[cite: 6].', passive: '제1 중족골 수동 견인 및 회전[cite: 7].' },
+            { id: 36, region: 'lower', name: '36. 지간신경종', tp: '제3-4 중족골 간', mfr: '발바닥 중족골 공간 MFR[cite: 5].', jm: '중족골 간 횡단 교차 미끄러짐 (Transverse Intermetatarsal Glide)[cite: 3].', active: 'Toe Spreading Exercises[cite: 6].', passive: '중족골 횡단 수동 유격 이완[cite: 7].' },
+            { id: 37, region: 'lower', name: '37. Flat Foot (평발)', tp: '주상골 하단, 전경골근', mfr: '주상골 테두리 근막 MFR[cite: 5].', jm: '주상골 상방/발등 방향 미끄러짐 (Superior-Dorsal Navicular Glide)[cite: 3].', active: 'Short Foot Intrinsic Activation (10회x3세트)[cite: 6].', passive: '비복근 및 후경골근 수동 신전[cite: 7].' },
+            { id: 38, region: 'lower', name: '38. Pes Cavus (요족)', tp: '족저근막, 족중골', mfr: '발바닥 높은 아치 MFR[cite: 5].', jm: '족중골 발바닥 방향 미끄러짐 (Plantar Midtarsal Glide)[cite: 3].', active: 'Foot Pronation Mobility[cite: 6].', passive: '족저근막 아치 펼침 수동 신전[cite: 7].' },
+            { id: 39, region: 'lower', name: '39. 족하수 (Foot Drop)', tp: '원위 비경관절', mfr: '비골 하단 전경골근 MFR[cite: 5].', jm: '원위 비골 후방 미끄러짐 (Posterior Distal Fibular Glide)[cite: 3].', active: 'Active Ankle Dorsiflexion Assist[cite: 6].', passive: '발목 배측굴곡 수동 지속 신전[cite: 7].' },
+            { id: 40, region: 'lower', name: '40. 대둔근 약화 & 햄스트링 과수축', tp: '대둔근 하부, 햄스트링', mfr: '둔부 및 햄스트링 경계 MFR[cite: 5].', jm: '고관절 후방 활주 (Posterior Femoral Head Glide)[cite: 3].', active: 'Glute Thrust with Calf Focus (12회x3세트)[cite: 6].', passive: '햄스트링 수동 슬라이딩 스트레칭[cite: 7].' }
         ];
 
         // 22 Remote Pain Hotspots Matrix DB
@@ -523,7 +562,6 @@
         function initDeviceFingerprint() {
             let fp = localStorage.getItem(SECURITY_TOKEN_KEY);
             if (!fp) {
-                // Simple Canvas Fingerprint Hash
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 ctx.textBaseline = "top";
@@ -620,10 +658,10 @@
             const chainData = JSON.parse(localStorage.getItem(STORAGE_CHAIN_KEY) || '{}');
             const memberChain = chainData[activeMember.id] || [];
             if (memberChain.length === 0) {
-                prevSummaryEl.innerText = `[${activeMember.name} 회원님] 1회차 세션을 준비 중입니다.`;
+                prevSummaryEl.innerText = `[${activeMember.name} 회원님] 1회차 세션을 준비 중입니다[cite: 1, 2].`;
             } else {
                 const lastSession = memberChain[memberChain.length - 1];
-                prevSummaryEl.innerText = `이전 세션(${lastSession.sessionNum}회차) VAS: ${lastSession.vas} | 적용 프로토콜: ${lastSession.symptomsCount}개 증상`;
+                prevSummaryEl.innerText = `이전 세션(${lastSession.sessionNum}회차) VAS: ${lastSession.vas} | 적용 프로토콜: ${lastSession.symptomsCount}개 증상[cite: 1, 2]`;
             }
         }
 
@@ -682,11 +720,8 @@
             const filtered = HOTSPOTS_DB.filter(h => h.tab === currentAnatomyTab);
 
             svgGroup.innerHTML = filtered.map(h => `
-                <!-- Radiation Arrow Vector Line -->
                 <line x1="${h.x}" y1="${h.y}" x2="${h.vx}" y2="${h.vy}" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.8"/>
                 <circle cx="${h.vx}" cy="${h.vy}" r="2.5" fill="#00E5FF" />
-                
-                <!-- Main Trigger Point Dot -->
                 <circle class="hotspot-dot" onclick="selectHotspot('${h.id}')" cx="${h.x}" cy="${h.y}" r="6" fill="#CCFF00" stroke="#0A0E17" stroke-width="1.5"/>
             `).join('');
         }
@@ -758,8 +793,8 @@
 
             summaryBox.innerHTML = `
                 <p><strong>선택 증상 (${selectedList.length}건):</strong> ${selectedList.map(s => s.name).join(', ')}</p>
-                <p class="text-[#CCFF00]"><strong>통합 MFR 타겟:</strong> ${[...new Set(selectedList.map(s => s.mfr))].join(' / ')}</p>
-                <p class="text-[#00E5FF]"><strong>관절가동술 벡터:</strong> ${[...new Set(selectedList.map(s => s.jm))].join(' / ')}</p>
+                <p class="text-[#CCFF00]"><strong>상세 MFR 요약:</strong> ${selectedList.map(s => s.mfr.substring(0, 40) + '...').join(' / ')}</p>
+                <p class="text-[#00E5FF]"><strong>관절가동술 벡터:</strong> ${selectedList.map(s => s.jm.substring(0, 40) + '...').join(' / ')}</p>
             `;
 
             previewBox.classList.remove('hidden');
@@ -770,39 +805,31 @@
             const selectedList = SYMPTOMS_DB.filter(s => selectedSymptomIds.has(s.id));
             const modalBody = document.getElementById('modal-protocol-body');
 
-            modalBody.innerHTML = `
-                <!-- Step 1: MFR -->
-                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
-                    <span class="text-xs font-bold text-[#CCFF00] bg-[#CCFF00]/10 px-2 py-0.5 rounded border border-[#CCFF00]/30">STEP 1: 근막이완 (MFR)</span>
-                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
-                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.mfr} (타겟 TP: ${s.tp})</li>`).join('')}
-                    </ul>
-                </div>
+            modalBody.innerHTML = selectedList.map(s => `
+                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-3 mb-4">
+                    <h3 class="text-sm font-extrabold text-[#CCFF00] border-b border-[#1E293B] pb-2">${s.name} (TP: ${s.tp})</h3>
+                    
+                    <div class="space-y-1">
+                        <span class="text-[11px] font-bold text-[#CCFF00] bg-[#CCFF00]/10 px-2 py-0.5 rounded border border-[#CCFF00]/30">STEP 1: 근막이완 (MFR)[cite: 5]</span>
+                        <p class="text-xs text-gray-300 mt-1 leading-relaxed">${s.mfr}</p>
+                    </div>
 
-                <!-- Step 2: Joint Mobilization -->
-                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
-                    <span class="text-xs font-bold text-[#00E5FF] bg-[#00E5FF]/10 px-2 py-0.5 rounded border border-[#00E5FF]/30">STEP 2: 관절가동술 (Joint Mobilization)</span>
-                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
-                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.jm}</li>`).join('')}
-                    </ul>
-                </div>
+                    <div class="space-y-1 pt-1">
+                        <span class="text-[11px] font-bold text-[#00E5FF] bg-[#00E5FF]/10 px-2 py-0.5 rounded border border-[#00E5FF]/30">STEP 2: 관절가동술 (Joint Mobilization)[cite: 3]</span>
+                        <p class="text-xs text-gray-300 mt-1 leading-relaxed">${s.jm}</p>
+                    </div>
 
-                <!-- Step 3: Active Movement -->
-                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
-                    <span class="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded border border-yellow-400/30">STEP 3: 능동 재교육 (Active Movement)</span>
-                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
-                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.active}</li>`).join('')}
-                    </ul>
-                </div>
+                    <div class="space-y-1 pt-1">
+                        <span class="text-[11px] font-bold text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded border border-yellow-400/30">STEP 3: 능동 재교육 (Active Movement)[cite: 6]</span>
+                        <p class="text-xs text-gray-300 mt-1 leading-relaxed">${s.active}</p>
+                    </div>
 
-                <!-- Step 4: Passive Stretching -->
-                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
-                    <span class="text-xs font-bold text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded border border-purple-400/30">STEP 4: 수동 신전 (Passive Stretching)</span>
-                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
-                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.passive}</li>`).join('')}
-                    </ul>
+                    <div class="space-y-1 pt-1">
+                        <span class="text-[11px] font-bold text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded border border-purple-400/30">STEP 4: 수동 신전 (Passive Stretching)[cite: 7]</span>
+                        <p class="text-xs text-gray-300 mt-1 leading-relaxed">${s.passive}</p>
+                    </div>
                 </div>
-            `;
+            `).join('');
 
             document.getElementById('protocol-modal').classList.remove('hidden');
         }
@@ -877,7 +904,6 @@
             chainData[activeMember.id].push(record);
             localStorage.setItem(STORAGE_CHAIN_KEY, JSON.stringify(chainData));
 
-            // Increment Member Session Count
             if (activeMember.currentSession < 30) {
                 activeMember.currentSession++;
                 localStorage.setItem(STORAGE_MEMBERS_KEY, JSON.stringify(membersList));
@@ -885,7 +911,7 @@
 
             setActiveMember(activeMember.id);
             closeProtocolModal();
-            alert(`${record.sessionNum}회차 세션 기록이 성공적으로 저장 및 차감되었습니다.`);
+            alert(`${record.sessionNum}회차 세션 기록이 성공적으로 저장 및 차감되었습니다[cite: 1, 2].`);
         }
 
         /* ==========================================================================
@@ -918,7 +944,6 @@
             });
         }
 
-        /* Modals Opener Helpers */
         function openMemberModal() { document.getElementById('member-modal').classList.remove('hidden'); }
         function closeMemberModal() { document.getElementById('member-modal').classList.add('hidden'); }
 
