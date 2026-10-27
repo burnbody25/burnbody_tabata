@@ -1,2038 +1,936 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>리햅프로 (Rehab Pro) - 40대 증상 4단계 컨디셔닝 세션 & 30세션 맞춤 플랜</title>
-  
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="리햅프로">
-  <meta name="description" content="현장 트레이너를 위한 40가지 재활 증상 4단계 컨디셔닝 솔루션 및 30세션 연계 맞춤 플랜">
-  
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22%EB%A6%AC%ED%95%B5%ED%94%84%EB%A1%9C%20Rehab%20Pro%2040%22%2C%22short_name%22%3A%22%EB%A6%AC%ED%95%B5%ED%94%84%EB%A1%9C%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23121212%22%2C%22theme_color%22%3A%22%23121212%22%7D">
-  
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%23121212'/%3E%3Cpath d='M30 25 h25 a15 15 0 0 1 0 30 h-25 z' fill='none' stroke='%23CCFF00' stroke-width='8'/%3E%3Cpath d='M50 55 l20 25' stroke='%2300E5FF' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='30' r='6' fill='%23CCFF00'/%3E%3C/svg%3E">
-
-  <style>
-    :root {
-      --bg-main: #121212;
-      --bg-surface: #181818;
-      --bg-card: #1E1E1E;
-      --bg-card-hover: #262626;
-      --border-color: rgba(255, 255, 255, 0.08);
-      
-      --lime: #CCFF00;
-      --lime-glow: rgba(204, 255, 0, 0.25);
-      --cyan: #00E5FF;
-      --cyan-glow: rgba(0, 229, 255, 0.25);
-      --orange: #FF9100;
-      --orange-glow: rgba(255, 145, 0, 0.25);
-      --red: #FF5252;
-      --purple: #B388FF;
-
-      --text-white: #FFFFFF;
-      --text-gray: #A0A0A0;
-      --font-stack: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Segoe UI", Roboto, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    
-    body {
-      background-color: var(--bg-main);
-      color: var(--text-white);
-      font-family: var(--font-stack);
-      line-height: 1.5;
-      padding-bottom: 50px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg-main); }
-    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-
-    .app-header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(18, 18, 18, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-      padding: 12px 18px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px;
-    }
-
-    .brand-title-wrap h1 { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px; }
-    .brand-title-wrap h1 span { color: var(--lime); }
-    .brand-title-wrap h1 small { font-size: 0.65rem; color: var(--cyan); margin-left: 4px; vertical-align: middle; border: 1px solid var(--cyan); padding: 1px 4px; border-radius: 4px; }
-    .brand-title-wrap p { font-size: 0.68rem; color: var(--cyan); font-weight: 600; letter-spacing: 0.3px; }
-
-    .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-header {
-      background: var(--bg-card); border: 1px solid var(--border-color);
-      color: var(--text-white); padding: 7px 12px; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex;
-      align-items: center; gap: 5px; transition: all 0.2s ease;
-    }
-    .btn-header:hover { border-color: var(--cyan); color: var(--cyan); }
-    .btn-header.primary {
-      background: #202613; border-color: var(--lime); color: var(--lime);
-      box-shadow: 0 0 10px var(--lime-glow);
-    }
-
-    .main-container { max-width: 1200px; margin: 0 auto; padding: 16px; }
-
-    .search-filter-section {
-      background: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: 16px; padding: 16px; margin-bottom: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-    .search-input-wrapper { position: relative; margin-bottom: 12px; }
-    .search-input {
-      width: 100%; background: #141414; border: 1.5px solid var(--border-color);
-      border-radius: 12px; color: #fff; padding: 12px 16px; font-size: 0.95rem; outline: none;
-      font-family: inherit; transition: border-color 0.2s ease;
-    }
-    .search-input:focus { border-color: var(--lime); box-shadow: 0 0 10px var(--lime-glow); }
-
-    .category-tabs {
-      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;
-    }
-    .category-tabs::-webkit-scrollbar { display: none; }
-    .cat-btn {
-      background: #141414; border: 1px solid var(--border-color); color: var(--text-gray);
-      padding: 8px 14px; border-radius: 10px; font-size: 0.82rem; font-weight: 700;
-      white-space: nowrap; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .cat-btn .badge {
-      background: rgba(255,255,255,0.08); font-size: 0.7rem; padding: 1px 6px; border-radius: 8px;
-    }
-    .cat-btn.active {
-      background: #202613; border-color: var(--lime); color: var(--lime);
-      box-shadow: 0 0 10px var(--lime-glow);
-    }
-    .cat-btn.active .badge { background: var(--lime); color: #121212; font-weight: 800; }
-
-    .status-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 14px; padding: 0 4px; font-size: 0.8rem; color: var(--text-gray); flex-wrap: wrap; gap: 8px;
-    }
-    .status-bar b { color: var(--lime); }
-
-    .card-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
-    }
-
-    .symptom-card {
-      background: var(--bg-card); border: 1px solid var(--border-color);
-      border-radius: 16px; padding: 18px; cursor: pointer; transition: all 0.2s ease;
-      display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
-      position: relative; overflow: hidden;
-    }
-    .symptom-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      background: var(--border-color); transition: background 0.2s ease;
-    }
-    .symptom-card[data-cat="상체"]::before { background: var(--cyan); }
-    .symptom-card[data-cat="흉추및코어"]::before { background: var(--lime); }
-    .symptom-card[data-cat="골반및고관절"]::before { background: var(--purple); }
-    .symptom-card[data-cat="하지및발"]::before { background: var(--orange); }
-
-    .symptom-card:hover {
-      transform: translateY(-3px); background: var(--bg-card-hover);
-      border-color: rgba(255,255,255,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.5);
-    }
-
-    .card-top { display: flex; justify-content: space-between; align-items: center; }
-    .card-id { font-size: 0.72rem; color: var(--text-gray); font-weight: 700; font-family: monospace; }
-    .card-title { font-size: 1.05rem; font-weight: 800; color: #fff; line-height: 1.35; margin-top: 6px; }
-    .card-badge {
-      font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;
-      display: inline-block; letter-spacing: 0.3px;
-    }
-    .card-badge.상체 { background: rgba(0, 229, 255, 0.15); color: var(--cyan); }
-    .card-badge.흉추및코어 { background: rgba(204, 255, 0, 0.15); color: var(--lime); }
-    .card-badge.골반및고관절 { background: rgba(179, 136, 255, 0.15); color: var(--purple); }
-    .card-badge.하지및발 { background: rgba(255, 145, 0, 0.15); color: var(--orange); }
-
-    .card-box {
-      background: #141414; border-radius: 8px; padding: 10px 12px; font-size: 0.78rem;
-      color: #ccc; line-height: 1.4; border: 1px solid rgba(255,255,255,0.04);
-    }
-    .card-box strong { color: var(--cyan); display: block; margin-bottom: 2px; }
-
-    .card-btn {
-      width: 100%; background: #172013; border: 1px solid rgba(204, 255, 0, 0.3);
-      color: var(--lime); padding: 9px; border-radius: 8px; font-size: 0.82rem; font-weight: 800;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .symptom-card:hover .card-btn {
-      background: var(--lime); color: #121212; border-color: var(--lime);
-      box-shadow: 0 0 12px var(--lime-glow);
-    }
-
-    .modal-backdrop {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 1000; display: none; align-items: center; justify-content: center; padding: 12px;
-    }
-    .modal-backdrop.show { display: flex; }
-
-    .modal-box {
-      background: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: 18px; width: 100%; max-width: 820px; max-height: 92vh;
-      display: flex; flex-direction: column; overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-      animation: modalSlideUp 0.2s ease-out;
-    }
-    @keyframes modalSlideUp {
-      from { transform: translateY(15px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-header {
-      padding: 16px 20px; border-bottom: 1px solid var(--border-color);
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(30,30,30,0.6);
-    }
-    .modal-close-btn {
-      background: #252525; border: none; color: #aaa; width: 32px; height: 32px;
-      border-radius: 50%; font-size: 20px; cursor: pointer; display: flex;
-      align-items: center; justify-content: center; transition: all 0.15s ease;
-    }
-    .modal-close-btn:hover { background: #444; color: #fff; }
-
-    .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
-
-    .session-stepper {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
-      margin-bottom: 16px; background: #141414; padding: 6px; border-radius: 12px;
-      border: 1px solid var(--border-color);
-    }
-    .step-btn {
-      background: transparent; border: 1px solid transparent; color: #888; padding: 10px 4px;
-      border-radius: 8px; cursor: pointer; font-size: 0.78rem; font-weight: 700; text-align: center;
-      transition: all 0.2s ease;
-    }
-    .step-btn.active {
-      background: var(--bg-card); color: var(--lime); border-color: rgba(204,255,0,0.4);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-    .step-btn.s1.active { color: var(--orange); border-color: rgba(255, 145, 0, 0.4); }
-    .step-btn.s2.active { color: var(--cyan); border-color: rgba(0, 229, 255, 0.4); }
-    .step-btn.s3.active { color: var(--lime); border-color: rgba(204, 255, 0, 0.4); }
-    .step-btn.s4.active { color: var(--purple); border-color: rgba(179, 136, 255, 0.4); }
-
-    .detail-card {
-      background: var(--bg-card); border-radius: 14px; padding: 18px; margin-bottom: 14px;
-      border: 1px solid var(--border-color);
-    }
-    .detail-title {
-      font-size: 0.95rem; font-weight: 800; color: var(--cyan); margin-bottom: 8px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .detail-desc { font-size: 0.92rem; color: #eee; line-height: 1.55; white-space: pre-line; }
-
-    .mob-spec-box {
-      background: rgba(0, 229, 255, 0.06); border: 1px solid rgba(0, 229, 255, 0.25);
-      border-radius: 10px; padding: 12px; margin-top: 10px; font-size: 0.85rem; color: #e0f7fa;
-    }
-    .mob-spec-item { margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; }
-    .mob-spec-item:last-child { margin-bottom: 0; }
-    .mob-spec-label { color: var(--cyan); font-weight: 800; white-space: nowrap; }
-
-    .grade-selector {
-      display: flex; gap: 8px; margin-top: 12px; background: #141414; padding: 6px;
-      border-radius: 10px; border: 1px solid var(--border-color);
-    }
-    .grade-btn {
-      flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid transparent;
-      background: transparent; color: var(--text-gray); font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; text-align: center; transition: all 0.2s ease;
-    }
-    .grade-btn.active[data-grade="low"] {
-      background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan-glow);
-    }
-    .grade-btn.active[data-grade="high"] {
-      background: rgba(204, 255, 0, 0.15); color: var(--lime); border-color: var(--lime);
-      box-shadow: 0 0 10px var(--lime-glow);
-    }
-    .grade-info-desc {
-      font-size: 0.8rem; color: #ccc; margin-top: 8px; padding: 8px 10px;
-      background: #181818; border-radius: 6px; border-left: 3px solid var(--cyan);
-    }
-
-    .svg-art-container {
-      width: 100%; height: 160px; background: #121212; border-radius: 10px;
-      border: 1px solid var(--border-color); margin-top: 12px; display: flex;
-      align-items: center; justify-content: center; position: relative; overflow: hidden;
-    }
-
-    .tp-box {
-      background: rgba(255, 145, 0, 0.1); border-left: 4px solid var(--orange);
-      padding: 12px 14px; border-radius: 6px; margin-top: 12px; font-size: 0.84rem; color: #ffcc80;
-      line-height: 1.45;
-    }
-
-    .targets-box {
-      background: #141414; padding: 10px 12px; border-radius: 6px; margin-top: 12px;
-      font-size: 0.78rem; color: #aaa; border: 1px solid rgba(255,255,255,0.05);
-    }
-    .targets-box strong { color: #fff; }
-
-    .prev-session-banner {
-      background: linear-gradient(90deg, rgba(0, 229, 255, 0.12), rgba(204, 255, 0, 0.12));
-      border: 1px solid var(--cyan); border-radius: 12px; padding: 12px 14px;
-      margin-bottom: 14px; display: flex; flex-direction: column; gap: 4px;
-    }
-    .prev-session-title { font-size: 0.82rem; font-weight: 800; color: var(--lime); display: flex; align-items: center; gap: 6px; }
-    .prev-session-data { font-size: 0.85rem; color: #fff; }
-
-    .timer-widget {
-      background: linear-gradient(180deg, #181818, #131313);
-      border: 1.5px solid rgba(204, 255, 0, 0.4); border-radius: 16px;
-      padding: 18px; text-align: center; margin-top: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
-    .timer-display {
-      font-size: 3.2rem; font-weight: 900; color: var(--lime); font-family: monospace;
-      text-shadow: 0 0 16px var(--lime-glow); margin: 6px 0;
-    }
-    .timer-controls {
-      display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap;
-    }
-    .timer-btn {
-      background: var(--lime); color: #121212; border: none; padding: 10px 24px;
-      border-radius: 8px; font-weight: 800; font-size: 0.92rem; cursor: pointer;
-      box-shadow: 0 0 12px var(--lime-glow); transition: all 0.15s ease;
-    }
-    .timer-btn.running { background: var(--orange); color: #fff; box-shadow: 0 0 12px var(--orange-glow); }
-    .timer-preset-btn {
-      background: #252525; border: 1px solid var(--border-color); color: #ccc;
-      padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;
-    }
-    .timer-preset-btn:hover { border-color: var(--lime); color: var(--lime); }
-
-    .modal-footer {
-      padding: 14px 20px; border-top: 1px solid var(--border-color);
-      background: rgba(25, 25, 25, 0.7); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-    }
-    .btn-step-action {
-      background: #252525; border: 1px solid var(--border-color); color: #fff;
-      padding: 9px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
-    }
-    .btn-memo-record {
-      background: linear-gradient(90deg, #CCFF00, #00E5FF); color: #121212; border: none;
-      padding: 9px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 800; cursor: pointer;
-      box-shadow: 0 0 10px var(--lime-glow);
-    }
-
-    .form-group { margin-bottom: 14px; }
-    .form-label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-gray); margin-bottom: 6px; }
-    .form-label b { color: var(--lime); }
-    .form-input, .form-textarea, .form-select {
-      width: 100%; background: #141414; border: 1.5px solid var(--border-color);
-      border-radius: 8px; color: #fff; padding: 10px 12px; font-size: 0.9rem; font-family: inherit; outline: none;
-    }
-    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--lime); }
-
-    .vas-bar { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-top: 6px; }
-    .vas-btn {
-      background: #222; border: 1px solid #333; color: #aaa; padding: 8px 0; border-radius: 6px;
-      font-size: 0.82rem; font-weight: 800; cursor: pointer; text-align: center;
-    }
-    .vas-btn.selected { color: #121212; font-weight: 900; }
-    .vas-btn.low.selected { background: #00E5FF; }
-    .vas-btn.mid.selected { background: #CCFF00; }
-    .vas-btn.high.selected { background: #FF9100; }
-    .vas-btn.extreme.selected { background: #FF5252; color: #fff; }
-
-    .symptom-check-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px;
-      max-height: 280px; overflow-y: auto; background: #141414; padding: 12px; border-radius: 10px;
-      border: 1px solid var(--border-color); margin-top: 6px;
-    }
-    .check-item {
-      display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #ddd; cursor: pointer;
-      background: var(--bg-card); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border-color);
-      transition: all 0.15s ease;
-    }
-    .check-item:hover { border-color: var(--cyan); background: #222; }
-    .check-item input { accent-color: var(--lime); width: 16px; height: 16px; cursor: pointer; }
-
-    .plan-block {
-      background: #141414; border: 1px solid rgba(204,255,0,0.3); border-radius: 12px;
-      padding: 14px; margin-bottom: 12px;
-    }
-    .plan-block h4 { color: var(--lime); font-size: 0.95rem; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-    .plan-block p { font-size: 0.86rem; color: #ccc; line-height: 1.5; }
-
-    .log-card {
-      background: var(--bg-card); border: 1px solid var(--border-color);
-      border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 6px;
-    }
-
-    .toast-box {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      background: #222; border: 1px solid var(--lime); color: #fff;
-      padding: 10px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700;
-      z-index: 2000; display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
-    }
-  </style>
-</head>
-<body>
-
-  <header class="app-header">
-    <div class="brand-title-wrap">
-      <h1>REHAB <span>PRO</span> <small>MASTER DB LOADED</small></h1>
-      <p>40대 증상 통합 컨디셔닝 시스템 & 30세션 맞춤 연계</p>
-    </div>
-    <div class="header-actions">
-      <button class="btn-header primary" id="btnOpenAssessment">📝 <span>회원 평가 & 50분 플랜</span></button>
-      <button class="btn-header" id="btnOpenLogs">📋 <span>회원기록(30세션)</span></button>
-    </div>
-  </header>
-
-  <main class="main-container">
-    <section class="search-filter-section">
-      <div class="search-input-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="40가지 증상명, 키워드, 부위 검색 (예: 거북목, 척추관협착증, 평발, 오십견...)" autocomplete="off">
-      </div>
-      <div class="category-tabs" id="categoryTabs">
-        <button class="cat-btn active" data-category="전체">전체 <span class="badge" id="bAll">40</span></button>
-        <button class="cat-btn" data-category="상체">상체 <span class="badge" id="bUpper">14</span></button>
-        <button class="cat-btn" data-category="흉추및코어">흉추/코어 <span class="badge" id="bCore">12</span></button>
-        <button class="cat-btn" data-category="하지및발">하지/발 <span class="badge" id="bLower">14</span></button>
-      </div>
-    </section>
-
-    <div class="status-bar">
-      <div>현재 평가 프로토콜: <b id="resultCount">40</b>개 항목</div>
-      <div>전문 4단계: <span style="color:var(--orange)">MFR</span> ➔ <span style="color:var(--cyan)">관절가동</span> ➔ <span style="color:var(--lime)">Active</span> ➔ <span style="color:var(--purple)">Passive</span></div>
-    </div>
-
-    <div class="card-grid" id="symptomsGrid"></div>
-  </main>
-
-  <!-- 세션 상세 모달 -->
-  <div class="modal-backdrop" id="sessionModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <div>
-          <h3 id="mTitle" style="color:#fff; font-size:1.15rem;">-</h3>
-          <p id="mCategory" style="font-size:0.75rem; color:var(--cyan);">-</p>
-        </div>
-        <button class="modal-close-btn" id="mClose">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="prev-session-banner" id="prevSessionBanner" style="display:none;">
-          <div class="prev-session-title">🔄 이전 회차(Session N-1) 기록 자동 연계</div>
-          <div class="prev-session-data" id="prevSessionText">-</div>
-        </div>
-
-        <div class="session-stepper">
-          <button class="step-btn s1 active" data-s="1">1단계: MFR</button>
-          <button class="step-btn s2" data-s="2">2단계: 관절가동</button>
-          <button class="step-btn s3" data-s="3">3단계: Active</button>
-          <button class="step-btn s4" data-s="4">4단계: Passive</button>
-        </div>
-
-        <div class="detail-card">
-          <div class="detail-title" id="mStepTitle">1단계 MFR 이완 진행 방법</div>
-          <div class="detail-desc" id="mStepDesc">-</div>
-          
-          <div id="mobAdvancedContainer" style="display:none;">
-            <div class="mob-spec-box">
-              <div class="mob-spec-item">
-                <span class="mob-spec-label">🧘 컨디셔닝 포지션:</span>
-                <span id="mMobPos">-</span>
-              </div>
-              <div class="mob-spec-item">
-                <span class="mob-spec-label">👐 전문가 수기 기법:</span>
-                <span id="mMobTechnique">-</span>
-              </div>
-            </div>
-
-            <div class="grade-selector">
-              <button class="grade-btn active" data-grade="low" id="btnGradeLow">[Grade I~II] 통증완화 / 부드러운 이완</button>
-              <button class="grade-btn" data-grade="high" id="btnGradeHigh">[Grade III~IV] 끝범위 저항 극복 / 가동성 확보</button>
-            </div>
-            <div class="grade-info-desc" id="gradeInfoDesc">
-              💡 <b>Grade I~II 적용:</b> 관절 가동범위 초기 제한 영역에서 미세 파동을 가하여 신경학적 통증을 완화하고 조직 긴장을 부드럽게 이완합니다.
-            </div>
-
-            <div class="svg-art-container" id="svgArtContainer"></div>
-          </div>
-
-          <div class="tp-box" id="mTpBox">
-            <strong>📍 트리거포인트(압통점) 랜드마크 위치:</strong>
-            <div id="mTpText" style="margin-top:4px;">-</div>
-          </div>
-
-          <div class="targets-box">
-            <div><strong>🔗 직접 연관:</strong> <span id="mDirect">-</span></div>
-            <div style="margin-top:3px;"><strong>⚡ 간접 연관:</strong> <span id="mIndirect">-</span></div>
-          </div>
-        </div>
-
-        <div class="detail-card">
-          <div class="detail-title" style="color:var(--lime);">🩺 기능 평가 및 통증 확인 방법 (TEST)</div>
-          <div class="detail-desc" id="mTestDesc">-</div>
-        </div>
-
-        <div class="timer-widget">
-          <div style="font-size:0.72rem; color:var(--text-gray); font-weight:700; letter-spacing:1px;">COUNTDOWN TIMER</div>
-          <div class="timer-display" id="timerDisplay">03:00</div>
-          
-          <div class="timer-controls">
-            <button class="timer-preset-btn" data-time="180">3분</button>
-            <button class="timer-preset-btn" data-time="30">30초</button>
-            <button class="timer-preset-btn" data-time="60">1분</button>
-            <button class="timer-btn" id="btnTimer">▶ 시작</button>
-            <button class="timer-preset-btn" id="btnTimerReset">↺ 리셋</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-step-action" id="btnPrevStep">← 이전 단계</button>
-        <button class="btn-memo-record" id="btnOpenMemoFromModal">📝 세션 메모 기록 (다음 세션 연계)</button>
-        <button class="btn-step-action" id="btnNextStep" style="color:var(--lime); border-color:rgba(204,255,0,0.4)">다음 단계 →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 회원 평가 및 30세션 플랜 등록 모달 -->
-  <div class="modal-backdrop" id="assessmentModal">
-    <div class="modal-box" style="max-width: 760px;">
-      <div class="modal-header">
-        <div>
-          <h3 style="color:#fff; font-size:1.15rem;">🩺 회원 등록 및 30세션 맞춤 평가</h3>
-          <p style="font-size:0.75rem; color:var(--cyan);">복합 증상을 체크하면 30세션 마스터 플랜 및 맞춤 50분 컨디셔닝이 자동 생성됩니다.</p>
-        </div>
-        <button class="modal-close-btn" id="assessmentClose">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <form id="assessmentForm">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label" for="clientRegName">회원 성함 / 닉네임 <b>*</b></label>
-              <input type="text" id="clientRegName" class="form-input" placeholder="예: 김회원" required>
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label" for="clientRegSessionNum">현재 시작 세션 회차 (1/30회 ~ 30/30회)</label>
-              <select id="clientRegSessionNum" class="form-select"></select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">체형 및 통증 증상 선택 (복수 선택 가능) <b>*</b></label>
-            <div class="symptom-check-grid" id="symptomCheckboxes"></div>
-          </div>
-
-          <button type="submit" class="btn-memo-record" style="width:100%; justify-content:center; padding:12px; font-size:0.95rem;">
-            ⚡ 30세션 연계 맞춤 플랜 생성하기
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- 맞춤 50분 플랜 결과 모달 -->
-  <div class="modal-backdrop" id="planResultModal">
-    <div class="modal-box" style="max-width: 780px;">
-      <div class="modal-header">
-        <div>
-          <h3 id="planResultTitle" style="color:#fff; font-size:1.15rem;">- 회원님 30세션 연계 컨디셔닝 플랜</h3>
-          <p style="font-size:0.75rem; color:var(--lime);">체크된 증상 분석 및 세션 회차에 따른 50분 타임테이블</p>
-        </div>
-        <button class="modal-close-btn" id="planResultClose">&times;</button>
-      </div>
-
-      <div class="modal-body" id="planResultBody"></div>
-
-      <div class="modal-footer">
-        <button class="btn-step-action" id="btnCopyPlan">📋 플랜 카톡 브리핑 복사</button>
-        <button class="btn-memo-record" id="btnSavePlanLog">💾 세션 기록부에 저장 & 다음 세션 연계</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 세션 메모 모달 -->
-  <div class="modal-backdrop" id="memoModal">
-    <div class="modal-box" style="max-width: 580px;">
-      <div class="modal-header">
-        <div>
-          <h3 style="color:#fff; font-size:1.15rem;">회원 세션 메모 & 다음 세션 연계 저장</h3>
-          <p style="font-size:0.75rem; color:#888;">1세션 완료 시 다음 세션(N+1회차) 프로그램이 자동으로 세팅됩니다.</p>
-        </div>
-        <button class="modal-close-btn" id="memoClose">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <form id="memoForm">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label" for="clientNameInput">회원 성함 / 닉네임 <b>*</b></label>
-              <input type="text" id="clientNameInput" class="form-input" placeholder="예: 김회원" required>
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label" for="sessionNumberInput">현재 진행 회차 (1/30회 ~ 30/30회)</label>
-              <select id="sessionNumberInput" class="form-select"></select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="sessionSymptomSelect">진행한 증상 프로토콜</label>
-            <select id="sessionSymptomSelect" class="form-select"></select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">VAS 통증 자각 척도 (1~10) <b>*</b>: <span id="vasValText" style="color:var(--lime); font-weight:800;">5점</span></label>
-            <div class="vas-bar" id="vasBar">
-              <button type="button" class="vas-btn low" data-v="1">1</button>
-              <button type="button" class="vas-btn low" data-v="2">2</button>
-              <button type="button" class="vas-btn low" data-v="3">3</button>
-              <button type="button" class="vas-btn mid" data-v="4">4</button>
-              <button type="button" class="vas-btn mid selected" data-v="5">5</button>
-              <button type="button" class="vas-btn high" data-v="6">6</button>
-              <button type="button" class="vas-btn high" data-v="7">7</button>
-              <button type="button" class="vas-btn high" data-v="8">8</button>
-              <button type="button" class="vas-btn extreme" data-v="9">9</button>
-              <button type="button" class="vas-btn extreme" data-v="10">10</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="memoNotesInput">세션 피드백 및 트레이너 메모 (다음 세션 연계 프로그램 자동 제안 포함)</label>
-            <textarea id="memoNotesInput" class="form-textarea" rows="3" placeholder="예: 1세션 MFR 수행 완료. 2세션에서는 관절가동술 및 액티브 강화 비중을 높여 진행 예정."></textarea>
-          </div>
-
-          <button type="submit" class="btn-memo-record" style="width:100%; justify-content:center; padding:12px;">
-            💾 세션 완료 & 다음 세션 프로그램 연계 저장
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- 회원 기록 조회 모달 -->
-  <div class="modal-backdrop" id="logsModal">
-    <div class="modal-box" style="max-width: 680px;">
-      <div class="modal-header">
-        <div>
-          <h3 style="color:#fff; font-size:1.15rem;">📋 회원 세션 기록부 (30세션 관리)</h3>
-          <p style="font-size:0.75rem; color:#888;">세션 회차별 이력 및 다음 프로그램 연계 관리</p>
-        </div>
-        <button class="modal-close-btn" id="logsClose">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div style="display:flex; justify-content:space-between; margin-bottom:12px; gap:8px;">
-          <input type="text" id="logSearchInput" class="form-input" style="padding:8px 12px; font-size:0.85rem;" placeholder="회원 이름 검색...">
-          <button id="btnClearAllLogs" class="btn-header" style="color:var(--red); white-space:nowrap;">전체삭제</button>
-        </div>
-        <div id="logsContainer"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast-box" id="toastBox"></div>
-
-  <script>
-    // 40가지 증상별 관절가동술 마스터 DB (표준화 100% 동기화 완료)[cite: 8]
-    const SYMPTOM_DATA = [
-      {
-        "id": 1,
-        "title": "거북목 및 일자목",
-        "category": "상체",
-        "keywords": ["거북목", "일자목", "목 통증", "Cervical", "후두부"],
-        "test": "경추 굴곡/신전 및 전방 머리 정렬 (Plumb Line Test)",
-        "trigger_points": "1) 후두하근 TP: 후두골 하단 함요부. 2) 상부 승모근 TP: 목과 어깨 능선 중앙부.",
-        "direct": "후두하근, 상부 승모근, 경추 신전근",
-        "indirect": "대흉근, 경추 심부 굴곡근, 사각근",
-        "mfr": "✋ [손동작/방향] 후두골 하단에 마사지볼 또는 손가락 압박을 주어 3분간 상방 이완 진행.",
-        "mobilization": "🔓 [손동작/방향] 트레이너는 후두부와 C2-C7 가극돌기를 손가락 마디로 지탱하고, 반대 손으로 턱을 지그시 눌러 C2-C7 분절의 후방 활주(Posterior Glide) 및 굴곡 전단력을 유도함.",
-        "mob_position": "Supine (바로 누운 자세), 경추 중립 유지",
-        "mob_technique": "트레이너는 후두부와 C2-C7 가극돌기를 손가락 마디로 지탱하고, 반대 손으로 턱을 지그시 눌러 C2-C7 분절의 후방 활주(Posterior Glide) 및 굴곡 전단력을 유도함.",
-        "mob_grade": "Grade I~II (초기 관절 통증 및 긴장 완화) -> Grade III (C2-C7 후방 활주 회복)",
-        "glide_vector": "Posterior-Inferior Glide (후하방 미끄러짐)",
-        "active": "⚡ [진행방법] 친 턱(Chin Tucks) 경추 심부 굴곡근 강화 15회x3세트.",
-        "passive": "🌿 [진행방법] 파트너가 두 손으로 후두골을 감싸고 정수리 방향으로 수평 견인 스트레칭 30초x3세트."
-      },
-      {
-        "id": 2,
-        "title": "경추성 두통",
-        "category": "상체",
-        "keywords": ["두통", "경추성 두통", "후두하", "C0-C1"],
-        "test": "C0-C1 회전 가동성 및 압통 검사",
-        "trigger_points": "1) 후두하근 심부 TP. 2) 판상근 TP.",
-        "direct": "후두하근, 두판상근",
-        "indirect": "측두근, 승모근 상부",
-        "mfr": "✋ [손동작/방향] 후두하 삼각 부위를 손끝으로 원을 그리며 3분간 부드럽게 이완.",
-        "mobilization": "🔓 [손동작/방향] 후두골 하단(C0-C1 분절)에 두 손가락을 배치하고 후두골을 상방으로 미세 견인(Traction)하며, C1 환추를 전방으로 지그시 밀어 관절 공간을 확보함.",
-        "mob_position": "Supine (바로 누운 자세), 머리를 테이블 끝에 유치",
-        "mob_technique": "후두골 하단(C0-C1 분절)에 두 손가락을 배치하고 후두골을 상방으로 미세 견인(Traction)하며, C1 환추를 전방으로 지그시 밀어 관절 공간을 확보함.",
-        "mob_grade": "Grade I~II (후두하 관절 부드러운 미세 가동)",
-        "glide_vector": "Superior Traction & Anterior Glide (상방 견인 및 전방 미끄러짐)",
-        "active": "⚡ [진행방법] 상부 경추 회전 가동 운동 12회x3세트.",
-        "passive": "🌿 [진행방법] 목 후면 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 3,
-        "title": "경추 5-7번 통증 및 신경근 압박",
-        "category": "상체",
-        "keywords": ["경추 5-7번", "신경근 압박", "방사통", "추간공"],
-        "test": "Spurling Test & Axial Compression Test",
-        "trigger_points": "1) 중/하부 사각근 TP. 2) 견갑거근 부착부.",
-        "direct": "경추 신전근, 사각근, 견갑거근",
-        "indirect": "상부 승모근, 대흉근",
-        "mfr": "✋ [손동작/방향] 사각근 및 목 측면 근막을 가볍게 측면 이완 (3분).",
-        "mobilization": "🔓 [손동작/방향] 한 손으로 통증 분절 상부 경추를 고정하고, 다른 한 손으로 환자의 머리를 반대쪽으로 측굴(Side-bending)시키며 경추 추간공(Foramen)의 수평 공간을 열어줌.",
-        "mob_position": "Side-lying (통증 부위가 위로 향하게 옆으로 누운 자세)",
-        "mob_technique": "한 손으로 통증 분절 상부 경추를 고정하고, 다른 한 손으로 환자의 머리를 반대쪽으로 측굴(Side-bending)시키며 경추 추간공(Foramen)의 수평 공간을 열어줌.",
-        "mob_grade": "Grade I~II (신경 자극 최소화 범위 내 가동)",
-        "glide_vector": "Lateral Distraction & Contralateral Open Glide (외측 견인 및 반대측 개폐 활주)",
-        "active": "⚡ [진행방법] 경추 안정화 등척성 운동 10초 유지x10회.",
-        "passive": "🌿 [진행방법] 상부 경추 측굴 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 4,
-        "title": "라운드숄더 및 흉추 후만",
-        "category": "흉추및코어",
-        "keywords": ["라운드숄더", "흉추 후만", "굽은 등", "대흉근", "T-Spine"],
-        "test": "Adam's Forward Bend Test & 흉추 가동성 측정",
-        "trigger_points": "1) 대흉근 흉골부 TP. 2) 소흉근 TP.",
-        "direct": "대흉근, 소흉근, 흉추 신전근",
-        "indirect": "광배근, 복직근 상부, 능형근",
-        "mfr": "✋ [손동작/방향] 대흉근 가슴 중앙에서 어깨 외측으로 밀어내듯 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 흉추 T1-T8 횡돌기 부위에 손날(Hypothenar)을 밀착시키고, 호흡을 내쉴 때 체중을 실어 전하방(Anterior-Inferior)으로 척추 분절 미끄러짐을 유도함.",
-        "mob_position": "Prone (엎드린 자세) 또는 Sitting (의자에 앉은 자세)",
-        "mob_technique": "흉추 T1-T8 횡돌기 부위에 손날(Hypothenar)을 밀착시키고, 호흡을 내쉴 때 체중을 실어 전하방(Anterior-Inferior)으로 척추 분절 미끄러짐을 유도함.",
-        "mob_grade": "Grade III~IV (굳은 흉추 후관절 저항 극복)",
-        "glide_vector": "Anterior-Superior Glide (전상방 신전 미끄러짐)",
-        "active": "⚡ [진행방법] T-Spine Rotation & 코브라 액티브 신전 12회x3세트.",
-        "passive": "🌿 [진행방법] 폼롤러 흉추 신전 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 5,
-        "title": "흉곽출구증후군",
-        "category": "상체",
-        "keywords": ["흉곽출구", "TOS", "1번 늑골", "사각근", "손저림"],
-        "test": "Adson's Test & Wright Test",
-        "trigger_points": "1) 사각근 삼각 지점 TP. 2) 소흉근 하부 TP.",
-        "direct": "전/중사각근, 소흉근, 쇄골하근",
-        "indirect": "상부 승모근, 흉골근",
-        "mfr": "✋ [손동작/방향] 쇄골 상단 사각근 부위를 손끝으로 지그시 누르며 전후방 전단 이완 (3분).",
-        "mobilization": "🔓 [손동작/방향] 한 손으로 1번 늑골(First Rib) 상단을 하방으로 고정 압박하고, 다른 한 손으로 환자의 상완을 외회전 및 외반시켜 쇄골하 공간을 확보함.",
-        "mob_position": "Supine (바로 누운 자세)",
-        "mob_technique": "한 손으로 1번 늑골(First Rib) 상단을 하방으로 고정 압박하고, 다른 한 손으로 환자의 상완을 외회전 및 외반시켜 쇄골하 공간을 확보함.",
-        "mob_grade": "Grade II~III (쇄골 및 1번 늑골 가동성 확보)",
-        "glide_vector": "Inferior-Posterior Glide of 1st Rib (1번 늑골 후하방 미끄러짐)",
-        "active": "⚡ [진행방법] 신경 슬라이딩 글라이딩 10회x3세트.",
-        "passive": "🌿 [진행방법] 사각근 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 6,
-        "title": "오십견 및 동결건",
-        "category": "상체",
-        "keywords": ["오십견", "동결건", "유착성 관절낭염", "관절와순"],
-        "test": "어깨 ROM 제한 검사 (외회전/외전)",
-        "trigger_points": "1) 견갑하근 TP. 2) 극상근 TP.",
-        "direct": "관절낭 전/후방, 회전근개",
-        "indirect": "상완이두근, 대흉근, 광배근",
-        "mfr": "✋ [손동작/방향] 어깨 관절 주변 근막을 부드럽게 롤링 MFR (3분).",
-        "mobilization": "🔓 [손동작/방향] 트레이너가 한 손으로 관절와순(Glenoid)을 고정하고, 다른 한 손으로 상완골두(Humeral Head) 상단을 바닥 방향(후하방)으로 수평 밀기 시행.",
-        "mob_position": "Supine (바로 누운 자세), 상완골 굴곡 90도",
-        "mob_technique": "트레이너가 한 손으로 관절와순(Glenoid)을 고정하고, 다른 한 손으로 상완골두(Humeral Head) 상단을 바닥 방향(후하방)으로 수평 밀기 시행.",
-        "mob_grade": "Grade I~II (초기 통증 완화) -> Grade III~IV (관절낭 끝범위 수평 유착 박리)",
-        "glide_vector": "Posterior-Inferior Glide (후하방 미끄러짐)",
-        "active": "⚡ [진행방법] 펜들럼 엑서사이즈 및 능동 ROM 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 파트너 보조 어깨 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 7,
-        "title": "어깨 충돌증후군",
-        "category": "상체",
-        "keywords": ["어깨 충돌증후군", "견봉하 공간", "극상근", "Neer Test"],
-        "test": "Neer Test & Hawkins-Kennedy Test",
-        "trigger_points": "1) 극상근 건부착부 TP. 2) 삼각근 전면 TP.",
-        "direct": "극상근, 소흉근, 견봉하 bursa",
-        "indirect": "전거근, 하부 승모근",
-        "mfr": "✋ [손동작/방향] 견갑극 상부 가시위목을 수직으로 압박 MFR (3분).",
-        "mobilization": "🔓 [손동작/방향] 한 손으로 견갑골 견봉(Acromion)을 상방에서 고정하고, 다른 한 손으로 상완골 근위부를 잡고 하방(Inferior)으로 견인하며 미끄러트림.",
-        "mob_position": "Supine (바로 누운 자세)",
-        "mob_technique": "한 손으로 견갑골 견봉(Acromion)을 상방에서 고정하고, 다른 한 손으로 상완골 근위부를 잡고 하방(Inferior)으로 견인하며 미끄러트림.",
-        "mob_grade": "Grade II~III (견봉하 공간 확보)",
-        "glide_vector": "Inferior Glide (하방 미끄러짐)",
-        "active": "⚡ [진행방법] Scaption 레이즈 12회x3세트.",
-        "passive": "🌿 [진행방법] Sleeper Stretch 30초x3세트."
-      },
-      {
-        "id": 8,
-        "title": "극하근 및 회전근개 손상",
-        "category": "상체",
-        "keywords": ["극하근", "회전근개", "외회전 제한", "어깨 후면"],
-        "test": "External Rotation Lag Sign",
-        "trigger_points": "1) 극하근 중앙 TP. 2) 소원근 TP.",
-        "direct": "극하근, 소원근, 후방 관절낭",
-        "indirect": "삼각근 후부, 능형근",
-        "mfr": "✋ [손동작/방향] 견갑골 극하와 부위를 마사지볼로 3분간 압박 이완.",
-        "mobilization": "🔓 [손동작/방향] 견갑골 내측연을 고정하고 상완골두를 후방으로 관절면을 따라 밀어 극하근의 과도한 장력을 해소함.",
-        "mob_position": "Side-lying (환부 상단 배치)",
-        "mob_technique": "견갑골 내측연을 고정하고 상완골두를 후방으로 관절면을 따라 밀어 극하근의 과도한 장력을 해소함.",
-        "mob_grade": "Grade II~III (후방 관절낭 이완)",
-        "glide_vector": "Posterior Glide (후방 미끄러짐)",
-        "active": "⚡ [진행방법] 사이드라잉 외회전 12회x3세트.",
-        "passive": "🌿 [진행방법] 크로스보디 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 9,
-        "title": "견갑골 고정 및 능형근 만성 과수축",
-        "category": "상체",
-        "keywords": ["견갑골 고정", "능형근", "날개뼈 운동장애", "견갑흉곽"],
-        "test": "Scapular Dyskinesia Test",
-        "trigger_points": "1) 능형근 TP. 2) 견갑거근 TP.",
-        "direct": "능형근, 견갑거근, 견갑흉관",
-        "indirect": "전거근, 상부 승모근",
-        "mfr": "✋ [손동작/방향] 견갑골 내측연 결대로 3분간 깊은 MFR 적용.",
-        "mobilization": "🔓 [손동작/방향] 트레이너가 환자의 견갑골 내측연과 상각 하단에 손가락을 넣어 견갑골을 흉곽으로부터 유격(Distraction)시킨 후 외상방/하방으로 수동 전단 회전시킴.",
-        "mob_position": "Side-lying (옆으로 누운 자세)",
-        "mob_technique": "트레이너가 환자의 견갑골 내측연과 상각 하단에 손가락을 넣어 견갑골을 흉곽으로부터 유격(Distraction)시킨 후 외상방/하방으로 수동 전단 회전시킴.",
-        "mob_grade": "Grade III~IV (견갑흉관 관절 완전 가동)",
-        "glide_vector": "Scapular Distraction & Upward Rotation (견갑골 유격 및 상방회전)",
-        "active": "⚡ [진행방법] W-레이즈 및 푸시업 플러스 15회x3세트.",
-        "passive": "🌿 [진행방법] 흉곽 확장 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 10,
-        "title": "익상견갑",
-        "category": "상체",
-        "keywords": ["익상견갑", "전거근 약화", "날개뼈 돌출", "장흉신경"],
-        "test": "Wall Push-up Test",
-        "trigger_points": "1) 소흉근 TP. 2) 상완이두근 단두 TP.",
-        "direct": "전거근, 소흉근",
-        "indirect": "상부 승모근, 능형근",
-        "mfr": "✋ [손동작/방향] 소흉근 늑골 부착부 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 견갑골 전면을 흉곽 방향으로 압박 고정하며 전거근의 기시부 방향으로 부드러운 전방 밀착 가동을 유도함.",
-        "mob_position": "Prone (엎드린 자세)",
-        "mob_technique": "견갑골 전면을 흉곽 방향으로 압박 고정하며 전거근의 기시부 방향으로 부드러운 전방 밀착 가동을 유도함.",
-        "mob_grade": "Grade II~III (흉곽 밀착 가동)",
-        "glide_vector": "Anterior-Medial Compression Glide (전내측 압박 미끄러짐)",
-        "active": "⚡ [진행방법] 네발기기 전거근 푸시업 플러스 15회x3세트.",
-        "passive": "🌿 [진행방법] 가슴 전면 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 11,
-        "title": "테니스 엘보 / 외측상과염",
-        "category": "상체",
-        "keywords": ["테니스 엘보", "외측상과염", "전완 신근", "팔꿈치 외측"],
-        "test": "Cozen's Test & Mill's Test",
-        "trigger_points": "1) 단요수근신근 TP. 2) 총신근건 TP.",
-        "direct": "단요수근신근, 총신근건, 요척관절",
-        "indirect": "상완이두근, 회전근개",
-        "mfr": "✋ [손동작/방향] 외측상과 하방 전완 신근을 횡단마찰(Cross-fiber friction) 3분간 이완.",
-        "mobilization": "🔓 [손동작/방향] 주관절 외측 요골두(Radial Head)에 엄지를 대고, 전완을 회인/회외시키는 동안 요골두를 후방 및 외측으로 밀어 가동함.",
-        "mob_position": "Supine (팔꿈치 굴곡 20도)",
-        "mob_technique": "주관절 외측 요골두(Radial Head)에 엄지를 대고, 전완을 회인/회외시키는 동안 요골두를 후방 및 외측으로 밀어 가동함.",
-        "mob_grade": "Grade II~III (요척관절 미끄러짐 회복)",
-        "glide_vector": "Posterior-Lateral Radial Head Glide (요골두 후외측 미끄러짐)",
-        "active": "⚡ [진행방법] 원심성 손목 신전 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 팔꿈치 신전 상태 손목 굴곡 스트레칭 30초x3세트."
-      },
-      {
-        "id": 12,
-        "title": "골퍼 엘보 / 내측상과염",
-        "category": "상체",
-        "keywords": ["골퍼 엘보", "내측상과염", "전완 굴근", "팔꿈치 내측"],
-        "test": "Golfer's Elbow Test (Resisted Wrist Flexion)",
-        "trigger_points": "1) 요측수근굴근 TP. 2) 원회전근 TP.",
-        "direct": "요측수근굴근, 원회전근, 척측수근굴근",
-        "indirect": "상완삼두근, 오훼완근",
-        "mfr": "✋ [손동작/방향] 내측상과 하방 굴근 군을 결대로 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 상완골 내측상과 부위를 고정하고 척골 근위부를 내측 방향으로 미세 유격 가동시킴.",
-        "mob_position": "Supine (팔꿈치 신전)",
-        "mob_technique": "상완골 내측상과 부위를 고정하고 척골 근위부를 내측 방향으로 미세 유격 가동시킴.",
-        "mob_grade": "Grade II~III (척골-상완관절 전단 가동)",
-        "glide_vector": "Medial-Inferior Ulnar Glide (척골 내하방 미끄러짐)",
-        "active": "⚡ [진행방법] 원심성 손목 굴곡 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 팔꿈치 신전 상태 손목 신전 스트레칭 30초x3세트."
-      },
-      {
-        "id": 13,
-        "title": "수근관 증후군",
-        "category": "상체",
-        "keywords": ["수근관 증후군", "손목터널", "정중신경", "Phalen Test"],
-        "test": "Phalen's Test & Tinel's Sign",
-        "trigger_points": "1) 횡수근인대 부근 TP. 2) 지굴근 TP.",
-        "direct": "굴근지대, 정중신경, 수근골",
-        "indirect": "전완 굴근군, 원회전근",
-        "mfr": "✋ [손동작/방향] 수근관 전면 횡수근인대 부근을 가볍게 3분간 이완.",
-        "mobilization": "🔓 [손동작/방향] 수근골(Carpal Bones) 라인을 양손 엄지로 잡고 각 수근골 분절을 전후방으로 서로 교차하여 유연하게 미끄러트림.",
-        "mob_position": "Sitting (의자에 앉아 손목을 테이블에 올려놓은 자세)",
-        "mob_technique": "수근골(Carpal Bones) 라인을 양손 엄지로 잡고 각 수근골 분절을 전후방으로 서로 교차하여 유연하게 미끄러트림.",
-        "mob_grade": "Grade I~II (정중신경 자극 차단 부드러운 가동)",
-        "glide_vector": "Anterior-Posterior Intercarpal Glide (수근골 간 전후방 교차 미끄러짐)",
-        "active": "⚡ [진행방법] 정중신경 글라이딩 10회x3세트.",
-        "passive": "🌿 [진행방법] 손목 신전 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 14,
-        "title": "삼두근 및 팔꿈치 후면 통증",
-        "category": "상체",
-        "keywords": ["삼두근", "팔꿈치 후면", "주정", "Olecranon"],
-        "test": "Resisted Elbow Extension Test",
-        "trigger_points": "1) 상완삼두근 장두 TP. 2) 주근 TP.",
-        "direct": "상완삼두근 건, 주근",
-        "indirect": "회전근개, 광배근",
-        "mfr": "✋ [손동작/방향] 상완삼두근 근복에서 팔꿈치 후면까지 3분간 쓸어내리며 MFR.",
-        "mobilization": "🔓 [손동작/방향] 척골 주정(Olecranon) 부위를 잡고 상완골에 대해 원위부 방향으로 수평 견인 및 후방 가동을 적용함.",
-        "mob_position": "Supine (팔꿈치 90도 굴곡)",
-        "mob_technique": "척골 주정(Olecranon) 부위를 잡고 상완골에 대해 원위부 방향으로 수평 견인 및 후방 가동을 적용함.",
-        "mob_grade": "Grade II~III (주관절 신전 가동 범위 확보)",
-        "glide_vector": "Longitudinal Distraction (수직 축 방향 견인)",
-        "active": "⚡ [진행방법] 삼두근 등척성 및 신전 운동 12회x3세트.",
-        "passive": "🌿 [진행방법] 팔꿈치 완전 굴곡 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 15,
-        "title": "요추 디스크 및 S1/L5 방사통",
-        "category": "흉추및코어",
-        "keywords": ["요추 디스크", "방사통", "L5-S1", "좌골신경", "허리 통증"],
-        "test": "Straight Leg Raising Test (SLR) & Slump Test",
-        "trigger_points": "1) 요방형근 TP. 2) 요추 기립근 TP.",
-        "direct": "L5-S1 추간판, 요방형근, 다열근",
-        "indirect": "햄스트링, 이상근, 비복근",
-        "mfr": "✋ [손동작/방향] 요추 기립근 및 요방형근 부위 3분간 부드러운 압박 이완.",
-        "mobilization": "🔓 [손동작/방향] 트레이너가 한 손으로 늑골 하단을 고정하고, 다른 한 손으로 골반 장골릉을 잡고 하방 및 수평 전단력(Horizontal Glide)을 가하여 L5-S1 분절 유격을 형성함.",
-        "mob_position": "Side-lying (통증 부위를 위로 하고 요추 중립 유지)",
-        "mob_technique": "트레이너가 한 손으로 늑골 하단을 고정하고, 다른 한 손으로 골반 장골릉을 잡고 하방 및 수평 전단력(Horizontal Glide)을 가하여 L5-S1 분절 유격을 형성함.",
-        "mob_grade": "Grade I~II (신경 감압) -> Grade III (분절 공간 확보)",
-        "glide_vector": "Inferior Distraction & Lateral Glide (하방 견인 및 외측 미끄러짐)",
-        "active": "⚡ [진행방법] 맥켄지 신전 운동 또는 코어 브레이싱 10회x3세트.",
-        "passive": "🌿 [진행방법] 무릎 가슴으로 당기기 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 16,
-        "title": "요방형근 통증 및 짝골반",
-        "category": "흉추및코어",
-        "keywords": ["요방형근", "짝골반", "골반 비대칭", "장골능"],
-        "test": "ASIS Height Level Test",
-        "trigger_points": "1) 요방형근 늑골 부착부 TP. 2) 장골능 부착부 TP.",
-        "direct": "요방형근, 광배근 하부",
-        "indirect": "중둔근, 복사근",
-        "mfr": "✋ [손동작/방향] 장골능 위 요방형근 늑골 사이 공간 3분간 깊은 압박 이완.",
-        "mobilization": "🔓 [손동작/방향] 상체 축을 고정한 상태에서 위쪽 장골릉을 발 방향으로 수평으로 강하게 밀어내어 요추-천장관절 간격을 넓힘.",
-        "mob_position": "Side-lying (장일쪽 골반이 위로 오게 누움)",
-        "mob_technique": "상체 축을 고정한 상태에서 위쪽 장골릉을 발 방향으로 수평으로 강하게 밀어내어 요추-천장관절 간격을 넓힘.",
-        "mob_grade": "Grade III~IV (골반 측방 경사 가동)",
-        "glide_vector": "Caudal Pelvic Glide (미측/발 방향 골반 미끄러짐)",
-        "active": "⚡ [진행방법] 사이드 플랭크 및 힙 사이드 리프트 10회x3세트.",
-        "passive": "🌿 [진행방법] 측면 요방형근 대각선 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 17,
-        "title": "척추관 협착증",
-        "category": "흉추및코어",
-        "keywords": ["척추관 협착증", "간헐적 파행", "요추 굴곡", "중노년 요통"],
-        "test": "Bicycle Test of van Gelderen & 척추 신전 유발 검사",
-        "trigger_points": "1) 요추 다열근 TP. 2) 요추 기립근 심부 TP.",
-        "direct": "요추 후관절, 척주기립근 심부",
-        "indirect": "장요근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 허리 주변 근육을 굴곡 자세 유도하며 부드럽게 3분간 마사지.",
-        "mobilization": "🔓 [손동작/방향] 요추 각 분절 가극돌기 사이 공간에 손가락을 대고 굴곡 방향으로 부드럽게 요추 후방 활주를 유도함.",
-        "mob_position": "Side-lying (양 무릎을 가슴 쪽으로 끌어당긴 자세)",
-        "mob_technique": "요추 각 분절 가극돌기 사이 공간에 손가락을 대고 굴곡 방향으로 부드럽게 요추 후방 활주를 유도함.",
-        "mob_grade": "Grade I~II (신전 자극 금지, 굴곡성 가동)",
-        "glide_vector": "Posterior Flexion Glide (후방 굴곡 미끄러짐)",
-        "active": "⚡ [진행방법] 윌버 굴곡 운동 및 고양이-소 자세 12회x3세트.",
-        "passive": "🌿 [진행방법] 무릎 감싸고 등 둥글게 말기 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 18,
-        "title": "요추 과신전 및 골반 전방경사",
-        "category": "흉추및코어",
-        "keywords": ["요추 과신전", "골반 전방경사", "장요근", "오리엉덩이"],
-        "test": "Thomas Test & Ely's Test",
-        "trigger_points": "1) 장요근 TP. 2) 대퇴직근 TP.",
-        "direct": "장요근, 대퇴직근, 요추 신전근",
-        "indirect": "대둔근, 복직근",
-        "mfr": "✋ [손동작/방향] 서혜부 장요근 및 허벅지 대퇴직근 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 골반 ASIS(전상장골극)를 후하방으로 누르고, 천골(Sacrum)을 전상방으로 끌어올려 골반의 후방 회전 가동성을 만듦.",
-        "mob_position": "Supine (양 무릎 굽힌 자세)",
-        "mob_technique": "골반 ASIS(전상장골극)를 후하방으로 누르고, 천골(Sacrum)을 전상방으로 끌어올려 골반의 후방 회전 가동성을 만듦.",
-        "mob_grade": "Grade III (골반 후방 회전 가동)",
-        "glide_vector": "Posterior Pelvic Rotation Glide (골반 후방 회전 미끄러짐)",
-        "active": "⚡ [진행방법] 데드버그 및 펠빅 틸트 12회x3세트.",
-        "passive": "🌿 [진행방법] 카우치 스트레칭 30초x3세트."
-      },
-      {
-        "id": 19,
-        "title": "일자허리 및 골반 후방경사",
-        "category": "흉추및코어",
-        "keywords": ["일자허리", "골반 후방경사", "햄스트링 단축", "요추 전만 상실"],
-        "test": "Wall Lumbar Gap Test",
-        "trigger_points": "1) 햄스트링 상부 TP. 2) 복직근 하부 TP.",
-        "direct": "햄스트링, 복직근, 대둔근 하부",
-        "indirect": "요추 기립근, 장요근",
-        "mfr": "✋ [손동작/방향] 햄스트링 좌골 결절 부위 3분간 압박 슬라이딩 MFR.",
-        "mobilization": "🔓 [손동작/방향] L1-L5 가극돌기 전면에 손바닥 관절을 대고 전하방으로 지그시 체중을 실어 요추 전만을 유도함.",
-        "mob_position": "Prone (두 팔을 대고 엎드린 자세)",
-        "mob_technique": "L1-L5 가극돌기 전면에 손바닥 관절을 대고 전하방으로 지그시 체중을 실어 요추 전만을 유도함.",
-        "mob_grade": "Grade III~IV (요추 전만 가동성 회복)",
-        "glide_vector": "Anterior-Inferior Lumbar Glide (전하방 요추 미끄러짐)",
-        "active": "⚡ [진행방법] 맥켄지 신전 운동 12회x3세트.",
-        "passive": "🌿 [진행방법] 햄스트링 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 20,
-        "title": "천장관절 증후군",
-        "category": "흉추및코어",
-        "keywords": ["천장관절", "SI Joint", "골반 통증", "Patrick Test"],
-        "test": "Patrick's Test (FABER) & Gaenslen's Test",
-        "trigger_points": "1) 이상근 외측 TP. 2) 중둔근 후부 TP.",
-        "direct": "천장관절 인대, 이상근, 장골근",
-        "indirect": "요방형근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 천장관절 주변 인대 및 둔부 근막 3분간 이완.",
-        "mobilization": "🔓 [손동작/방향] 한 손으로 장골(Ilium)을 고정하고 다른 한 손의 손날로 천골 기저부(Sacral Base)를 전방으로 압박하여 회전 전단성을 확보함.",
-        "mob_position": "Prone (전면으로 엎드린 자세)",
-        "mob_technique": "한 손으로 장골(Ilium)을 고정하고 다른 한 손의 손날로 천골 기저부(Sacral Base)를 전방으로 압박하여 회전 전단성을 확보함.",
-        "mob_grade": "Grade II~III (천골-장골 유착 해제)",
-        "glide_vector": "Anterior-Inferior Sacral Nutation Glide (전하방 천골 숙임 미끄러짐)",
-        "active": "⚡ [진행방법] 클램쉘 및 골반 안정화 운동 12회x3세트.",
-        "passive": "🌿 [진행방법] 고관절 굴곡-내전 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 21,
-        "title": "이상근 증후군 및 좌골신경통",
-        "category": "흉추및코어",
-        "keywords": ["이상근", "좌골신경통", "둔부 통증", "FAIR Test"],
-        "test": "FAIR Test & Seated Piriformis Stretch Test",
-        "trigger_points": "1) 이상근 심부 TP. 2) 상/하쌍자근 TP.",
-        "direct": "이상근, 좌골신경, 고관절 외회전근",
-        "indirect": "대둔근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 천골 외측연과 대전자 중앙 이상근 부위 마사지볼 3분간 압박.",
-        "mobilization": "🔓 [손동작/방향] 고관절을 굴곡시킨 상태에서 대퇴골두를 바닥 방향(후방)으로 수평으로 밀어 이상근 부착부의 공간을 확보함.",
-        "mob_position": "Supine (고관절 90도 굴곡 및 내회전)",
-        "mob_technique": "고관절을 굴곡시킨 상태에서 대퇴골두를 바닥 방향(후방)으로 수평으로 밀어 이상근 부착부의 공간을 확보함.",
-        "mob_grade": "Grade II~III (고관절 깊은 후방관절낭 이완)",
-        "glide_vector": "Posterior Femoral Head Glide (대퇴골두 후방 미끄러짐)",
-        "active": "⚡ [진행방법] 고관절 신전 및 외회전 통제 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 피겨 4(Figure-4) 스트레칭 30초x3세트."
-      },
-      {
-        "id": 22,
-        "title": "고관절 충돌증후군 (FAI)",
-        "category": "골반및고관절",
-        "keywords": ["고관절 충돌", "FAI", "서혜부 통증", "FADIR"],
-        "test": "FADIR Test & FAIR Test",
-        "trigger_points": "1) TFL TP. 2) 장요근 서혜부 TP.",
-        "direct": "관절와순, 대퇴근막장근, 장요근",
-        "indirect": "중둔근, 내전근",
-        "mfr": "✋ [손동작/방향] TFL 및 서혜부 외측 부위 3분간 가볍게 이완.",
-        "mobilization": "🔓 [손동작/방향] 관절가동 스트랩 또는 양손으로 대퇴골 근위부를 잡고 외측 하방(Infero-lateral)으로 수평 견인력을 가함.",
-        "mob_position": "Supine (고관절 미세 굴곡)",
-        "mob_technique": "관절가동 스트랩 또는 양손으로 대퇴골 근위부를 잡고 외측 하방(Infero-lateral)으로 수평 견인력을 가함.",
-        "mob_grade": "Grade I~II (관절 찝힘 방지 견인)",
-        "glide_vector": "Inferior-Lateral Axial Distraction (하외측 축 방향 견인)",
-        "active": "⚡ [진행방법] 밴드 저항 고관절 모빌리티 10회x3세트.",
-        "passive": "🌿 [진행방법] 고관절 통증 없는 범위 외회전 스트레칭 30초x3세트."
-      },
-      {
-        "id": 23,
-        "title": "장요근 단축 및 서타구니 찝힘",
-        "category": "골반및고관절",
-        "keywords": ["장요근", "서혜부 찝힘", "고관절 전방", "Thomas Test"],
-        "test": "Thomas Test",
-        "trigger_points": "1) 장요근 서혜부 깊은 TP. 2) 대퇴직근 TP.",
-        "direct": "장요근, 대퇴직근, 고관절 전방 관절낭",
-        "indirect": "요방형근, 복직근",
-        "mfr": "✋ [손동작/방향] 서혜부 장요근 부착부 심부 3분간 압박 이완.",
-        "mobilization": "🔓 [손동작/방향] 반대쪽 다리를 가슴에 고정하고, 환부 대퇴골 근위부 전면을 후방으로 밀어 대퇴골두의 전방 변위를 수정함.",
-        "mob_position": "Thomas Test Position (테이블 끝에 엉덩이를 대고 누운 자세)",
-        "mob_technique": "반대쪽 다리를 가슴에 고정하고, 환부 대퇴골 근위부 전면을 후방으로 밀어 대퇴골두의 전방 변위를 수정함.",
-        "mob_grade": "Grade II~III (고관절 전방 관절낭 및 장요근 이완)",
-        "glide_vector": "Posterior Glide of Femur (대퇴골 후방 미끄러짐)",
-        "active": "⚡ [진행방법] 하프닐링 일리오소아스 록킹 10회x3세트.",
-        "passive": "🌿 [진행방법] 카우치 스트레칭 30초x3세트."
-      },
-      {
-        "id": 24,
-        "title": "중둔근 약화 및 짝엉덩이",
-        "category": "골반및고관절",
-        "keywords": ["중둔근", "짝엉덩이", "트렌델렌버그", "골반 처짐"],
-        "test": "Trendelenburg Test & Single Leg Stance Test",
-        "trigger_points": "1) 중둔근 후부 TP. 2) 소둔근 TP.",
-        "direct": "중둔근, 소둔근",
-        "indirect": "내전근, 요방형근, TFL",
-        "mfr": "✋ [손동작/방향] 장골능 아래 중둔근 후부 3분간 수직 압박 MFR.",
-        "mobilization": "🔓 [손동작/방향] 대퇴골 대전자를 하방으로 고정하고 골반 측면을 상방으로 유격시켜 대퇴골-비구 관절면 측방 가동성을 확보함.",
-        "mob_position": "Side-lying (옆으로 누운 자세)",
-        "mob_technique": "대퇴골 대전자를 하방으로 고정하고 골반 측면을 상방으로 유격시켜 대퇴골-비구 관절면 측방 가동성을 확보함.",
-        "mob_grade": "Grade III (고관절 외반/내반 가동성)",
-        "glide_vector": "Lateral Distraction Glide (외측 유격 미끄러짐)",
-        "active": "⚡ [진행방법] 사이드 라잉 힙 어브덕션 15회x3세트.",
-        "passive": "🌿 [진행방법] 고관절 교차 내전 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 25,
-        "title": "내덕근 단축 및 치골 통증",
-        "category": "골반및고관절",
-        "keywords": ["내전근", "치골 통증", "서혜부 안쪽", "Adductor Strain"],
-        "test": "Squeeze Test (Adductor Compression Test)",
-        "trigger_points": "1) 장/단내전근 TP. 2) 박근 TP.",
-        "direct": "장내전근, 단내전근, 박근",
-        "indirect": "중둔근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 허벅지 안쪽 내전근 전체 결대로 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 치골 결합 부위를 고정하고 대퇴골 내측면을 외하방으로 민다.",
-        "mob_position": "Supine (고관절 외반 및 외회전 - 개구리 자세)",
-        "mob_technique": "치골 결합 부위를 고정하고 대퇴골 내측면을 외하방으로 민다.",
-        "mob_grade": "Grade II~III (고관절 외반 가동)",
-        "glide_vector": "Infero-Lateral Femoral Glide (하외측 대퇴 미끄러짐)",
-        "active": "⚡ [진행방법] 밴드 저항 내전근 등척성 운동 12회x3세트.",
-        "passive": "🌿 [진행방법] 나비 자세 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 26,
-        "title": "복직근/복사근 유착 및 흉복부 경직",
-        "category": "흉추및코어",
-        "keywords": ["복직근 유착", "복사근", "흉복부 경직", "코어 근막"],
-        "test": "Abdominal Wall Tension & ROM Test",
-        "trigger_points": "1) 복직근 늑골 부착부 TP. 2) 외복사근 TP.",
-        "direct": "복직근, 외/내복사근, 흉요근막",
-        "indirect": "요추 기립근, 대흉근",
-        "mfr": "✋ [손동작/방향] 늑골 하단 테두리를 지그시 고정하고 하복부 근막 사슬을 하방으로 부드럽게 글라이딩시킴.",
-        "mobilization": "🔓 [손동작/방향] 늑골 하단 테두리를 지그시 고정하고 하복부 근막 사슬을 하방으로 부드럽게 글라이딩시킴.",
-        "mob_position": "Supine (무릎을 살짝 구부린 자세)",
-        "mob_technique": "늑골 하단 테두리를 지그시 고정하고 하복부 근막 사슬을 하방으로 부드럽게 글라이딩시킴.",
-        "mob_grade": "Grade I~II (미세 근막-관절 연동 이완)",
-        "glide_vector": "Inferior Fascial Glide (하방 근막 미끄러짐)",
-        "active": "⚡ [진행방법] 데드버그 및 복부 호흡 통제 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 복부 신전 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 27,
-        "title": "퇴행성 무릎 관절염",
-        "category": "하지및발",
-        "keywords": ["무릎 관절염", "퇴행성", "무릎 통증", "Knee OA"],
-        "test": "Patellar Tap Test & McMurray Test",
-        "trigger_points": "1) 대퇴사두근 건부 TP. 2) 비복근 내측두 TP.",
-        "direct": "슬관절 연골판, 경정강관절",
-        "indirect": "햄스트링, 고관절 외회전근",
-        "mfr": "✋ [손동작/방향] 무릎 상단 대퇴사두근 및 종아리 근육 3분간 부드러운 이완.",
-        "mobilization": "🔓 [손동작/방향] 양손으로 하경골 근위부를 잡고 장축 방향으로 부드럽게 수직 견인(Traction)을 가함.",
-        "mob_position": "Supine (무릎 30도 굴곡 미세 이완 자세)",
-        "mob_technique": "양손으로 하경골 근위부를 잡고 장축 방향으로 부드럽게 수직 견인(Traction)을 가함.",
-        "mob_grade": "Grade I~II (관절 내압 감소 및 통증 완화)",
-        "glide_vector": "Longitudinal Tibial Distraction (경골 장축 수직 견인)",
-        "active": "⚡ [진행방법] 무릎 부하 없는 대퇴사두근 등척성(SLR) 15회x3세트.",
-        "passive": "🌿 [진행방법] 가벼운 무릎 굴곡/신전 패시브 ROM 30초x3세트."
-      },
-      {
-        "id": 28,
-        "title": "슬개대퇴 통증 증후군 (PFPS)",
-        "category": "하지및발",
-        "keywords": ["PFPS", "슬개대퇴", "무릎 전방 통증", "슬개골 트래킹"],
-        "test": "Patellar Compression Test & Clarke's Sign",
-        "trigger_points": "1) 외측광근 TP. 2) TFL TP.",
-        "direct": "외측광근, 슬개건, 슬개골 지대",
-        "indirect": "내측광근(VMO), 중둔근",
-        "mfr": "✋ [손동작/방향] 허벅지 외측광근 및 TFL 3분간 밀어내며 MFR.",
-        "mobilization": "🔓 [손동작/방향] 슬개골(Patella) 상단 및 측면에 양 엄지를 대고 내측, 외측, 하방으로 슬개골을 부드럽게 미끄러트림.",
-        "mob_position": "Supine (무릎 완전히 편 자세)",
-        "mob_technique": "슬개골(Patella) 상단 및 측면에 양 엄지를 대고 내측, 외측, 하방으로 슬개골을 부드럽게 미끄러트림.",
-        "mob_grade": "Grade II~III (슬개골 가동성 완전 복원)",
-        "glide_vector": "Medial-Inferior Patellar Glide (슬개골 내하방 미끄러짐)",
-        "active": "⚡ [진행방법] VMO(내측광근) 고립 신전 운동 15회x3세트.",
-        "passive": "🌿 [진행방법] 대퇴사두근 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 29,
-        "title": "거위발건염 및 무릎 내측 통증",
-        "category": "하지및발",
-        "keywords": ["거위발건염", "무릎 내측", "봉공근", "박근", "반건양근"],
-        "test": "Pes Anserine Bursitis Palpation Test",
-        "trigger_points": "1) 봉공근/박근 건부착부 TP. 2) 반건양근 TP.",
-        "direct": "거위발 건 (봉공근, 박근, 반건양근)",
-        "indirect": "내전근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 허벅지 내측 하단 거위발 부착부 주변 가볍게 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 대퇴골 내경상을 고정하고 경골 근위부를 내회전 및 후방으로 미끄러트림.",
-        "mob_position": "Supine (무릎 90도 굴곡)",
-        "mob_technique": "대퇴골 내경상을 고정하고 경골 근위부를 내회전 및 후방으로 미끄러트림.",
-        "mob_grade": "Grade II (경골 내측회전 제한 해제)",
-        "glide_vector": "Posterior-Internal Rotation Tibial Glide (경골 후방 내회전 미끄러짐)",
-        "active": "⚡ [진행방법] 슬관절 굴곡근 통제 훈련 12회x3세트.",
-        "passive": "🌿 [진행방법] 햄스트링 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 30,
-        "title": "장경골단 증후군 / 무릎 외측 통증",
-        "category": "하지및발",
-        "keywords": ["장경골단", "IT Band", "무릎 외측", "Ober Test"],
-        "test": "Ober's Test & Noble Compression Test",
-        "trigger_points": "1) TFL/대둔근 연결부 TP. 2) 외측광근 TP.",
-        "direct": "장경골단, 대퇴근막장근, 비골두",
-        "indirect": "중둔근, 비복근 외측",
-        "mfr": "✋ [손동작/방향] 허벅지 외측 IT-Band 및 TFL 3분간 부드러운 전완 MFR.",
-        "mobilization": "🔓 [손동작/방향] 비골두(Fibular Head)에 손날을 대고 후방 및 전방으로 비골두를 이동시켜 대퇴 외측 장력을 해소함.",
-        "mob_position": "Side-lying (옆으로 누운 자세)",
-        "mob_technique": "비골두(Fibular Head)에 손날을 대고 후방 및 전방으로 비골두를 이동시켜 대퇴 외측 장력을 해소함.",
-        "mob_grade": "Grade II~III (대퇴-비골 관절 가동)",
-        "glide_vector": "Anterior-Posterior Fibular Head Glide (비골두 전후방 미끄러짐)",
-        "active": "⚡ [진행방법] 중둔근 강화 15회x3세트.",
-        "passive": "🌿 [진행방법] 장경골단 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 31,
-        "title": "십자인대 손상 후 재활 경직",
-        "category": "하지및발",
-        "keywords": ["십자인대", "ACL", "PCL", "무릎 경직", "재활"],
-        "test": "Lachman Test & Anterior/Posterior Drawer Test",
-        "trigger_points": "1) 햄스트링 TP. 2) 오금근 TP.",
-        "direct": "십자인대 주변 관절낭, 경정강관절",
-        "indirect": "대퇴사두근, 비복근",
-        "mfr": "✋ [손동작/방향] 대퇴사두근 및 햄스트링 근복 3분간 이완.",
-        "mobilization": "🔓 [손동작/방향] 대퇴골 하단을 고정하고, 경골 상단을 잡고 전방(ACL 적용) 또는 후방(PCL 적용)으로 체중을 실어 당기거나 믊.",
-        "mob_position": "Supine (무릎 90도 굴곡)",
-        "mob_technique": "대퇴골 하단을 고정하고, 경골 상단을 잡고 전방(ACL 적용) 또는 후방(PCL 적용)으로 체중을 실어 당기거나 믊.",
-        "mob_grade": "Grade II~III (경골 전후방 가동)",
-        "glide_vector": "Anterior/Posterior Tibial Glide (경골 전/후방 미끄러짐)",
-        "active": "⚡ [진행방법] 무릎 굴곡/신전 액티브 ROM 12회x3세트.",
-        "passive": "🌿 [진행방법] 무릎 패시브 가동 스트레칭 30초x3세트."
-      },
-      {
-        "id": 32,
-        "title": "전방 십자인대 보상성 햄스트링 과단축",
-        "category": "하지및발",
-        "keywords": ["햄스트링 단축", "ACL 보상", "오금 통증", "무릎 신전 제한"],
-        "test": "Active Knee Extension Test",
-        "trigger_points": "1) 햄스트링 근복 TP. 2) 좌골결절 부착부 TP.",
-        "direct": "햄스트링, 좌골결절",
-        "indirect": "대둔근, 비복근",
-        "mfr": "✋ [손동작/방향] 햄스트링 전체 좌골 결절에서 오금까지 3분간 슬라이딩 MFR.",
-        "mobilization": "🔓 [손동작/방향] 대퇴골 후면을 고정하고 경골 근위부를 장축으로 견인하며 무릎 신전을 유도함.",
-        "mob_position": "Supine (고관절 90도 굴곡)",
-        "mob_technique": "대퇴골 후면을 고정하고 경골 근위부를 장축으로 견인하며 무릎 신전을 유도함.",
-        "mob_grade": "Grade III (좌골 결절-경골 간격 확보)",
-        "glide_vector": "Axial Tibial Distraction (경골 축 방향 견인)",
-        "active": "⚡ [진행방법] 햄스트링 원심성 수축 12회x3세트.",
-        "passive": "🌿 [진행방법] 누워서 다리 펴기 햄스트링 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 33,
-        "title": "만성 발목 불안정성 및 염좌",
-        "category": "하지및발",
-        "keywords": ["발목 불안정성", "발목 염좌", "전거비인대", "거골", "Ankle"],
-        "test": "Anterior Drawer Test & Talar Tilt Test",
-        "trigger_points": "1) 비골근 TP. 2) 전경골근 TP.",
-        "direct": "전거비인대, 거골, 경골 복사뼈",
-        "indirect": "종아리 가자미근, 비복근",
-        "mfr": "✋ [손동작/방향] 종아리 외측 비골근 라인 3분간 마찰 MFR.",
-        "mobilization": "🔓 [손동작/방향] 한 손으로 족경골 복사뼈를 고정하고, 다른 한 손의 웹스페이스(손가락 사이)로 거골(Talus) 전면을 잡아 후방으로 강하게 밀어줌.",
-        "mob_position": "Supine (발목을 테이블 끝 바깥으로 뺌)",
-        "mob_technique": "한 손으로 족경골 복사뼈를 고정하고, 다른 한 손의 웹스페이스(손가락 사이)로 거골(Talus) 전면을 잡아 후방으로 강하게 밀어줌.",
-        "mob_grade": "Grade II~III (거골 후방 활주 - 배측굴곡 제한 완화)",
-        "glide_vector": "Posterior Talars Glide (거골 후방 미끄러짐)",
-        "active": "⚡ [진행방법] 밴드 외번 및 고유수용감각 밸런스 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 발목 배측굴곡 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 34,
-        "title": "족저근막염",
-        "category": "하지및발",
-        "keywords": ["족저근막염", "발바닥 통증", "뒤꿈치", "Windlass Test"],
-        "test": "Windlass Test & 종골 내측 압통 검사",
-        "trigger_points": "1) 종골 내측 족저근막 부착부 TP. 2) 가자미근 TP.",
-        "direct": "족저근막, 종골, 족중골",
-        "indirect": "종아리 비복근/가자미근, 햄스트링",
-        "mfr": "✋ [손동작/방향] 뒤꿈치 종골 내측에서 발가락 방향으로 방사형 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 종골(Calcanues)을 한 손으로 잡고 외반/내반 회전 가동을 가하며, 다른 한 손으로 설상골/주상골을 상방으로 미끄러트림.",
-        "mob_position": "Prone (무릎 90도 굴곡)",
-        "mob_technique": "종골(Calcanues)을 한 손으로 잡고 외반/내반 회전 가동을 가하며, 다른 한 손으로 설상골/주상골을 상방으로 미끄러트림.",
-        "mob_grade": "Grade II~III (거발관절 및 족중골 가동)",
-        "glide_vector": "Plantar-Dorsal Midtarsal Glide (족중골 배/족저방 교차 미끄러짐)",
-        "active": "⚡ [진행방법] 수건 발가락 집어 당기기 15회x3세트.",
-        "passive": "🌿 [진행방법] 발가락 젖히기 발바닥 스트레칭 30초x3세트."
-      },
-      {
-        "id": 35,
-        "title": "아킬레스 건염",
-        "category": "하지및발",
-        "keywords": ["아킬레스 건염", "발목 뒤쪽", "종골", "가자미근"],
-        "test": "Mattheles' Sign & Thompson Test",
-        "trigger_points": "1) 가자미근 TP. 2) 비복근 건부착부 TP.",
-        "direct": "아킬레스건, 종골, 비복/가자미근",
-        "indirect": "족저근막, 햄스트링",
-        "mfr": "✋ [손동작/방향] 종아리 심부 가자미근 및 아킬레스건 양옆 3분간 쓸어올리듯 이완.",
-        "mobilization": "🔓 [손동작/방향] 종골(Calcaneus)을 잡고 아킬레스건 부착부 반대 방향(하방)으로 수평 견인 가동을 적용함.",
-        "mob_position": "Prone (발목 중립)",
-        "mob_technique": "종골(Calcaneus)을 잡고 아킬레스건 부착부 반대 방향(하방)으로 수평 견인 가동을 적용함.",
-        "mob_grade": "Grade II (종골 후방 하방 가동)",
-        "glide_vector": "Inferior Calcaneal Traction (종골 하방 견인)",
-        "active": "⚡ [진행방법] 원심성 카프 레이즈 12회x3세트.",
-        "passive": "🌿 [진행방법] 종아리 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 36,
-        "title": "무지외반증",
-        "category": "하지및발",
-        "keywords": ["무지외반증", "엄지발가락", "MTP 관절", "제1중족골"],
-        "test": "Hallux Valgus Angle Measurement",
-        "trigger_points": "1) 무지내전근 TP. 2) 장무지신근 TP.",
-        "direct": "제1 중족지절관절, 무지내전근",
-        "indirect": "후경골근, 족저근막",
-        "mfr": "✋ [손동작/방향] 발바닥 무지내전근 및 발가락 사이 공간 3분간 마사지.",
-        "mobilization": "🔓 [손동작/방향] 제1 중족골 머리를 고정하고 엄지발가락 기절골을 외측으로 견인 후 내측으로 회전 가동시킴.",
-        "mob_position": "Supine 또는 Sitting",
-        "mob_technique": "제1 중족골 머리를 고정하고 엄지발가락 기절골을 외측으로 견인 후 내측으로 회전 가동시킴.",
-        "mob_grade": "Grade II~III (제1 중족지절관절 가동)",
-        "glide_vector": "Distraction & Medial Rotation Glide (원위부 견인 및 내측 회전 미끄러짐)",
-        "active": "⚡ [진행방법] 무지외반근 고립 발가락 벌리기 15회x3세트.",
-        "passive": "🌿 [진행방법] 엄지발가락 내측 수동 교정 스트레칭 30초x3세트."
-      },
-      {
-        "id": 37,
-        "title": "지간신경종",
-        "category": "하지및발",
-        "keywords": ["지간신경종", "발가락 저림", "모튼 신경종", "중족골"],
-        "test": "Mulder's Sign",
-        "trigger_points": "1) 제3-4 중족골 사이 TP. 2) 족저근막 전부 TP.",
-        "direct": "총발가락신경, 중족골간",
-        "indirect": "가자미근, 장지굴근",
-        "mfr": "✋ [손동작/방향] 발바닥 중족골 사이 공간 위아래로 부드럽게 3분간 마사지.",
-        "mobilization": "🔓 [손동작/방향] 제3-4 중족골 관절을 양손으로 잡고 서로 반대 방향으로 전후 교차 횡단 가동을 가함.",
-        "mob_position": "Supine",
-        "mob_technique": "제3-4 중족골 관절을 양손으로 잡고 서로 반대 방향으로 전후 교차 횡단 가동을 가함.",
-        "mob_grade": "Grade I~II (중족골 간 공간 넓히기)",
-        "glide_vector": "Transverse Intermetatarsal Glide (중족골 간 횡단 교차 미끄러짐)",
-        "active": "⚡ [진행방법] 발가락 벌리기 및 내재근 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 발가락 신전 및 족저근막 스트레칭 30초x3세트."
-      },
-      {
-        "id": 38,
-        "title": "평발 (Pes Planus)",
-        "category": "하지및발",
-        "keywords": ["평발", "Pes Planus", "주상골", "아치 무너짐", "후경골근"],
-        "test": "Navicular Drop Test & Jack's Test",
-        "trigger_points": "1) 후경골근 TP. 2) 비골근 TP.",
-        "direct": "후경골근, 주상골, 족저근막",
-        "indirect": "가자미근, 중둔근",
-        "mfr": "✋ [손동작/방향] 종아리 내측 정강이뼈 뒤쪽 후경골근 라인 아래서 위로 3분간 MFR.",
-        "mobilization": "🔓 [손동작/방향] 주상골(Navicular) 하단에 엄지를 대고 발바닥에서 발등 방향(Dorsal)으로 수직 압박을 가하여 아치를 세움.",
-        "mob_position": "Supine",
-        "mob_technique": "주상골(Navicular) 하단에 엄지를 대고 발바닥에서 발등 방향(Dorsal)으로 수직 압박을 가하여 아치를 세움.",
-        "mob_grade": "Grade III (주상골 상방 재정렬)",
-        "glide_vector": "Superior-Dorsal Navicular Glide (주상골 상방/발등 방향 미끄러짐)",
-        "active": "⚡ [진행방법] Short Foot Exercise (쇼트 푸트) 15회x3세트.",
-        "passive": "🌿 [진행방법] 종아리 가자미근 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 39,
-        "title": "요족 / 높은 아치 (Pes Cavus)",
-        "category": "하지및발",
-        "keywords": ["요족", "높은 아치", "Pes Cavus", "장비골근"],
-        "test": "Footprint Analysis & Coleman Block Test",
-        "trigger_points": "1) 장비골근 TP. 2) 족저근막 TP.",
-        "direct": "장비골근, 족저근막, 족중골",
-        "indirect": "후경골근, 요방형근",
-        "mfr": "✋ [손동작/방향] 발바닥 족저근막 및 장비골근 부위 부드럽게 3분간 이완.",
-        "mobilization": "🔓 [손동작/방향] 발목 거골 고정하고 족중골 부위를 발바닥 방향(Plantar)으로 지그시 눌러 고정된 아치를 이완시킴.",
-        "mob_position": "Supine",
-        "mob_technique": "발목 거골 고정하고 족중골 부위를 발바닥 방향(Plantar)으로 지그시 눌러 고정된 아치를 이완시킴.",
-        "mob_grade": "Grade II~III (족중부 관절 이완)",
-        "glide_vector": "Plantar Midtarsal Glide (족중골 발바닥 방향 미끄러짐)",
-        "active": "⚡ [진행방법] 발가락 수평 확산(Toe Spread Out) 15회x3세트.",
-        "passive": "🌿 [진행방법] 발바닥 족저근막 패시브 스트레칭 30초x3세트."
-      },
-      {
-        "id": 40,
-        "title": "족하수 및 전경골근 마비성 긴장",
-        "category": "하지및발",
-        "keywords": ["족하수", "Foot Drop", "전경골근", "원위 비경관절"],
-        "test": "Ankle Dorsiflexion Muscle Test (MRC Grade)",
-        "trigger_points": "1) 전경골근 TP. 2) 장지신근 TP.",
-        "direct": "전경골근, 원위 비경관절, 비골",
-        "indirect": "종아리 가자미근",
-        "mfr": "✋ [손동작/방향] 정강이 전외측 전경골근 라인 3분간 결대로 MFR.",
-        "mobilization": "🔓 [손동작/방향] 원위 비경관절(Distal Tibiofibular Joint) 부위를 잡고 비골 하단을 후방으로 밀어 발목 배측굴곡 각도를 확보함.",
-        "mob_position": "Supine",
-        "mob_technique": "원위 비경관절(Distal Tibiofibular Joint) 부위를 잡고 비골 하단을 후방으로 밀어 발목 배측굴곡 각도를 확보함.",
-        "mob_grade": "Grade II~III (비골-경골 하단 관절 가동)",
-        "glide_vector": "Posterior Distal Fibular Glide (원위 비골 후방 미끄러짐)",
-        "active": "⚡ [진행방법] 발목 배측굴곡 액티브 훈련 15회x3세트.",
-        "passive": "🌿 [진행방법] 발목 족저굴곡 패시브 스트레칭 30초x3세트."
-      }
-    ];
-
-    let currentItem = null;
-    let currentStep = 1;
-    let selectedGrade = "low";
-    let timerSec = 180;
-    let timerDuration = 180;
-    let timerInterval = null;
-    let activeCat = "전체";
-    let selectedVas = 5;
-    let lastGeneratedPlan = null;
-
-    const STORAGE_KEY = "rehab_pro_session_logs_v30";
-
-    const symptomsGrid = document.getElementById("symptomsGrid");
-    const searchInput = document.getElementById("searchInput");
-    const categoryTabs = document.getElementById("categoryTabs");
-    const resultCount = document.getElementById("resultCount");
-
-    const sessionModal = document.getElementById("sessionModal");
-    const mClose = document.getElementById("mClose");
-    const mTitle = document.getElementById("mTitle");
-    const mCategory = document.getElementById("mCategory");
-    const mStepTitle = document.getElementById("mStepTitle");
-    const mStepDesc = document.getElementById("mStepDesc");
-    const mTpText = document.getElementById("mTpText");
-    const mDirect = document.getElementById("mDirect");
-    const mIndirect = document.getElementById("mIndirect");
-    const mTestDesc = document.getElementById("mTestDesc");
-    const prevSessionBanner = document.getElementById("prevSessionBanner");
-    const prevSessionText = document.getElementById("prevSessionText");
-
-    const mobAdvancedContainer = document.getElementById("mobAdvancedContainer");
-    const mMobPos = document.getElementById("mMobPos");
-    const mMobTechnique = document.getElementById("mMobTechnique");
-    const btnGradeLow = document.getElementById("btnGradeLow");
-    const btnGradeHigh = document.getElementById("btnGradeHigh");
-    const gradeInfoDesc = document.getElementById("gradeInfoDesc");
-    const svgArtContainer = document.getElementById("svgArtContainer");
-
-    const timerDisplay = document.getElementById("timerDisplay");
-    const btnTimer = document.getElementById("btnTimer");
-    const btnTimerReset = document.getElementById("btnTimerReset");
-    const btnPrevStep = document.getElementById("btnPrevStep");
-    const btnNextStep = document.getElementById("btnNextStep");
-    const btnOpenMemoFromModal = document.getElementById("btnOpenMemoFromModal");
-
-    const btnOpenAssessment = document.getElementById("btnOpenAssessment");
-    const assessmentModal = document.getElementById("assessmentModal");
-    const assessmentClose = document.getElementById("assessmentClose");
-    const assessmentForm = document.getElementById("assessmentForm");
-    const clientRegName = document.getElementById("clientRegName");
-    const clientRegSessionNum = document.getElementById("clientRegSessionNum");
-    const symptomCheckboxes = document.getElementById("symptomCheckboxes");
-
-    const planResultModal = document.getElementById("planResultModal");
-    const planResultClose = document.getElementById("planResultClose");
-    const planResultTitle = document.getElementById("planResultTitle");
-    const planResultBody = document.getElementById("planResultBody");
-    const btnCopyPlan = document.getElementById("btnCopyPlan");
-    const btnSavePlanLog = document.getElementById("btnSavePlanLog");
-
-    const memoModal = document.getElementById("memoModal");
-    const memoClose = document.getElementById("memoClose");
-    const memoForm = document.getElementById("memoForm");
-    const clientNameInput = document.getElementById("clientNameInput");
-    const sessionNumberInput = document.getElementById("sessionNumberInput");
-    const sessionSymptomSelect = document.getElementById("sessionSymptomSelect");
-    const vasBar = document.getElementById("vasBar");
-    const vasValText = document.getElementById("vasValText");
-    const memoNotesInput = document.getElementById("memoNotesInput");
-
-    const logsModal = document.getElementById("logsModal");
-    const logsClose = document.getElementById("logsClose");
-    const btnOpenLogs = document.getElementById("btnOpenLogs");
-    const logsContainer = document.getElementById("logsContainer");
-    const logSearchInput = document.getElementById("logSearchInput");
-    const btnClearAllLogs = document.getElementById("btnClearAllLogs");
-    const toastBox = document.getElementById("toastBox");
-
-    function populate30SessionSelects() {
-      let optionsHtml = "";
-      for (let i = 1; i <= 30; i++) {
-        optionsHtml += `<option value="${i}">${i}/30회 (${i}세션)</option>`;
-      }
-      if (clientRegSessionNum) clientRegSessionNum.innerHTML = optionsHtml;
-      if (sessionNumberInput) sessionNumberInput.innerHTML = optionsHtml;
-    }
-
-    function getLogs() {
-      try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-      } catch (e) { return []; }
-    }
-
-    function saveLogs(logs) {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(logs)); } catch (e) {}
-    }
-
-    function playBeep() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
-        [523.25, 659.25, 783.99].forEach((f, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.frequency.value = f;
-          gain.gain.setValueAtTime(0.3, ctx.currentTime + idx * 0.15);
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + idx * 0.15 + 0.12);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(ctx.currentTime + idx * 0.15);
-          osc.stop(ctx.currentTime + idx * 0.15 + 0.15);
-        });
-      } catch (e) {}
-      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
-    }
-
-    function showToast(msg) {
-      toastBox.textContent = msg;
-      toastBox.style.display = "block";
-      setTimeout(() => { toastBox.style.display = "none"; }, 2500);
-    }
-
-    function renderGrid() {
-      const q = searchInput.value.toLowerCase().trim();
-      const filtered = SYMPTOM_DATA.filter(item => {
-        const matchCat = (activeCat === "전체") || (item.category === activeCat);
-        if (!matchCat) return false;
-        if (!q) return true;
-        return item.title.toLowerCase().includes(q) || 
-               item.keywords.some(k => k.toLowerCase().includes(q)) || 
-               item.test.toLowerCase().includes(q) ||
-               item.direct.toLowerCase().includes(q);
-      });
-
-      resultCount.textContent = filtered.length;
-
-      if (filtered.length === 0) {
-        symptomsGrid.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; padding: 50px 20px; color: #777;">
-            검색 결과가 없습니다.
-          </div>
-        `;
-        return;
-      }
-
-      symptomsGrid.innerHTML = filtered.map(item => `
-        <div class="symptom-card" data-id="${item.id}" data-cat="${item.category}">
-          <div>
-            <div class="card-top">
-              <span class="card-badge ${item.category}">${item.category}</span>
-              <span class="card-id">#${String(item.id).padStart(2,'0')}</span>
-            </div>
-            <div class="card-title">${item.title}</div>
-          </div>
-          <div class="card-box">
-            <strong>🩺 평가법 (TEST)</strong>
-            ${item.test}
-          </div>
-          <button class="card-btn">
-            4단계 매뉴얼 시작 ➔
-          </button>
-        </div>
-      `).join("");
-    }
-
-    symptomsGrid.addEventListener("click", (e) => {
-      const card = e.target.closest(".symptom-card");
-      if (!card) return;
-      const id = parseInt(card.getAttribute("data-id"), 10);
-      openModal(id);
-    });
-
-    function render2DSvgInfographic(title, gradeText, vectorText) {
-      return `
-        <svg width="100%" height="100%" viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="140" fill="#121212" rx="8"/>
-          <line x1="0" y1="70" x2="400" y2="70" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
-          <line x1="200" y1="0" x2="200" y2="140" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
-          
-          <circle cx="150" cy="70" r="28" fill="none" stroke="#555" stroke-width="3"/>
-          <path d="M 185 45 Q 210 70 185 95" fill="none" stroke="#777" stroke-width="4" stroke-linecap="round"/>
-          <line x1="80" y1="70" x2="122" y2="70" stroke="#888" stroke-width="6" stroke-linecap="round"/>
-
-          <circle cx="122" cy="70" r="7" fill="#CCFF00"/>
-          <text x="122" y="50" font-size="9" fill="#CCFF00" font-weight="bold" text-anchor="middle">✋ 손 고정점</text>
-
-          <path d="M 150 70 L 150 115" stroke="#00E5FF" stroke-width="4" stroke-dasharray="3,3"/>
-          <polygon points="150,122 144,110 156,110" fill="#00E5FF"/>
-          
-          <text x="165" y="35" font-size="10" fill="#CCFF00" font-weight="bold">등급: ${gradeText}</text>
-          <text x="165" y="115" font-size="9" fill="#00E5FF" font-weight="bold">벡터: ${vectorText}</text>
-          <text x="15" y="20" font-size="10" fill="#A0A0A0" font-weight="bold">${title}</text>
-        </svg>
-      `;
-    }
-
-    window.openModal = function(id) {
-      currentItem = SYMPTOM_DATA.find(i => i.id === id);
-      if (!currentItem) return;
-      currentStep = 1;
-      selectedGrade = "low";
-
-      mTitle.textContent = currentItem.title;
-      mCategory.textContent = currentItem.category;
-      mTestDesc.textContent = currentItem.test;
-      mDirect.textContent = currentItem.direct;
-      mIndirect.textContent = currentItem.indirect;
-
-      const logs = getLogs();
-      const prevLog = logs.find(l => l.symptomTitle.includes(currentItem.title));
-      if (prevLog) {
-        prevSessionText.innerHTML = `
-          회원: <b>${prevLog.clientName}</b> | 이전 기록: <b>${prevLog.sessionNum || 1}/30회차</b> | 이전 통증점수(VAS): <b style="color:var(--lime);">${prevLog.vasScore}/10점</b>
-          <br><span style="color:#aaa;">메모: ${prevLog.notes || '기록 없음'}</span>
-        `;
-        prevSessionBanner.style.display = "flex";
-      } else {
-        prevSessionBanner.style.display = "none";
-      }
-
-      updateStepView();
-      sessionModal.classList.add("show");
-    };
-
-    function updateStepView() {
-      document.querySelectorAll(".step-btn").forEach((btn, idx) => {
-        btn.classList.toggle("active", (idx + 1) === currentStep);
-      });
-
-      mTpText.textContent = currentItem.trigger_points;
-
-      if (currentStep === 1) {
-        mStepTitle.textContent = "1단계: MFR (근막이완) 손동작 & 매뉴얼";
-        mStepDesc.textContent = currentItem.mfr;
-        mobAdvancedContainer.style.display = "none";
-        setTimer(180);
-      } else if (currentStep === 2) {
-        mStepTitle.textContent = "2단계: 관절가동술 (Mobilization) 상세 메커니즘";
-        mStepDesc.textContent = currentItem.mobilization;
-        
-        mobAdvancedContainer.style.display = "block";
-        mMobPos.textContent = currentItem.mob_position;
-        mMobTechnique.textContent = currentItem.mob_technique;
-        svgArtContainer.innerHTML = render2DSvgInfographic(currentItem.title, currentItem.mob_grade, currentItem.glide_vector);
-        
-        updateGradeUI();
-        setTimer(180);
-      } else if (currentStep === 3) {
-        mStepTitle.textContent = "3단계: 액티브 활성화 (Active) 진행 방법";
-        mStepDesc.textContent = currentItem.active;
-        mobAdvancedContainer.style.display = "none";
-        setTimer(60);
-      } else if (currentStep === 4) {
-        mStepTitle.textContent = "4단계: 패시브 스트레칭 (Passive) 진행 방법";
-        mStepDesc.textContent = currentItem.passive;
-        mobAdvancedContainer.style.display = "none";
-        setTimer(30);
-      }
-
-      btnPrevStep.disabled = (currentStep === 1);
-      btnNextStep.textContent = (currentStep === 4) ? "세션 완료 🏁" : "다음 단계 →";
-    }
-
-    function updateGradeUI() {
-      btnGradeLow.classList.toggle("active", selectedGrade === "low");
-      btnGradeHigh.classList.toggle("active", selectedGrade === "high");
-
-      if (selectedGrade === "low") {
-        gradeInfoDesc.innerHTML = `💡 <b>[${currentItem.mob_grade}] 적용:</b> 관절 가동범위 초기 제한 영역에서 미세 파동을 가하여 신경학적 통증을 완화하고 조직 긴장을 부드럽게 이완합니다.`;
-      } else {
-        gradeInfoDesc.innerHTML = `⚡ <b>활주 벡터(Glide Vector):</b> <span style="color:var(--lime);">${currentItem.glide_vector}</span> 메커니즘을 적용하여 관절낭 유착을 박리하고 가동성(ROM)을 최대로 확보합니다.`;
-      }
-    }
-
-    btnGradeLow.addEventListener("click", () => { selectedGrade = "low"; updateGradeUI(); });
-    btnGradeHigh.addEventListener("click", () => { selectedGrade = "high"; updateGradeUI(); });
-
-    document.querySelectorAll(".step-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        currentStep = parseInt(btn.getAttribute("data-s"), 10);
-        updateStepView();
-      });
-    });
-
-    btnPrevStep.addEventListener("click", () => {
-      if (currentStep > 1) { currentStep--; updateStepView(); }
-    });
-
-    btnNextStep.addEventListener("click", () => {
-      if (currentStep < 4) { currentStep++; updateStepView(); }
-      else { openMemoModal(currentItem.id); }
-    });
-
-    function setTimer(sec) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerDuration = sec;
-      timerSec = sec;
-      updateTimerUI();
-      btnTimer.classList.remove("running");
-      btnTimer.textContent = "▶ 시작";
-    }
-
-    function updateTimerUI() {
-      const m = Math.floor(timerSec / 60);
-      const s = timerSec % 60;
-      timerDisplay.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    }
-
-    btnTimer.addEventListener("click", () => {
-      if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-        btnTimer.classList.remove("running");
-        btnTimer.textContent = "▶ 시작";
-      } else {
-        btnTimer.classList.add("running");
-        btnTimer.textContent = "⏸ 일시정지";
-        timerInterval = setInterval(() => {
-          if (timerSec > 0) {
-            timerSec--;
-            updateTimerUI();
-          } else {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            btnTimer.classList.remove("running");
-            btnTimer.textContent = "▶ 시작";
-            playBeep();
-            showToast("⏰ 타이머가 완료되었습니다!");
-          }
-        }, 1000);
-      }
-    });
-
-    btnTimerReset.addEventListener("click", () => {
-      setTimer(timerDuration);
-    });
-
-    document.querySelectorAll(".timer-preset-btn[data-time]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const time = parseInt(btn.getAttribute("data-time"), 10);
-        setTimer(time);
-      });
-    });
-
-    mClose.addEventListener("click", () => {
-      sessionModal.classList.remove("show");
-      clearInterval(timerInterval);
-      timerInterval = null;
-    });
-
-    categoryTabs.addEventListener("click", (e) => {
-      const btn = e.target.closest(".cat-btn");
-      if (!btn) return;
-      document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      activeCat = btn.getAttribute("data-category");
-      renderGrid();
-    });
-
-    searchInput.addEventListener("input", () => renderGrid());
-
-    function initAssessmentCheckboxes() {
-      symptomCheckboxes.innerHTML = SYMPTOM_DATA.map(item => `
-        <label class="check-item">
-          <input type="checkbox" name="symptomCheck" value="${item.id}">
-          <span>[${item.category}] ${item.title}</span>
-        </label>
-      `).join("");
-    }
-
-    btnOpenAssessment.addEventListener("click", () => {
-      clientRegName.value = "";
-      clientRegSessionNum.value = "1";
-      document.querySelectorAll('input[name="symptomCheck"]').forEach(cb => cb.checked = false);
-      assessmentModal.classList.add("show");
-    });
-
-    assessmentClose.addEventListener("click", () => assessmentModal.classList.remove("show"));
-    planResultClose.addEventListener("click", () => planResultModal.classList.remove("show"));
-
-    assessmentForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const cName = clientRegName.value.trim();
-      const sNum = parseInt(clientRegSessionNum.value, 10);
-      const checkedBoxes = document.querySelectorAll('input[name="symptomCheck"]:checked');
-
-      if (!cName) {
-        showToast("회원 성함을 입력해주세요.");
-        return;
-      }
-      if (checkedBoxes.length === 0) {
-        showToast("적어도 한 가지 이상의 증상을 선택해주세요.");
-        return;
-      }
-
-      const selectedIds = Array.from(checkedBoxes).map(cb => parseInt(cb.value, 10));
-      const selectedSymptoms = SYMPTOM_DATA.filter(s => selectedIds.includes(s.id));
-
-      generate30SessionPlan(cName, sNum, selectedSymptoms);
-      assessmentModal.classList.remove("show");
-      planResultModal.classList.add("show");
-    });
-
-    function generate30SessionPlan(name, sessionNum, symptoms) {
-      planResultTitle.textContent = `${name} 회원님 30세션 연계 플랜 (${sessionNum}/30회차 진행 중)`;
-      
-      const primarySymptom = symptoms[0];
-      const nextSessionNum = sessionNum < 30 ? sessionNum + 1 : 30;
-      
-      let phaseTitle = "초기 기능 회복 및 MFR 집중 단계 (1~10세션)";
-      let nextFocus = "가동범위 회복 및 관절가동술 고도화";
-      if (sessionNum > 10 && sessionNum <= 20) {
-        phaseTitle = "중기 가동범위 및 액티브 활성화 단계 (11~20세션)";
-        nextFocus = "안정근 활성화 및 기능적 운동사슬 연결";
-      } else if (sessionNum > 20) {
-        phaseTitle = "후기 일상 복귀 및 퍼포먼스 통합 단계 (21~30세션)";
-        nextFocus = "고유수용감각 강화 및 홈워크 자립 완성";
-      }
-
-      let multiSymptomGuide = "";
-      if (symptoms.length > 1) {
-        const subSymptomsList = symptoms.slice(1).map(s => `• <b>${s.title}</b>: ${s.mfr}`).join("<br>");
-        multiSymptomGuide = `
-          <div style="background:rgba(0,229,255,0.08); border:1px solid var(--cyan); border-radius:8px; padding:10px; margin-top:8px; font-size:0.83rem;">
-            <span style="color:var(--cyan); font-weight:800;">💡 선택된 병행 복합 증상 연계 케어:</span><br>${subSymptomsList}
-          </div>
-        `;
-      }
-
-      let html = `
-        <div style="margin-bottom:14px; background:var(--bg-card); padding:12px 14px; border-radius:10px; border:1px solid var(--border-color);">
-          <div style="font-size:0.82rem; color:var(--text-gray);">30세션 로드맵 매니저</div>
-          <div style="font-size:1rem; font-weight:800; color:#fff; margin-top:2px;">👤 ${name} 회원님 — <span style="color:var(--lime);">${sessionNum}/30회차 세션</span></div>
-          <div style="font-size:0.85rem; color:var(--cyan); margin-top:4px;">📌 현재 단계: ${phaseTitle}</div>
-          <div style="font-size:0.82rem; color:var(--orange); margin-top:2px;">🔄 완료 시 다음 세션(<b>${nextSessionNum}/30회차</b>) 자동 연계 프로그램 제공</div>
-        </div>
-
-        <h3 style="color:var(--lime); font-size:1rem; margin-bottom:10px;">⏱️ 이번 ${sessionNum}/30회차 50분 현장 맞춤 타임테이블</h3>
-
-        <div class="plan-block">
-          <h4>🔥 [00분 ~ 10분] 1단계: 정밀 MFR (손동작 & 근막이완)</h4>
-          <p><strong>타겟 부위:</strong> ${primarySymptom.title} 직접 연관 부위 (${primarySymptom.direct})</p>
-          <p style="margin-top:4px;"><strong>주요 테크닉:</strong> ${primarySymptom.mfr}</p>
-          ${multiSymptomGuide}
-        </div>
-
-        <div class="plan-block">
-          <h4>🔓 [10분 ~ 25분] 2단계: 관절가동술 (Mobilization)</h4>
-          <p><strong>포지션 & 기법:</strong> ${primarySymptom.mob_position} / ${primarySymptom.mob_technique}</p>
-          <p style="margin-top:4px;"><strong>활주 벡터:</strong> <span style="color:var(--cyan)">${primarySymptom.glide_vector}</span></p>
-        </div>
-
-        <div class="plan-block">
-          <h4>⚡ [25분 ~ 40분] 3단계: 액티브 활성화 (Active Exercise)</h4>
-          <p><strong>진행 방법:</strong> ${primarySymptom.active}</p>
-        </div>
-
-        <div class="plan-block">
-          <h4>🌿 [40분 ~ 50분] 4단계: 패시브 스트레칭 & 다음 세션(${nextSessionNum}/30회차) 연계 프리뷰</h4>
-          <p><strong>진행 방법:</strong> ${primarySymptom.passive}</p>
-          <p style="margin-top:4px; color:var(--lime);"><strong>🎯 다음 ${nextSessionNum}/30회차 필요 프로그램:</strong> ${nextFocus}</p>
-        </div>
-      `;
-
-      planResultBody.innerHTML = html;
-
-      lastGeneratedPlan = {
-        clientName: name,
-        sessionNum: sessionNum,
-        nextSessionNum: nextSessionNum,
-        symptomTitle: primarySymptom.title,
-        notes: `[30세션 중 ${sessionNum}/30회차 수행 완료] 다음 ${nextSessionNum}/30회차 연계 목표: ${nextFocus}`
-      };
-    }
-
-    btnCopyPlan.addEventListener("click", () => {
-      if (!lastGeneratedPlan) return;
-      const text = `[리햅프로 30세션 연계 컨디셔닝 플랜]\n\n👤 회원명: ${lastGeneratedPlan.clientName} 회원님 (${lastGeneratedPlan.sessionNum}/30회차)\n🎯 핵심 프로토콜: ${lastGeneratedPlan.symptomTitle}\n\n${planResultBody.innerText}`;
-      navigator.clipboard.writeText(text).then(() => showToast("📋 30세션 연계 플랜 문구가 복사되었습니다!"));
-    });
-
-    btnSavePlanLog.addEventListener("click", () => {
-      if (!lastGeneratedPlan) return;
-      const newLog = {
-        id: Date.now(),
-        clientName: lastGeneratedPlan.clientName,
-        sessionNum: lastGeneratedPlan.sessionNum,
-        nextSessionNum: lastGeneratedPlan.nextSessionNum,
-        symptomTitle: `[${lastGeneratedPlan.sessionNum}/30회차] ${lastGeneratedPlan.symptomTitle}`,
-        vasScore: 5,
-        notes: lastGeneratedPlan.notes,
-        date: new Date().toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
-      };
-      const logs = getLogs();
-      logs.unshift(newLog);
-      saveLogs(logs);
-      showToast(`✅ ${lastGeneratedPlan.clientName} 회원 ${lastGeneratedPlan.sessionNum}/30회차 저장 완료! 다음 ${lastGeneratedPlan.nextSessionNum}/30회차 프로그램이 세팅되었습니다.`);
-      planResultModal.classList.remove("show");
-    });
-
-    function openMemoModal(preselectedId = null) {
-      sessionSymptomSelect.innerHTML = SYMPTOM_DATA.map(item => `
-        <option value="${item.id}" ${item.id === preselectedId ? 'selected' : ''}>
-          [${item.category}] #${String(item.id).padStart(2,'0')} ${item.title}
-        </option>
-      `).join("");
-
-      clientNameInput.value = "";
-      sessionNumberInput.value = "1";
-      setVas(5);
-      memoNotesInput.value = "";
-      memoModal.classList.add("show");
-    }
-
-    function setVas(v) {
-      selectedVas = v;
-      vasValText.textContent = `${v}점`;
-      document.querySelectorAll(".vas-btn").forEach(btn => {
-        const val = parseInt(btn.getAttribute("data-v"), 10);
-        btn.classList.toggle("selected", val === v);
-      });
-    }
-
-    vasBar.addEventListener("click", (e) => {
-      const btn = e.target.closest(".vas-btn");
-      if (!btn) return;
-      setVas(parseInt(btn.getAttribute("data-v"), 10));
-    });
-
-    memoForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const clientName = clientNameInput.value.trim();
-      const currentSessNum = parseInt(sessionNumberInput.value, 10) || 1;
-      if (!clientName) return;
-
-      const symptomId = parseInt(sessionSymptomSelect.value, 10);
-      const symptomObj = SYMPTOM_DATA.find(s => s.id === symptomId);
-      const nextSessNum = currentSessNum < 30 ? currentSessNum + 1 : 30;
-
-      const newLog = {
-        id: Date.now(),
-        clientName,
-        sessionNum: currentSessNum,
-        nextSessionNum: nextSessNum,
-        symptomTitle: symptomObj ? symptomObj.title : "",
-        symptomCategory: symptomObj ? symptomObj.category : "",
-        vasScore: selectedVas,
-        notes: memoNotesInput.value.trim() || `[${currentSessNum}/30회차 완료] 다음 ${nextSessNum}/30회차 맞춤 프로그램 자동 연계 제공`,
-        date: new Date().toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
-      };
-
-      const logs = getLogs();
-      logs.unshift(newLog);
-      saveLogs(logs);
-
-      showToast(`✅ ${clientName} 회원 ${currentSessNum}/30회차 완료! ➔ 다음 [${nextSessNum}/30회차] 프로그램 연계 준비 완료`);
-      memoModal.classList.remove("show");
-    });
-
-    btnOpenMemoFromModal.addEventListener("click", () => {
-      openMemoModal(currentItem ? currentItem.id : null);
-    });
-
-    memoClose.addEventListener("click", () => memoModal.classList.remove("show"));
-
-    function renderLogs(q = "") {
-      const logs = getLogs();
-      const filtered = logs.filter(l => !q || l.clientName.toLowerCase().includes(q.toLowerCase()));
-
-      if (filtered.length === 0) {
-        logsContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#666;">저장된 30세션 기록이 없습니다.</div>`;
-        return;
-      }
-
-      logsContainer.innerHTML = filtered.map(l => `
-        <div class="log-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:#fff; font-size:1rem;">👤 ${l.clientName} 회원님 <span style="color:var(--lime); font-size:0.85rem;">(${l.sessionNum || 1}/30회차 완료)</span></strong>
-            <span style="font-size:0.75rem; color:#888;">${l.date}</span>
-          </div>
-          <div style="color:var(--cyan); font-size:0.85rem; font-weight:700;">🎯 수행 프로토콜: ${l.symptomTitle}</div>
-          <div style="font-size:0.8rem; color:#ddd;">통증 자각 척도(VAS): <b>${l.vasScore}/10</b> | 🔄 다음 연계: <b style="color:var(--orange);">${l.nextSessionNum || (l.sessionNum ? l.sessionNum + 1 : 2)}/30회차 프로그램 대기 중</b></div>
-          ${l.notes ? `<div style="background:#141414; padding:8px 10px; border-radius:6px; font-size:0.8rem; color:#ccc; margin-top:4px; white-space:pre-line;">${l.notes}</div>` : ''}
-          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
-            <button class="btn-header" style="font-size:0.72rem; padding:4px 8px; color:var(--lime);" onclick="startNextSession(${l.id})">⚡ 다음(${l.nextSessionNum || 2}/30회차) 프로그램 시작</button>
-            <button class="btn-header" style="font-size:0.72rem; padding:4px 8px; color:var(--cyan);" onclick="copyLogShare(${l.id})">💬 브리핑 복사</button>
-            <button class="btn-header" style="font-size:0.72rem; padding:4px 8px; color:var(--red);" onclick="deleteLogItem(${l.id})">삭제</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    window.startNextSession = function(id) {
-      const log = getLogs().find(l => l.id === id);
-      if (!log) return;
-      showToast(`⚡ ${log.clientName} 회원의 ${log.nextSessionNum || 2}/30회차 맞춤 컨디셔닝 프로그램이 세팅되었습니다!`);
-      logsModal.classList.remove("show");
-    };
-
-    window.deleteLogItem = function(id) {
-      if (!confirm("이 기록을 삭제하시겠습니까?")) return;
-      let logs = getLogs().filter(l => l.id !== id);
-      saveLogs(logs);
-      renderLogs(logSearchInput.value);
-      showToast("삭제되었습니다.");
-    };
-
-    window.copyLogShare = function(id) {
-      const log = getLogs().find(l => l.id === id);
-      if (!log) return;
-      const text = `[리햅프로 30세션 컨디셔닝 리포트]\n\n👤 회원명: ${log.clientName} 회원님 (${log.sessionNum || 1}/30회차 완료)\n📅 일시: ${log.date}\n🎯 프로토콜: ${log.symptomTitle}\n🩺 통증점수(VAS): ${log.vasScore}/10\n🔄 다음 세션 연계: ${log.nextSessionNum || 2}/30회차 프로그램 준비됨\n\n📝 피드백 메모:\n${log.notes || '4단계 컨디셔닝을 성공적으로 수행하였습니다.'}`;
-      navigator.clipboard.writeText(text).then(() => showToast("📋 30세션 연계 리포트 카톡 브리핑 문구가 복사되었습니다!"));
-    };
-
-    btnOpenLogs.addEventListener("click", () => {
-      renderLogs();
-      logsModal.classList.add("show");
-    });
-
-    logsClose.addEventListener("click", () => logsModal.classList.remove("show"));
-    logSearchInput.addEventListener("input", (e) => renderLogs(e.target.value));
-
-    btnClearAllLogs.addEventListener("click", () => {
-      if (confirm("모든 30세션 기록을 삭제하시겠습니까?")) {
-        localStorage.removeItem(STORAGE_KEY);
-        renderLogs();
-        showToast("전체 기록이 삭제되었습니다.");
-      }
-    });
-
-    [sessionModal, assessmentModal, planResultModal, memoModal, logsModal].forEach(m => {
-      m.addEventListener("click", (e) => {
-        if (e.target === m) {
-          m.classList.remove("show");
-          if (m === sessionModal) { clearInterval(timerInterval); timerInterval = null; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rehab Pro (리햅프로) - 맞춤형 모빌리티 & 컨디셔닝 솔루션</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            lime: '#CCFF00',
+                            cyan: '#00E5FF',
+                            dark: '#0A0E17',
+                            card: '#121824',
+                            border: '#1E293B'
+                        }
+                    }
+                }
+            }
         }
-      });
-    });
+    </script>
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #0A0E17; color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .neon-border-lime { border: 1px solid #CCFF00; box-shadow: 0 0 10px rgba(204, 255, 0, 0.2); }
+        .neon-border-cyan { border: 1px solid #00E5FF; box-shadow: 0 0 10px rgba(0, 229, 255, 0.2); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0A0E17; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #00E5FF; }
+        .hotspot-dot { transition: all 0.3s ease; cursor: pointer; }
+        .hotspot-dot:hover { transform: scale(1.5); filter: drop-shadow(0 0 8px #CCFF00); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col custom-scrollbar pb-16">
 
-    function init() {
-      const bAll = document.getElementById("bAll");
-      const bUpper = document.getElementById("bUpper");
-      const bCore = document.getElementById("bCore");
-      const bLower = document.getElementById("bLower");
+    <!-- Header / Navbar -->
+    <header class="bg-[#121824] border-b border-[#1E293B] sticky top-0 z-40 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#CCFF00] to-[#00E5FF] p-0.5 flex items-center justify-center">
+                    <div class="w-full h-full bg-[#0A0E17] rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid font-black text-transparent bg-clip-text bg-gradient-to-r from-[#CCFF00] to-[#00E5FF] fa-bolt text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wider text-white flex items-center gap-2">
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded bg-[#CCFF00]/10 text-[#CCFF00] border border-[#CCFF00]/30 font-semibold">v3.0 Master</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">1:1 맞춤형 컨디셔닝 & 30세션 체인 엔진</p>
+                </div>
+            </div>
 
-      if (bAll) bAll.textContent = SYMPTOM_DATA.length;
-      if (bUpper) bUpper.textContent = SYMPTOM_DATA.filter(s => s.category === "상체").length;
-      if (bCore) bCore.textContent = SYMPTOM_DATA.filter(s => s.category === "흉추및코어").length;
-      if (bLower) bLower.textContent = SYMPTOM_DATA.filter(s => s.category === "하지및발").length;
-      
-      populate30SessionSelects();
-      renderGrid();
-      initAssessmentCheckboxes();
-    }
+            <!-- Active Member Quick Bar & Nav -->
+            <div class="flex items-center gap-4">
+                <div id="active-member-badge" class="hidden md:flex items-center gap-2 bg-[#0A0E17] px-3 py-1.5 rounded-lg border border-[#1E293B]">
+                    <i class="fa-solid fa-user-check text-[#00E5FF]"></i>
+                    <span class="text-xs text-gray-400">선택 회원:</span>
+                    <span id="current-member-name" class="text-sm font-bold text-[#CCFF00]">미선택</span>
+                    <span id="current-member-session" class="text-xs bg-[#00E5FF]/20 text-[#00E5FF] px-1.5 py-0.5 rounded">(0/30회)</span>
+                </div>
+                <button onclick="openMemberModal()" class="bg-[#1E293B] hover:bg-gray-800 text-white text-xs px-3 py-2 rounded-lg transition flex items-center gap-1.5 border border-gray-700">
+                    <i class="fa-solid fa-users text-[#CCFF00]"></i> 회원 관리
+                </button>
+            </div>
+        </div>
+    </header>
 
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", init);
-    } else {
-      init();
-    }
-  </script>
+    <!-- Main Workspace Area -->
+    <main class="max-w-7xl mx-auto w-full px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
+        
+        <!-- Left Column: 22 Hotspots & Interactive Anatomy UI (5 Cols) -->
+        <section class="lg:col-span-5 bg-[#121824] rounded-2xl border border-[#1E293B] p-5 flex flex-col gap-4 shadow-xl">
+            <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-[#CCFF00] fa-crosshairs text-[#CCFF00]"></i> 22가지 연쇄 통증 핫스팟 해부도
+                </h2>
+                <span class="text-[11px] text-[#00E5FF] bg-[#00E5FF]/10 px-2 py-0.5 rounded border border-[#00E5FF]/20">Interactive Canvas</span>
+            </div>
+
+            <!-- Anatomy Tab Selection -->
+            <div class="grid grid-cols-3 gap-2 bg-[#0A0E17] p-1 rounded-xl border border-[#1E293B]">
+                <button id="tab-upper" onclick="switchAnatomyTab('upper')" class="py-2 text-xs font-bold rounded-lg transition text-[#CCFF00] bg-[#121824] border border-[#CCFF00]/30 shadow">
+                    상체 (목/어깨)
+                </button>
+                <button id="tab-mid" onclick="switchAnatomyTab('mid')" class="py-2 text-xs font-bold rounded-lg transition text-gray-400 hover:text-white">
+                    중체 (골반/코어)
+                </button>
+                <button id="tab-lower" onclick="switchAnatomyTab('lower')" class="py-2 text-xs font-bold rounded-lg transition text-gray-400 hover:text-white">
+                    하체 (무릎/발목)
+                </button>
+            </div>
+
+            <!-- SVG Anatomy Visualizer Box -->
+            <div class="relative w-full h-[400px] bg-[#0A0E17] rounded-xl border border-[#1E293B] overflow-hidden flex items-center justify-center p-2">
+                <!-- Dynamic SVG Silhouette Canvas -->
+                <svg id="anatomy-svg" class="w-full h-full max-h-[380px]" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Base Anatomical Silhouette (Stylized Line Art) -->
+                    <g id="body-silhouette" stroke="#334155" stroke-width="1.5" fill="none" opacity="0.6">
+                        <!-- Head & Neck -->
+                        <path d="M150 30 C 130 30, 130 65, 150 70 C 170 65, 170 30, 150 30 Z" />
+                        <path d="M142 70 L 140 90 M 158 70 L 160 90" />
+                        <!-- Shoulders & Torso -->
+                        <path d="M140 90 C 110 95, 80 110, 70 120 L 80 170 L 105 170 L 110 210 L 130 220 L 150 220 L 170 220 L 190 210 L 195 170 L 220 170 L 230 120 C 220 110, 190 95, 160 90" />
+                        <!-- Arms & Hands with 5-finger Indicators -->
+                        <path d="M70 120 L 55 180 L 45 230 C 40 240, 35 250, 40 255 M 230 120 L 245 180 L 255 230 C 260 240, 265 250, 260 255" />
+                        <circle cx="40" cy="255" r="4" stroke="#00E5FF" stroke-width="1" />
+                        <circle cx="260" cy="255" r="4" stroke="#00E5FF" stroke-width="1" />
+                        <!-- Spine & Pelvis -->
+                        <path d="M150 90 L 150 220" stroke-dasharray="3,3" />
+                        <path d="M130 220 C 120 240, 130 260, 150 260 C 170 260, 180 240, 170 220 Z" />
+                        <!-- Legs & Feet -->
+                        <path d="M130 260 L 125 320 L 120 370 L 110 380 M 170 260 L 175 320 L 180 370 L 190 380" />
+                    </g>
+
+                    <!-- Interactive Vector Hotspots Overlay Group -->
+                    <g id="hotspots-group"></g>
+                </svg>
+
+                <!-- Hotspot Legend Overlay -->
+                <div class="absolute bottom-2 left-2 bg-[#121824]/90 backdrop-blur px-2.5 py-1.5 rounded-lg border border-[#1E293B] text-[10px] flex items-center gap-3">
+                    <span class="flex items-center gap-1 text-[#CCFF00]"><i class="fa-solid fa-circle text-[8px]"></i> Trigger Point(TP)</span>
+                    <span class="flex items-center gap-1 text-[#00E5FF]"><i class="fa-solid fa-arrow-right text-[8px]"></i> 방사통 Vector</span>
+                </div>
+            </div>
+
+            <!-- Selected Hotspot Quick Info Card -->
+            <div id="hotspot-info-card" class="bg-[#0A0E17] rounded-xl p-3 border border-[#1E293B] min-h-[90px] flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span id="hotspot-title" class="text-xs font-bold text-[#CCFF00]">핫스팟을 선택하세요</span>
+                        <span id="hotspot-code" class="text-[10px] text-gray-500">TP-00</span>
+                    </div>
+                    <p id="hotspot-desc" class="text-[11px] text-gray-400">해부도 위 라임색 포인트를 클릭하면 관련 원격 통증 및 프로토콜이 연동됩니다.</p>
+                </div>
+                <button id="hotspot-add-btn" onclick="addSelectedHotspotToCombo()" class="hidden mt-2 w-full py-1.5 bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold rounded-lg border border-[#00E5FF]/40 transition text-center">
+                    <i class="fa-solid fa-plus-circle"></i> 맞춤 프로토콜 조합에 추가
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Column: Symptom Selector, Combo Engine & Program Generator (7 Cols) -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+            
+            <!-- 30-Session Chain Summary & Historical N-1 Comparison Banner -->
+            <div id="session-chain-banner" class="bg-gradient-to-r from-[#121824] to-[#1E293B] rounded-2xl p-4 border border-[#00E5FF]/30 flex flex-col md:flex-row justify-between items-center gap-4 relative overflow-hidden">
+                <div class="flex items-center gap-3 z-10">
+                    <div class="w-12 h-12 rounded-xl bg-[#00E5FF]/10 border border-[#00E5FF]/40 flex flex-col items-center justify-center text-[#00E5FF]">
+                        <span class="text-[10px] font-bold">CHAIN</span>
+                        <span id="chain-session-count" class="text-sm font-extrabold">0 / 30</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-300">30세션 누적 연동 체인 엔진</h3>
+                        <p id="chain-prev-summary" class="text-xs text-[#00E5FF] mt-0.5">이전 세션 기록을 비교 불러오는 중...</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 z-10 w-full md:w-auto">
+                    <button onclick="loadPreviousSessionData()" class="w-full md:w-auto bg-[#0A0E17] hover:bg-gray-900 text-xs text-gray-300 px-3 py-2 rounded-lg border border-gray-700 transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-clock-rotate-left text-[#CCFF00]"></i> N-1 세션 비교
+                    </button>
+                </div>
+            </div>
+
+            <!-- 40 Symptom Multi-Selection Engine Card -->
+            <div class="bg-[#121824] rounded-2xl border border-[#1E293B] p-5 flex flex-col gap-4 shadow-xl">
+                <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-[#CCFF00]"></i> 40가지 증상 선택 & 맞춤 가공 (Combo)
+                        </h2>
+                        <p class="text-xs text-gray-400 mt-0.5">다중 증상을 선택하면 공통 TP를 추출하여 통합 4단계 가이드서가 작성됩니다.</p>
+                    </div>
+                    <button onclick="generateCustomProgram()" class="bg-gradient-to-r from-[#CCFF00] to-[#00E5FF] hover:opacity-90 text-black text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 프로그램 생성
+                    </button>
+                </div>
+
+                <!-- Symptom Filter Categories -->
+                <div class="flex gap-2 text-xs">
+                    <button onclick="filterSymptoms('all')" class="symptom-cat-btn px-3 py-1.5 rounded-lg bg-[#CCFF00]/20 text-[#CCFF00] border border-[#CCFF00]/40 font-bold">전체 (40)</button>
+                    <button onclick="filterSymptoms('upper')" class="symptom-cat-btn px-3 py-1.5 rounded-lg bg-[#0A0E17] text-gray-400 border border-[#1E293B]">상체/경추 (14)</button>
+                    <button onclick="filterSymptoms('mid')" class="symptom-cat-btn px-3 py-1.5 rounded-lg bg-[#0A0E17] text-gray-400 border border-[#1E293B]">코어/골반 (12)</button>
+                    <button onclick="filterSymptoms('lower')" class="symptom-cat-btn px-3 py-1.5 rounded-lg bg-[#0A0E17] text-gray-400 border border-[#1E293B]">하체/발목 (14)</button>
+                </div>
+
+                <!-- Symptom Checkboxes Scroll Area -->
+                <div id="symptom-grid" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 max-h-[260px] overflow-y-auto custom-scrollbar p-1">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+
+            <!-- Generated Protocol Preview & Modal Opener -->
+            <div id="custom-program-preview" class="bg-[#121824] rounded-2xl border border-[#1E293B] p-5 hidden flex-col gap-4">
+                <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
+                    <h3 class="text-sm font-bold text-[#CCFF00] flex items-center gap-2">
+                        <i class="fa-solid fa-file-medical"></i> 생성된 맞춤형 4단계 통합 리포트
+                    </h3>
+                    <button onclick="openFullReportModal()" class="text-xs text-[#00E5FF] underline hover:text-cyan-300">
+                        전체 가이드 모달 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                </div>
+                <div id="program-summary-box" class="text-xs text-gray-300 space-y-2 bg-[#0A0E17] p-3 rounded-xl border border-[#1E293B]">
+                    <!-- JS Injected Preview -->
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Before / After Grid Photo Comparator Overlay Drawer Bar -->
+    <div class="fixed bottom-0 left-0 right-0 bg-[#121824] border-t border-[#1E293B] z-30 px-4 py-2.5 shadow-2xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-[#00E5FF] fa-images text-[#00E5FF] text-lg"></i>
+                <div>
+                    <h4 class="text-xs font-bold text-white">Before / After 체형 격자 사진 비교기</h4>
+                    <p class="text-[11px] text-gray-400">이동형 십자선 그리드로 전후 ROM 및 체형 교정 상태를 직관적으로 분석합니다.</p>
+                </div>
+            </div>
+            <button onclick="openPhotoModal()" class="bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold px-3 py-2 rounded-lg border border-[#00E5FF]/40 transition">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> 사진 비교 스튜디오 열기
+            </button>
+        </div>
+    </div>
+
+    <!-- Medical Disclaimer Bottom Fixed Footer -->
+    <footer class="bg-[#0A0E17] border-t border-[#1E293B] py-3 text-center text-[11px] text-gray-500 mb-10">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2">
+            <p>본 앱은 의료기기나 진단 프로그램이 아니며, 1:1 맞춤 컨디셔닝 보조용 툴입니다. 중증 통증 및 질환은 전문 의료기관의 진료를 받아야 합니다.</p>
+            <span class="text-gray-600">Fingerprint Token ID: <span id="fp-id-display" class="font-mono">Generating...</span></span>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS SECTION ==================== -->
+
+    <!-- Member Directory & Registration Modal -->
+    <div id="member-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#121824] rounded-2xl border border-[#1E293B] w-full max-w-lg p-6 flex flex-col gap-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-users text-[#CCFF00]"></i> 회원 등록 및 30세션 관리
+                </h3>
+                <button onclick="closeMemberModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <!-- Member Register Form -->
+            <form id="member-form" onsubmit="handleRegisterMember(event)" class="space-y-3 bg-[#0A0E17] p-3.5 rounded-xl border border-[#1E293B]">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="reg-name" placeholder="회원 이름" required class="bg-[#121824] border border-[#1E293B] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00E5FF]">
+                    <input type="number" id="reg-age" placeholder="나이" required class="bg-[#121824] border border-[#1E293B] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00E5FF]">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="reg-gender" class="bg-[#121824] border border-[#1E293B] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00E5FF]">
+                        <option value="남성">남성</option>
+                        <option value="여성">여성</option>
+                    </select>
+                    <input type="number" id="reg-vas" min="1" max="10" placeholder="초기 VAS 통증점수 (1-10)" required class="bg-[#121824] border border-[#1E293B] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00E5FF]">
+                </div>
+                <input type="text" id="reg-complaint" placeholder="주요 주소증 (예: 오른쪽 어깨 충돌 및 요통)" required class="w-full bg-[#121824] border border-[#1E293B] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00E5FF]">
+                <button type="submit" class="w-full bg-[#CCFF00] hover:bg-lime-400 text-black text-xs font-extrabold py-2.5 rounded-lg transition">
+                    + 신규 회원 등록 (30세션 자동 할당)
+                </button>
+            </form>
+
+            <!-- Existing Members List -->
+            <div class="flex flex-col gap-2">
+                <h4 class="text-xs font-bold text-gray-400">등록된 회원 목록</h4>
+                <div id="members-list-box" class="max-h-48 overflow-y-auto custom-scrollbar space-y-2">
+                    <!-- JS Injected Member Cards -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed 4-Step Protocol & Integrated 3-Min Timer Modal -->
+    <div id="protocol-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#121824] rounded-2xl border border-[#00E5FF]/40 w-full max-w-4xl max-h-[90vh] flex flex-col p-6 shadow-2xl overflow-hidden">
+            <div class="flex justify-between items-center border-b border-[#1E293B] pb-4">
+                <div>
+                    <span id="modal-protocol-tag" class="text-[10px] bg-[#CCFF00]/20 text-[#CCFF00] px-2 py-0.5 rounded border border-[#CCFF00]/30 font-bold">CUSTOM REPORT</span>
+                    <h2 id="modal-protocol-title" class="text-lg font-extrabold text-white mt-1">4단계 맞춤 모빌리티·컨디셔닝 통합 가이드</h2>
+                </div>
+                <button onclick="closeProtocolModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <!-- Scrollable 4-Step Details -->
+            <div id="modal-protocol-body" class="flex-1 overflow-y-auto custom-scrollbar my-4 space-y-4 pr-2">
+                <!-- Step 1: MFR -->
+                <!-- Step 2: Joint Mobilization -->
+                <!-- Step 3: Active Movement -->
+                <!-- Step 4: Passive Stretching -->
+            </div>
+
+            <!-- Integrated 3-Minute Session Timer & Audio Cueing Bar -->
+            <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full border-2 border-[#CCFF00] flex items-center justify-center bg-[#CCFF00]/10">
+                        <i class="fa-solid fa-stopwatch text-[#CCFF00] text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400">단계별 집중 세션 타이머</span>
+                        <div id="timer-display" class="text-2xl font-black text-[#CCFF00] font-mono">03:00</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button id="timer-toggle-btn" onclick="toggleSessionTimer()" class="bg-[#CCFF00] hover:bg-lime-400 text-black text-xs font-bold px-4 py-2.5 rounded-lg transition">
+                        <i class="fa-solid fa-play"></i> 타이머 시작
+                    </button>
+                    <button onclick="resetSessionTimer()" class="bg-[#1E293B] hover:bg-gray-700 text-gray-300 text-xs font-bold px-3 py-2.5 rounded-lg transition">
+                        리셋
+                    </button>
+                    <button onclick="completeCurrentSession()" class="bg-gradient-to-r from-[#00E5FF] to-blue-500 hover:opacity-90 text-black text-xs font-extrabold px-4 py-2.5 rounded-lg transition ml-2">
+                        <i class="fa-solid fa-check-double"></i> 세션 차감 및 완료 저장
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- N-1 Previous Session Comparison Modal -->
+    <div id="history-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#121824] rounded-2xl border border-[#1E293B] w-full max-w-2xl p-6 flex flex-col gap-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
+                <h3 class="text-base font-bold text-[#00E5FF] flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left"></i> 이전 세션 (Session N-1) 기록 비교
+                </h3>
+                <button onclick="closeHistoryModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="history-modal-content" class="text-xs text-gray-300 space-y-3 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                <!-- JS Injected Previous Session Summary -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Before / After Grid Interactive Studio Modal -->
+    <div id="photo-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#121824] rounded-2xl border border-[#1E293B] w-full max-w-5xl max-h-[92vh] flex flex-col p-6 shadow-2xl overflow-hidden">
+            <div class="flex justify-between items-center border-b border-[#1E293B] pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-images text-[#00E5FF]"></i> 2분할 Before / After 사진 격자 비교 스튜디오
+                </h3>
+                <button onclick="closePhotoModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <!-- Photos Grid Canvas Area -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 my-4 overflow-hidden">
+                <!-- Before Canvas Card -->
+                <div class="bg-[#0A0E17] rounded-xl border border-[#1E293B] p-3 flex flex-col gap-2 relative overflow-hidden">
+                    <span class="text-xs font-bold text-[#CCFF00] bg-[#CCFF00]/10 px-2 py-0.5 rounded w-max border border-[#CCFF00]/30">BEFORE (관리 전)</span>
+                    <div class="flex-1 relative bg-black/40 rounded-lg overflow-hidden flex items-center justify-center border border-dashed border-gray-800">
+                        <input type="file" id="upload-before" accept="image/*" onchange="handlePhotoUpload(event, 'before')" class="hidden">
+                        <img id="img-before" class="hidden max-h-full max-w-full object-contain">
+                        <div id="placeholder-before" onclick="document.getElementById('upload-before').click()" class="cursor-pointer text-center p-4 text-gray-500 hover:text-gray-300">
+                            <i class="fa-solid fa-cloud-arrow-up text-3xl mb-1"></i>
+                            <p class="text-xs">Before 사진 업로드</p>
+                        </div>
+                        <!-- Crosshair Grid Overlay -->
+                        <div id="grid-overlay-before" class="absolute inset-0 pointer-events-none hidden">
+                            <div class="w-full h-full border-t border-b border-l border-r border-cyan-500/30 grid grid-cols-4 grid-rows-4">
+                                <div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-b border-cyan-500/20"></div>
+                                <div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-b border-cyan-500/20"></div>
+                                <div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-b border-cyan-500/20"></div>
+                                <div class="border-r border-cyan-500/20"></div><div class="border-r border-cyan-500/20"></div><div class="border-r border-cyan-500/20"></div><div></div>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-full h-[1px] bg-[#CCFF00]"></div>
+                                <div class="h-full w-[1px] bg-[#CCFF00] absolute"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- After Canvas Card -->
+                <div class="bg-[#0A0E17] rounded-xl border border-[#1E293B] p-3 flex flex-col gap-2 relative overflow-hidden">
+                    <span class="text-xs font-bold text-[#00E5FF] bg-[#00E5FF]/10 px-2 py-0.5 rounded w-max border border-[#00E5FF]/30">AFTER (30세션 관리 후)</span>
+                    <div class="flex-1 relative bg-black/40 rounded-lg overflow-hidden flex items-center justify-center border border-dashed border-gray-800">
+                        <input type="file" id="upload-after" accept="image/*" onchange="handlePhotoUpload(event, 'after')" class="hidden">
+                        <img id="img-after" class="hidden max-h-full max-w-full object-contain">
+                        <div id="placeholder-after" onclick="document.getElementById('upload-after').click()" class="cursor-pointer text-center p-4 text-gray-500 hover:text-gray-300">
+                            <i class="fa-solid fa-cloud-arrow-up text-3xl mb-1"></i>
+                            <p class="text-xs">After 사진 업로드</p>
+                        </div>
+                        <!-- Crosshair Grid Overlay -->
+                        <div id="grid-overlay-after" class="absolute inset-0 pointer-events-none hidden">
+                            <div class="w-full h-full border-t border-b border-l border-r border-cyan-500/30 grid grid-cols-4 grid-rows-4">
+                                <div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-b border-cyan-500/20"></div>
+                                <div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-b border-cyan-500/20"></div>
+                                <div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-r border-b border-cyan-500/20"></div><div class="border-b border-cyan-500/20"></div>
+                                <div class="border-r border-cyan-500/20"></div><div class="border-r border-cyan-500/20"></div><div class="border-r border-cyan-500/20"></div><div></div>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-full h-[1px] bg-[#CCFF00]"></div>
+                                <div class="h-full w-[1px] bg-[#CCFF00] absolute"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex justify-between items-center bg-[#0A0E17] p-3 rounded-xl border border-[#1E293B]">
+                <button onclick="toggleGridOverlay()" class="bg-[#1E293B] hover:bg-gray-800 text-xs text-white px-3 py-2 rounded-lg border border-gray-700 transition">
+                    <i class="fa-solid fa-border-all text-[#00E5FF]"></i> 격자 및 십자선 토글
+                </button>
+                <span class="text-[11px] text-gray-400">사진 데이터는 LocalStorage 보안 영역에 자동 저장됩니다.</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        /* ==========================================================================
+           1. IMMUTABLE MASTER DATABASES (40 SYMPTOMS + 22 HOTSPOTS)
+           ========================================================================== */
+        
+        // 40 Symptoms Master DB
+        const SYMPTOMS_DB = [
+            { id: 1, region: 'upper', name: '01. 거북목 및 일자목', tp: '후두하근, 사각근', mfr: '사각근 C3-C6 횡돌기 수직 침투 MFR', jm: 'C2-C7 후하방 활주 (Posterior-Inferior Glide)', active: 'Deep Cervical Flexor Chin Tuck (10회x3세트)', passive: '수동 후두하근 견인 스트레칭 (30초)' },
+            { id: 2, region: 'upper', name: '02. 경추성 두통', tp: '후두하근 C0-C1', mfr: '후두하반경근 핑거팁 Hook MFR', jm: 'C0-C1 상방 견인 및 전방 활주', active: 'Chin Tuck with Isometrics Extension', passive: '후두부 수동 견인 스트레칭' },
+            { id: 3, region: 'upper', name: '03. 경추 신경근 압박', tp: '판상근, 경추지대', mfr: '경추 후면 근막 기전 이완 MFR', jm: '측방 외측 견인 및 반대측 개폐 활주', active: 'Cervical Scapular Retraction', passive: '경추 측굴 수동 가동 신전' },
+            { id: 4, region: 'upper', name: '04. 라운드숄더 & 흉추 후만', tp: '소흉근, 대흉근', mfr: '소흉근 늑골 3-5번 수직 침투 MFR', jm: '흉추 T1-T8 전상방 신전 활주', active: 'Wall-Slide with Forearm Pressure', passive: '소흉근 3D 수동 신전 (30초)' },
+            { id: 5, region: 'upper', name: '05. 흉곽출구증후군 (TOS)', tp: '전/중사각근', mfr: '사각근 삼각 부위 미세 지압 MFR', jm: '1번 늑골 후하방 활주 (Inferior-Posterior)', active: 'First Rib Depression & Scalene Activation', passive: '사각근 및 쇄골하 공간 수동 신전' },
+            { id: 6, region: 'upper', name: '06. 오십견 (동결건)', tp: '관절낭 하부, 견갑하근', mfr: '견갑하근 겨드랑이 안쪽 깊은 MFR', jm: '상완골두 후하방 활주 (Posterior-Inferior)', active: 'Wand Active-Assisted Elevation', passive: '수동 굴곡 및 외회전 신전 (30초x4세트)' },
+            { id: 7, region: 'upper', name: '07. 어깨 충돌증후군', tp: '극상근, 견봉하', mfr: '극상근 건 결절간구 MFR', jm: '상완골 근위부 하방 활주 (Inferior Glide)', active: 'Side-Lying External Rotation', passive: 'Sleeper Stretch (후방 관절낭 수동 신전)' },
+            { id: 8, region: 'upper', name: '08. 극하근 건염', tp: '극하근 중앙', mfr: '극하근 라크로스 볼/핑거 MFR', jm: '상완골두 후방 활주 (Posterior Glide)', active: '회전근개 외회전 수축 운동', passive: '극하근 수동 교차 신전' },
+            { id: 9, region: 'upper', name: '09. 견갑골 고정 및 능형근 과수축', tp: '능형근, 견갑거근', mfr: '견갑골 내측연 능형근 MFR', jm: '견갑골 유격 및 상방회전 (Scapular Distraction)', active: 'Scapular Push-Up Plus', passive: '능형근 수동 교차 스트레칭' },
+            { id: 10, region: 'upper', name: '10. 익상견갑 (Winging)', tp: '전거근, 소흉근', mfr: '전거근 톱니 근복 MFR', jm: '견갑골 전내측 압박 활주', active: 'Scapular Push-Up Plus with Pause', passive: '소흉근 및 승모근 수동 신전' },
+            { id: 11, region: 'upper', name: '11. 테니스 엘보 (외측상과염)', tp: '단요측수근신근', mfr: '전완 외측 근복 수직 MFR', jm: '요골두 후외측 활주 (Posterior-Lateral)', active: 'Eccentric Wrist Extension', passive: '수근신근군 수동 신전 (30초)' },
+            { id: 12, region: 'upper', name: '12. 골퍼 엘보 (내측상과염)', tp: '요측수근굴근', mfr: '전완 내측 근복 스트리핑 MFR', jm: '척골 내하방 활주 (Medial-Inferior)', active: 'Eccentric Wrist Flexion', passive: '수근굴근군 수동 신전 (30초)' },
+            { id: 13, region: 'upper', name: '13. 수근관 증후군', tp: '정중신경, 수근골', mfr: '전완 굴근 및 횡수근인대 MFR', jm: '수근골 간 전후방 교차 활주', active: 'Median Nerve Gliding Exercises', passive: '수근굴근 및 정중신경 수동 신전' },
+            { id: 14, region: 'upper', name: '14. 삼두근 건염', tp: '삼두근 장두', mfr: '삼두근 겨드랑이 하단 기시부 MFR', jm: '주관절 수직 축 방향 견인 (Distraction)', active: 'Triceps Eccentric Extension', passive: '삼두근 장두 수동 만세 신전' },
+
+            // Mid / Core / Pelvis
+            { id: 15, region: 'mid', name: '15. 요추 디스크 (L5-S1)', tp: '요방형근, 이상근', mfr: '요방형근 장골릉 부착부 MFR', jm: 'L5-S1 하방 견인 및 외측 활주', active: 'Modified Curl-Up (McGill Core)', passive: '양무릎 가슴 당기기 수동 신전' },
+            { id: 16, region: 'mid', name: '16. 요방형근 통증 & 짝골반', tp: '요방형근 심부', mfr: '옆구리 12번 늑골-장골릉 침투 MFR', jm: '미측/발 방향 골반 미끄러짐', active: 'Side-Plank with Lateral Hold', passive: '요방근 비대칭 수동 신전' },
+            { id: 17, region: 'mid', name: '17. 척추관 협착증', tp: '척추기립근 하부', mfr: '요추 후면 기립근 이완 MFR', jm: '요추 후방 굴곡 활주 (Posterior Flexion)', active: 'Single/Double Knee to Chest Active', passive: 'Williams Flexion 수동 신전' },
+            { id: 18, region: 'mid', name: '18. 골반 전방경사 (APT)', tp: '대퇴직근, 장요근', mfr: 'AIIS 하단 대퇴직근 MFR', jm: '골반 후방 회전 활주 (Posterior Rotation)', active: 'Posterior Pelvic Tilt Marching', passive: 'Thomas Stretch (장요근/대퇴직근 수동)' },
+            { id: 19, region: 'mid', name: '19. 골반 후방경사 (PPT)', tp: '대둔근, 햄스트링', mfr: '좌골결절 햄스트링 기시부 MFR', jm: '전하방 요추 미끄러짐 (Anterior-Inferior)', active: 'Quadruped Cat-Cow Anterior Focus', passive: '햄스트링 및 대둔근 수동 신전' },
+            { id: 20, region: 'mid', name: '20. 천장관절 증후군 (SIJ)', tp: '천골 기저부, 이상근', mfr: '천장관절 테두리 근막 MFR', jm: '전하방 천골 숙임 활주 (Nutation)', active: 'Isometric Hip Switch', passive: 'FABER Patrick 수동 가동 신전' },
+            { id: 21, region: 'mid', name: '21. 이상근 증후군', tp: '이상근 중앙부', mfr: '이상근 Deep Elbow MFR', jm: '대퇴골두 후방 미끄러짐 (Posterior Glide)', active: 'Glute Max Bridge with Abduction', passive: '이상근 수동 굴곡/내전/외회전 신전' },
+            { id: 22, region: 'mid', name: '22. 고관절 충돌증후군 (FAI)', tp: 'TFL, 대퇴골두 전면', mfr: 'TFL 및 서타구니 전면 MFR', jm: '하외측 축 방향 견인 (Infero-Lateral)', active: 'Quadruped Rocking Neutral Spine', passive: '고관절 견인 및 후방 수동 신전' },
+            { id: 23, region: 'mid', name: '23. 장요근 단축 & 서타구니 찝힘', tp: '배꼽 외측 3cm, 소전자', mfr: '복벽 안쪽 장요근 핑거 MFR', jm: '대퇴골 후방 미끄러짐 (Posterior Glide)', active: 'Lunge Hip Flexor Active Stretch', passive: '수동 Thomas 장요근 이완' },
+            { id: 24, region: 'mid', name: '24. 중둔근 약화 & 짝엉덩이', tp: '중둔근 후부', mfr: '장골릉 하단 중둔근 MFR', jm: '외측 유격 미끄러짐 (Lateral Distraction)', active: 'Clamshell with Neutral Spine', passive: '중둔근 측면 수동 신전' },
+            { id: 25, region: 'mid', name: '25. 내덕근 단축 & 치골통증', tp: '장덕근 치골 부착부', mfr: '내덕근 개구리 자세 MFR', jm: '하외측 대퇴 미끄러짐 (Infero-Lateral)', active: 'Seated Hip Internal Rotation', passive: '개구리 자세 내덕근 수동 신전' },
+            { id: 26, region: 'mid', name: '26. 복직근/복사근 유착', tp: '늑골 연골 하단', mfr: '복부 상부 너클 MFR', jm: '하방 근막 미끄러짐 (Inferior Fascial)', active: 'Diaphragmatic Breathing Draw-in', passive: '복부 전면 3D 수동 신전' },
+
+            // Lower / Ankle
+            { id: 27, region: 'lower', name: '27. 퇴행성 무릎 관절염', tp: '대퇴사두근, 오금', mfr: '대퇴 전면 및 슬와근 MFR', jm: '경골 장축 수직 견인 (Tibial Distraction)', active: 'Straight Leg Raise (SLR)', passive: '슬관절 수동 견인 및 하퇴 신전' },
+            { id: 28, region: 'lower', name: '28. 슬개대퇴 통증 (PFPS)', tp: '외사두근, 슬개골 상단', mfr: '외측광근 및 지지띠 MFR', jm: '슬개골 내하방 활주 (Medial-Inferior)', active: 'Terminal Knee Extension (TKE)', passive: '외측 지지띠 수동 내측 신전' },
+            { id: 29, region: 'lower', name: '29. 거위발건염 (내측통증)', tp: '봉공근, 박근, 반형상근', mfr: '경골 내측 건 부착부 MFR', jm: '경골 후방 내회전 미끄러짐', active: 'Wall-Sit with Ball Squeeze', passive: '거위발건 수동 내측 이완' },
+            { id: 30, region: 'lower', name: '30. 장경골단 증후군 (ITB)', tp: '대퇴근막장근, 비골두', mfr: 'ITB 라인 및 비골두 MFR', jm: '비골두 전후방 미끄러짐 (Anterior-Posterior)', active: 'Side-Lying Hip Abduction', passive: 'Ober Test 응용 장경인대 수동 신전' },
+            { id: 31, region: 'lower', name: '31. 십자인대 보상성 햄스트링', tp: '대퇴이두근 장두', mfr: '햄스트링 중앙 근복 MFR', jm: '경골 전/후방 활주 (Anterior/Posterior)', active: 'Single-Leg Balance Proprioception', passive: '무릎 완전 신전 수동 확보' },
+            { id: 32, region: 'lower', name: '32. 만성 발목 불안정성', tp: '전경골근, 비골근', mfr: '전경골근 외측 MFR', jm: '거골 후방 미끄러짐 (Posterior Talars)', active: 'Ankle Eversion with Resistance Band', passive: '아킬레스 및 비골근 수동 배구' },
+            { id: 33, region: 'lower', name: '33. 족저근막염', tp: '종골 내측 부착부', mfr: '발바닥 아치 종골 MFR', jm: '족중골 배/족저방 교차 활주', active: 'Big Toe Extension Calf Raise', passive: 'Windlass Mechanism 족저 수동 신전' },
+            { id: 34, region: 'lower', name: '34. 아킬레스 건염', tp: '가자미근 아킬레스 전환부', mfr: '종아리 심부 핑거 MFR', jm: '종골 하방 견인 (Inferior Calcaneal)', active: 'Alfredson Eccentric Heel Drop', passive: '비복근 및 가자미근 수동 신전' },
+            { id: 35, region: 'lower', name: '35. 무지외반증', tp: '제1 중족지절관절', mfr: '엄지발가락 기절골 MFR', jm: '원위부 견인 및 내측 회전 미끄러짐', active: 'Short Foot Exercise', passive: '제1 중족골 수동 견인 및 회전' },
+            { id: 36, region: 'lower', name: '36. 지간신경종', tp: '제3-4 중족골 간', mfr: '발바닥 중족골 공간 MFR', jm: '중족골 간 횡단 교차 미끄러짐', active: 'Toe Spreading Exercises', passive: '중족골 횡단 수동 유격 이완' },
+            { id: 37, region: 'lower', name: '37. Flat Foot (평발)', tp: '주상골 하단, 전경골근', mfr: '주상골 테두리 근막 MFR', jm: '주상골 상방/발등 방향 미끄러짐', active: 'Short Foot Intrinsic Activation', passive: '비복근 및 후경골근 수동 신전' },
+            { id: 38, region: 'lower', name: '38. Pes Cavus (요족)', tp: '족저근막, 족중골', mfr: '발바닥 높은 아치 MFR', jm: '족중골 발바닥 방향 미끄러짐 (Plantar)', active: 'Foot Pronation Mobility', passive: '족저근막 아치 펼침 수동 신전' },
+            { id: 39, region: 'lower', name: '39. 족하수 (Foot Drop)', tp: '원위 비경관절', mfr: '비골 하단 전경골근 MFR', jm: '원위 비골 후방 미끄러짐', active: 'Active Ankle Dorsiflexion Assist', passive: '발목 배측굴곡 수동 지속 신전' },
+            { id: 40, region: 'lower', name: '40. 대둔근 약화 & 햄스트링 과수축', tp: '대둔근 하부, 햄스트링', mfr: '둔부 및 햄스트링 경계 MFR', jm: '고관절 후방 활주 (Posterior Femoral)', active: 'Glute Thrust with Calf Focus', passive: '햄스트링 수동 슬라이딩 스트레칭' }
+        ];
+
+        // 22 Remote Pain Hotspots Matrix DB
+        const HOTSPOTS_DB = [
+            // Upper Body (1-8)
+            { id: 'H01', tab: 'upper', name: '견갑거근 & C5-C7 신경근', x: 150, y: 75, vx: 110, vy: 110, code: 'TP-01', desc: '날개뼈 상각에서 목 C5-C7 신경근으로 연쇄되는 방사통', symptomId: 9 },
+            { id: 'H02', tab: 'upper', name: '소흉근 & 상완신경총 (TOS)', x: 115, y: 115, vx: 60, vy: 170, code: 'TP-02', desc: '소흉근 포착으로 4, 5번 손가락까지 저림 전이', symptomId: 5 },
+            { id: 'H03', tab: 'upper', name: '사각근 삼각 부위', x: 140, y: 80, vx: 80, vy: 140, code: 'TP-03', desc: '전/중사각근 긴장으로 엄지손가락 방향 방사통', symptomId: 1 },
+            { id: 'H04', tab: 'upper', name: '후두하근 & 대후두신경', x: 150, y: 45, vx: 170, y2: 30, code: 'TP-04', desc: '관자놀이 및 눈 뒤쪽 편두통 유발 연쇄점', symptomId: 2 },
+            { id: 'H05', tab: 'upper', name: '극하근 중앙 TP', x: 185, y: 125, vx: 220, vy: 140, code: 'TP-05', desc: '어깨 전면 심부 및 전두부 연쇄 전이통', symptomId: 8 },
+            { id: 'H06', tab: 'upper', name: '광배근 겨드랑이연', x: 195, y: 150, vx: 180, vy: 210, code: 'TP-06', desc: '어깨 만세 동작 제한 및 요통 전이점', symptomId: 14 },
+            { id: 'H07', tab: 'upper', name: '능형근 & 흉곽연', x: 160, y: 135, vx: 140, vy: 100, code: 'TP-07', desc: '날개뼈 안쪽 뭉침 및 흉곽 호흡 제한', symptomId: 9 },
+            { id: 'H08', tab: 'upper', name: '상완이두근 결절간구', x: 100, y: 130, vx: 80, vy: 180, code: 'TP-08', desc: '어깨 충돌 및 팔꿈치 전면 방사통', symptomId: 10 },
+
+            // Mid Body (9-15)
+            { id: 'H09', tab: 'mid', name: 'L5-S1 신경근 & 이상근', x: 150, y: 225, vx: 180, vy: 350, code: 'TP-09', desc: '허리 디스크에서 새끼발가락 외측 방사통 연쇄', symptomId: 15 },
+            { id: 'H10', tab: 'mid', name: '요방형근 장골릉 부착부', x: 130, y: 205, vx: 110, vy: 240, code: 'TP-10', desc: '짝골반 유발 및 반대쪽 무릎 통증 연쇄', symptomId: 16 },
+            { id: 'H11', tab: 'mid', name: '대퇴직근 AIIS 기시부', x: 135, y: 245, vx: 130, vy: 310, code: 'TP-11', desc: '골반 전방경사 및 만성 요추 과신전 요통', symptomId: 18 },
+            { id: 'H12', tab: 'mid', name: '이상근 대전자 사잇길', x: 165, y: 240, vx: 175, vy: 330, code: 'TP-12', desc: '좌골신경 포착으로 종아리/발바닥 저림', symptomId: 21 },
+            { id: 'H13', tab: 'mid', name: '장요근 복벽 심부', x: 142, y: 210, vx: 140, vy: 250, code: 'TP-13', desc: '서타구니 찝힘 및 고관절 신전 제한', symptomId: 23 },
+            { id: 'H14', tab: 'mid', name: '내덕근 치골 부착부', x: 145, y: 255, vx: 130, vy: 280, code: 'TP-14', desc: '치골 통증 및 골반 측방 경사 요통', symptomId: 25 },
+            { id: 'H15', tab: 'mid', name: 'TFL & 대퇴근막장근', x: 120, y: 235, vx: 115, vy: 310, code: 'TP-15', desc: '무릎 외측 장경골단(ITB) 통증 전이', symptomId: 30 },
+
+            // Lower Body (16-22)
+            { id: 'H16', tab: 'lower', name: '비복근 근복 중앙', x: 175, y: 335, vx: 160, vy: 110, code: 'TP-16', desc: '종아리 단축으로 상부 흉추/어깨 거상 연쇄', symptomId: 16 },
+            { id: 'H17', tab: 'lower', name: '족저근막 종골 부착부', x: 185, y: 375, vx: 180, vy: 340, code: 'TP-17', desc: '아킬레스건 단축 및 오금 통증 연쇄', symptomId: 33 },
+            { id: 'H18', tab: 'lower', name: '전경골근 상부', x: 125, y: 320, vx: 120, vy: 360, code: 'TP-18', desc: '발목 거골 활주 제한 및 무릎 찝힘(PFPS)', symptomId: 28 },
+            { id: 'H19', tab: 'lower', name: '슬와근 오금 심부', x: 170, y: 315, vx: 175, vy: 350, code: 'TP-19', desc: '무릎 완전 신전 제한 및 잠김 현상', symptomId: 27 },
+            { id: 'H20', tab: 'lower', name: '비골두 하단 비골근', x: 180, y: 325, vx: 185, vy: 370, code: 'TP-20', desc: '발목 외측 염좌 후 불안정성 및 외측 무릎 통증', symptomId: 32 },
+            { id: 'H21', tab: 'lower', name: '대퇴이두근 좌골 부착부', x: 165, y: 270, vx: 170, vy: 320, code: 'TP-21', desc: '대둔근 약화 보상 작용 햄스트링 과수축', symptomId: 40 },
+            { id: 'H22', tab: 'lower', name: '제1 중족골 무지외반점', x: 110, y: 380, vx: 120, vy: 350, code: 'TP-22', desc: '족부 아치 무너짐 및 전경골근 마비성 긴장', symptomId: 35 }
+        ];
+
+        /* ==========================================================================
+           2. STATE MANAGEMENT & STORAGE KEYS
+           ========================================================================== */
+        const STORAGE_MEMBERS_KEY = 'rehab_pro_members_v3';
+        const STORAGE_CHAIN_KEY = 'rehab_session_chain_v2';
+        const STORAGE_PHOTOS_KEY = 'rehab_pro_photos_v1';
+        const SECURITY_TOKEN_KEY = 'rehab_pro_device_fp';
+
+        let membersList = [];
+        let activeMember = null;
+        let selectedSymptomIds = new Set();
+        let currentAnatomyTab = 'upper';
+        let selectedHotspot = null;
+        let timerInterval = null;
+        let timerSeconds = 180; // 3 mins default
+        let isTimerRunning = false;
+
+        /* ==========================================================================
+           3. DEVICE FINGERPRINTING & COMPLIANCE
+           ========================================================================== */
+        function initDeviceFingerprint() {
+            let fp = localStorage.getItem(SECURITY_TOKEN_KEY);
+            if (!fp) {
+                // Simple Canvas Fingerprint Hash
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = "top";
+                ctx.font = "14px 'Arial'";
+                ctx.fillStyle = "#f60";
+                ctx.fillRect(125,1,62,20);
+                ctx.fillStyle = "#069";
+                ctx.fillText("RehabProSecurity", 2, 15);
+                const str = canvas.toDataURL();
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                    hash |= 0;
+                }
+                fp = 'FP-' + Math.abs(hash).toString(16).toUpperCase();
+                localStorage.setItem(SECURITY_TOKEN_KEY, fp);
+            }
+            document.getElementById('fp-id-display').innerText = fp;
+        }
+
+        /* ==========================================================================
+           4. MEMBER MANAGEMENT & 30-SESSION CHAIN
+           ========================================================================== */
+        function loadMembers() {
+            const data = localStorage.getItem(STORAGE_MEMBERS_KEY);
+            membersList = data ? JSON.parse(data) : [];
+            renderMembersList();
+        }
+
+        function handleRegisterMember(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const age = document.getElementById('reg-age').value;
+            const gender = document.getElementById('reg-gender').value;
+            const vas = document.getElementById('reg-vas').value;
+            const complaint = document.getElementById('reg-complaint').value.trim();
+
+            const newMember = {
+                id: 'MEM-' + Date.now(),
+                name, age, gender, initialVas: parseInt(vas), complaint,
+                currentSession: 1,
+                totalSessions: 30,
+                createdAt: new Date().toISOString()
+            };
+
+            membersList.push(newMember);
+            localStorage.setItem(STORAGE_MEMBERS_KEY, JSON.stringify(membersList));
+            document.getElementById('member-form').reset();
+            renderMembersList();
+            setActiveMember(newMember.id);
+            closeMemberModal();
+        }
+
+        function renderMembersList() {
+            const box = document.getElementById('members-list-box');
+            if (membersList.length === 0) {
+                box.innerHTML = `<p class="text-xs text-gray-500 text-center py-4">등록된 회원이 없습니다.</p>`;
+                return;
+            }
+            box.innerHTML = membersList.map(m => `
+                <div onclick="setActiveMember('${m.id}')" class="p-2.5 rounded-lg border ${activeMember && activeMember.id === m.id ? 'border-[#CCFF00] bg-[#CCFF00]/10' : 'border-[#1E293B] bg-[#0A0E17]'} hover:border-[#00E5FF] cursor-pointer transition flex justify-between items-center">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-white">${m.name}</span>
+                            <span class="text-[10px] text-gray-400">(${m.gender}, ${m.age}세)</span>
+                        </div>
+                        <p class="text-[11px] text-gray-400 truncate max-w-[200px]">${m.complaint}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-mono font-bold text-[#00E5FF]">${m.currentSession} / ${m.totalSessions}회</span>
+                        <div class="text-[10px] text-gray-500">VAS: ${m.initialVas}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setActiveMember(memberId) {
+            activeMember = membersList.find(m => m.id === memberId);
+            if (!activeMember) return;
+            document.getElementById('current-member-name').innerText = activeMember.name;
+            document.getElementById('current-member-session').innerText = `(${activeMember.currentSession}/30회)`;
+            document.getElementById('chain-session-count').innerText = `${activeMember.currentSession} / 30`;
+            renderMembersList();
+            updateChainSummaryBanner();
+        }
+
+        function updateChainSummaryBanner() {
+            const prevSummaryEl = document.getElementById('chain-prev-summary');
+            if (!activeMember) {
+                prevSummaryEl.innerText = "상단 '회원 관리'에서 회원을 선택해 주세요.";
+                return;
+            }
+
+            const chainData = JSON.parse(localStorage.getItem(STORAGE_CHAIN_KEY) || '{}');
+            const memberChain = chainData[activeMember.id] || [];
+            if (memberChain.length === 0) {
+                prevSummaryEl.innerText = `[${activeMember.name} 회원님] 1회차 세션을 준비 중입니다.`;
+            } else {
+                const lastSession = memberChain[memberChain.length - 1];
+                prevSummaryEl.innerText = `이전 세션(${lastSession.sessionNum}회차) VAS: ${lastSession.vas} | 적용 프로토콜: ${lastSession.symptomsCount}개 증상`;
+            }
+        }
+
+        function loadPreviousSessionData() {
+            if (!activeMember) {
+                alert('회원을 먼저 선택해 주세요.');
+                return;
+            }
+            const chainData = JSON.parse(localStorage.getItem(STORAGE_CHAIN_KEY) || '{}');
+            const memberChain = chainData[activeMember.id] || [];
+            
+            const contentBox = document.getElementById('history-modal-content');
+            if (memberChain.length === 0) {
+                contentBox.innerHTML = `<p class="text-xs text-gray-400 py-4 text-center">저장된 이전 세션 기록이 없습니다.</p>`;
+            } else {
+                contentBox.innerHTML = memberChain.map(s => `
+                    <div class="bg-[#0A0E17] p-3 rounded-xl border border-[#1E293B] space-y-1.5">
+                        <div class="flex justify-between text-xs">
+                            <span class="font-bold text-[#CCFF00]">${s.sessionNum}회차 세션</span>
+                            <span class="text-gray-500">${new Date(s.timestamp).toLocaleDateString()}</span>
+                        </div>
+                        <div class="text-[11px] text-gray-300">
+                            <strong>통증 VAS 점수:</strong> <span class="text-[#00E5FF] font-bold">${s.vas}</span>
+                        </div>
+                        <div class="text-[11px] text-gray-400">
+                            <strong>포함된 증상:</strong> ${s.symptomNames.join(', ')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('history-modal').classList.remove('hidden');
+        }
+
+        function closeHistoryModal() {
+            document.getElementById('history-modal').classList.add('hidden');
+        }
+
+        /* ==========================================================================
+           5. 22 HOTSPOTS ANATOMY CANVAS RENDERER
+           ========================================================================== */
+        function switchAnatomyTab(tab) {
+            currentAnatomyTab = tab;
+            ['upper', 'mid', 'lower'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    btn.className = "py-2 text-xs font-bold rounded-lg transition text-[#CCFF00] bg-[#121824] border border-[#CCFF00]/30 shadow";
+                } else {
+                    btn.className = "py-2 text-xs font-bold rounded-lg transition text-gray-400 hover:text-white";
+                }
+            });
+            renderAnatomyHotspots();
+        }
+
+        function renderAnatomyHotspots() {
+            const svgGroup = document.getElementById('hotspots-group');
+            const filtered = HOTSPOTS_DB.filter(h => h.tab === currentAnatomyTab);
+
+            svgGroup.innerHTML = filtered.map(h => `
+                <!-- Radiation Arrow Vector Line -->
+                <line x1="${h.x}" y1="${h.y}" x2="${h.vx}" y2="${h.vy}" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.8"/>
+                <circle cx="${h.vx}" cy="${h.vy}" r="2.5" fill="#00E5FF" />
+                
+                <!-- Main Trigger Point Dot -->
+                <circle class="hotspot-dot" onclick="selectHotspot('${h.id}')" cx="${h.x}" cy="${h.y}" r="6" fill="#CCFF00" stroke="#0A0E17" stroke-width="1.5"/>
+            `).join('');
+        }
+
+        function selectHotspot(hotspotId) {
+            selectedHotspot = HOTSPOTS_DB.find(h => h.id === hotspotId);
+            if (!selectedHotspot) return;
+
+            document.getElementById('hotspot-title').innerText = selectedHotspot.name;
+            document.getElementById('hotspot-code').innerText = selectedHotspot.code;
+            document.getElementById('hotspot-desc').innerText = selectedHotspot.desc;
+            document.getElementById('hotspot-add-btn').classList.remove('hidden');
+        }
+
+        function addSelectedHotspotToCombo() {
+            if (!selectedHotspot) return;
+            selectedSymptomIds.add(selectedHotspot.symptomId);
+            renderSymptomChecklist();
+            alert(`[${selectedHotspot.name}] 연관 증상이 체크리스트에 추가되었습니다.`);
+        }
+
+        /* ==========================================================================
+           6. SYMPTOM CHECKLIST & CUSTOM COMBO REPORT ENGINE
+           ========================================================================== */
+        function filterSymptoms(cat) {
+            document.querySelectorAll('.symptom-cat-btn').forEach(btn => {
+                btn.className = "symptom-cat-btn px-3 py-1.5 rounded-lg bg-[#0A0E17] text-gray-400 border border-[#1E293B]";
+            });
+            event.target.className = "symptom-cat-btn px-3 py-1.5 rounded-lg bg-[#CCFF00]/20 text-[#CCFF00] border border-[#CCFF00]/40 font-bold";
+            renderSymptomChecklist(cat);
+        }
+
+        function renderSymptomChecklist(filterCat = 'all') {
+            const grid = document.getElementById('symptom-grid');
+            const items = filterCat === 'all' ? SYMPTOMS_DB : SYMPTOMS_DB.filter(s => s.region === filterCat);
+
+            grid.innerHTML = items.map(s => {
+                const isChecked = selectedSymptomIds.has(s.id);
+                return `
+                    <label class="flex items-start gap-2.5 p-2.5 rounded-xl border ${isChecked ? 'border-[#CCFF00] bg-[#CCFF00]/5' : 'border-[#1E293B] bg-[#0A0E17]'} hover:border-[#00E5FF] cursor-pointer transition">
+                        <input type="checkbox" onchange="toggleSymptom(${s.id})" ${isChecked ? 'checked' : ''} class="mt-0.5 accent-[#CCFF00]">
+                        <div class="flex-1 min-w-0">
+                            <div class="text-xs font-bold text-white truncate">${s.name}</div>
+                            <div class="text-[10px] text-[#00E5FF] truncate mt-0.5">TP: ${s.tp}</div>
+                        </div>
+                    </label>
+                `;
+            }).join('');
+        }
+
+        function toggleSymptom(id) {
+            if (selectedSymptomIds.has(id)) {
+                selectedSymptomIds.delete(id);
+            } else {
+                selectedSymptomIds.add(id);
+            }
+            renderSymptomChecklist();
+        }
+
+        function generateCustomProgram() {
+            if (selectedSymptomIds.size === 0) {
+                alert('하나 이상의 증상을 선택해 주세요.');
+                return;
+            }
+
+            const selectedList = SYMPTOMS_DB.filter(s => selectedSymptomIds.has(s.id));
+            const previewBox = document.getElementById('custom-program-preview');
+            const summaryBox = document.getElementById('program-summary-box');
+
+            summaryBox.innerHTML = `
+                <p><strong>선택 증상 (${selectedList.length}건):</strong> ${selectedList.map(s => s.name).join(', ')}</p>
+                <p class="text-[#CCFF00]"><strong>통합 MFR 타겟:</strong> ${[...new Set(selectedList.map(s => s.mfr))].join(' / ')}</p>
+                <p class="text-[#00E5FF]"><strong>관절가동술 벡터:</strong> ${[...new Set(selectedList.map(s => s.jm))].join(' / ')}</p>
+            `;
+
+            previewBox.classList.remove('hidden');
+            previewBox.classList.add('flex');
+        }
+
+        function openFullReportModal() {
+            const selectedList = SYMPTOMS_DB.filter(s => selectedSymptomIds.has(s.id));
+            const modalBody = document.getElementById('modal-protocol-body');
+
+            modalBody.innerHTML = `
+                <!-- Step 1: MFR -->
+                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
+                    <span class="text-xs font-bold text-[#CCFF00] bg-[#CCFF00]/10 px-2 py-0.5 rounded border border-[#CCFF00]/30">STEP 1: 근막이완 (MFR)</span>
+                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
+                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.mfr} (타겟 TP: ${s.tp})</li>`).join('')}
+                    </ul>
+                </div>
+
+                <!-- Step 2: Joint Mobilization -->
+                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
+                    <span class="text-xs font-bold text-[#00E5FF] bg-[#00E5FF]/10 px-2 py-0.5 rounded border border-[#00E5FF]/30">STEP 2: 관절가동술 (Joint Mobilization)</span>
+                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
+                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.jm}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <!-- Step 3: Active Movement -->
+                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
+                    <span class="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded border border-yellow-400/30">STEP 3: 능동 재교육 (Active Movement)</span>
+                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
+                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.active}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <!-- Step 4: Passive Stretching -->
+                <div class="bg-[#0A0E17] p-4 rounded-xl border border-[#1E293B] space-y-2">
+                    <span class="text-xs font-bold text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded border border-purple-400/30">STEP 4: 수동 신전 (Passive Stretching)</span>
+                    <ul class="list-disc list-inside text-xs text-gray-300 space-y-1 mt-1">
+                        ${selectedList.map(s => `<li><strong>${s.name}:</strong> ${s.passive}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            document.getElementById('protocol-modal').classList.remove('hidden');
+        }
+
+        function closeProtocolModal() {
+            document.getElementById('protocol-modal').classList.add('hidden');
+            resetSessionTimer();
+        }
+
+        /* ==========================================================================
+           7. 3-MINUTE INTEGRATED TIMER & SESSION COMPLETION
+           ========================================================================== */
+        function toggleSessionTimer() {
+            const btn = document.getElementById('timer-toggle-btn');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> 타이머 재개`;
+            } else {
+                isTimerRunning = true;
+                btn.innerHTML = `<i class="fa-solid fa-pause"></i> 일시정지`;
+                timerInterval = setInterval(() => {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                    if (timerSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                        alert('3분 집중 케어 세션 시간이 완료되었습니다.');
+                        resetSessionTimer();
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetSessionTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            timerSeconds = 180;
+            updateTimerDisplay();
+            document.getElementById('timer-toggle-btn').innerHTML = `<i class="fa-solid fa-play"></i> 타이머 시작`;
+        }
+
+        function updateTimerDisplay() {
+            const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+            const s = String(timerSeconds % 60).padStart(2, '0');
+            document.getElementById('timer-display').innerText = `${m}:${s}`;
+        }
+
+        function completeCurrentSession() {
+            if (!activeMember) {
+                alert('선택된 회원이 없습니다.');
+                return;
+            }
+
+            const selectedList = SYMPTOMS_DB.filter(s => selectedSymptomIds.has(s.id));
+            if (selectedList.length === 0) {
+                alert('적용한 증상 프로토콜이 없습니다.');
+                return;
+            }
+
+            const chainData = JSON.parse(localStorage.getItem(STORAGE_CHAIN_KEY) || '{}');
+            if (!chainData[activeMember.id]) chainData[activeMember.id] = [];
+
+            const record = {
+                sessionNum: activeMember.currentSession,
+                vas: activeMember.initialVas,
+                symptomsCount: selectedList.length,
+                symptomNames: selectedList.map(s => s.name),
+                timestamp: new Date().toISOString()
+            };
+
+            chainData[activeMember.id].push(record);
+            localStorage.setItem(STORAGE_CHAIN_KEY, JSON.stringify(chainData));
+
+            // Increment Member Session Count
+            if (activeMember.currentSession < 30) {
+                activeMember.currentSession++;
+                localStorage.setItem(STORAGE_MEMBERS_KEY, JSON.stringify(membersList));
+            }
+
+            setActiveMember(activeMember.id);
+            closeProtocolModal();
+            alert(`${record.sessionNum}회차 세션 기록이 성공적으로 저장 및 차감되었습니다.`);
+        }
+
+        /* ==========================================================================
+           8. BEFORE / AFTER PHOTO GRID COMPARATOR
+           ========================================================================== */
+        function openPhotoModal() { document.getElementById('photo-modal').classList.remove('hidden'); }
+        function closePhotoModal() { document.getElementById('photo-modal').classList.add('hidden'); }
+
+        function handlePhotoUpload(e, type) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = document.getElementById(`img-${type}`);
+                const placeholder = document.getElementById(`placeholder-${type}`);
+                const overlay = document.getElementById(`grid-overlay-${type}`);
+
+                img.src = evt.target.result;
+                img.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                overlay.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function toggleGridOverlay() {
+            ['before', 'after'].forEach(t => {
+                const el = document.getElementById(`grid-overlay-${t}`);
+                if (el) el.classList.toggle('hidden');
+            });
+        }
+
+        /* Modals Opener Helpers */
+        function openMemberModal() { document.getElementById('member-modal').classList.remove('hidden'); }
+        function closeMemberModal() { document.getElementById('member-modal').classList.add('hidden'); }
+
+        /* ==========================================================================
+           9. APPLICATION INITIALIZATION
+           ========================================================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            initDeviceFingerprint();
+            loadMembers();
+            renderSymptomChecklist();
+            switchAnatomyTab('upper');
+        });
+    </script>
 </body>
 </html>
