@@ -133,14 +133,14 @@
         <section class="lg:col-span-5 space-y-6">
             <div class="bg-darkcard border border-darkborder rounded-2xl p-5 glow-effect">
                 <h2 class="text-base font-semibold text-white mb-4 flex items-center justify-between">
-                    <span class="flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-brand-400"></i> 부위별 기능 평가표 & 50분 AI 세션</span>
+                    <span class="flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-brand-400"></i> 정밀 기능 평가표 & 50분 AI 세션</span>
                     <span class="text-xs text-brand-400">다중 체크 가능</span>
                 </h2>
 
                 <div class="grid grid-cols-3 gap-1 bg-darkbg p-1 rounded-xl mb-4 text-xs font-medium text-center">
-                    <button id="regionScapulaBtn" onclick="switchRegion('scapula')" class="py-2 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30">견갑골 / 상지</button>
+                    <button id="regionScapulaBtn" onclick="switchRegion('scapula')" class="py-2 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30">상체 / 견갑골</button>
                     <button id="regionPelvisBtn" onclick="switchRegion('pelvis')" class="py-2 rounded-lg text-gray-400 hover:text-white">골반 / 코어</button>
-                    <button id="regionAnkleBtn" onclick="switchRegion('ankle')" class="py-2 rounded-lg text-gray-400 hover:text-white">발목 / 하지</button>
+                    <button id="regionAnkleBtn" onclick="switchRegion('ankle')" class="py-2 rounded-lg text-gray-400 hover:text-white">하지 / 발목</button>
                 </div>
 
                 <div id="evalSection" class="space-y-4 mb-4"></div>
@@ -244,32 +244,33 @@
 
     <!-- Script Logic -->
     <script>
+        // 기준과 평가방법이 구체화된 정밀 기능 평가표 DB
         const evaluationData = {
             scapula: {
-                title: "견갑골 및 상지 기능 평가표",
+                title: "상체 및 견갑골 정밀 기능 평가표",
                 questions: [
-                    { id: "s1", label: "견갑골 전인/후인 시 날개뼈 뜸 현상 (익상견갑)", type: "checkbox" },
-                    { id: "s2", label: "오버헤드 동작 시 상완골 외회전 제한 (라운드숄더)", type: "checkbox" },
-                    { id: "s3", label: "팔을 올릴 때 어깨 충돌 및 통증 (경봉하 찝힘)", type: "checkbox" },
-                    { id: "s4", label: "흉추 회전 가동성 좌우 비대칭 (T-spine 제한)", type: "checkbox" }
+                    { id: "s1", label: "아플리 스크래치 테스트: 손가락 간격 >15cm (회전근개/가동성 제한)", type: "checkbox" },
+                    { id: "s2", label: "벽 푸시업 익상견갑 테스트: 날개뼈 내측연 뜸 현상 (전거근 약화)", type: "checkbox" },
+                    { id: "s3", label: "오버헤드 리치 테스트: 팔 올릴 때 어깨 충돌 및 통증 (경봉하 찝힘)", type: "checkbox" },
+                    { id: "s4", label: "흉추 회전 테스트 (T-Spine): 회전 각도 <45도 미만 제한 (굽은등/흉추 고목)", type: "checkbox" }
                 ]
             },
             pelvis: {
-                title: "골반 및 코어 기능 평가표",
+                title: "골반 및 코어 정밀 기능 평가표",
                 questions: [
-                    { id: "p1", label: "토마스 테스트 시 요추 전만 및 장요근 단축", type: "checkbox" },
-                    { id: "p2", label: "싱글레그 스탠딩 시 골반 측방 경사 (트렌델렌버그 징후)", type: "checkbox" },
-                    { id: "p3", label: "오버헤드 스쿼트 시 골반 회전 및 체중 쏠림", type: "checkbox" },
-                    { id: "p4", label: "고관절 내회전/외회전 가동범위 제한", type: "checkbox" }
+                    { id: "p1", label: "토마스 테스트: 누웠을 때 허벅지 이탈 (장요근/대퇴직근 단축)", type: "checkbox" },
+                    { id: "p2", label: "트렌델렌버그 테스트: 외발 서기 시 골반 측방 낙하 (중둔근 약화)", type: "checkbox" },
+                    { id: "p3", label: "오버헤드 스쿼트: 상체 과도 굴곡 및 골반 회전 보상 (전방경사/코어 불균형)", type: "checkbox" },
+                    { id: "p4", label: "고관절 패트릭(FABER) 테스트: 무릎 높이 비대칭 및 고관절 찝힘", type: "checkbox" }
                 ]
             },
             ankle: {
-                title: "발목 및 하지 기능 평가표",
+                title: "하지 및 발목 정밀 기능 평가표",
                 questions: [
-                    { id: "a1", label: "발목 배측굴곡 제한 (벽 테스트 10cm 미만)", type: "checkbox" },
-                    { id: "a2", label: "스쿼트 시 발뒤꿈치 들림 현상", type: "checkbox" },
-                    { id: "a3", label: "족저근막 및 아킬레스건 타이트함", type: "checkbox" },
-                    { id: "a4", label: "무릎 발가락 정렬 무너짐 (Valgus Collapse)", type: "checkbox" }
+                    { id: "a1", label: "벽 발목 배측굴곡(WBDF) 테스트: 벽-발가락 거리 <10cm 미만 (발목 가동성 제한)", type: "checkbox" },
+                    { id: "a2", label: "딥 스쿼트 시 발뒤꿈치 이탈 및 무릎 내측 무너짐 (Valgus Collapse)", type: "checkbox" },
+                    { id: "a3", label: "윈들라스(Windlass) 테스트: 발가락 신전 시 족저근막/아킬레스건 통증", type: "checkbox" },
+                    { id: "a4", label: "오버 스쿼트 평가: 허벅지 측면 장경인대(ITBS) 및 대퇴근막장근 타이트함", type: "checkbox" }
                 ]
             }
         };
@@ -334,7 +335,7 @@
             const customPain = document.getElementById('customPainInput').value;
 
             if(evaluatedItems.length === 0 && !customPain) {
-                alert('최소한 하나 이상의 평가 항목을 체크하거나 통증 부위를 입력해 주세요.');
+                alert('최소한 하나 이상의 정밀 평가 항목을 체크하거나 추가 통증 부위를 입력해 주세요.');
                 return;
             }
 
@@ -344,7 +345,6 @@
             reportContent.innerHTML = `<div class="text-center py-6"><i data-lucide="loader" class="w-6 h-6 animate-spin text-brand-400 mx-auto mb-2"></i><p class="text-xs text-gray-400">제미나이 2.5 AI가 50분 풀 세션 프로그램을 구성 중입니다...</p></div>`;
             lucide.createIcons();
 
-            // 50분 풀 세션 전용 고도화 프롬프트 적용
             const prompt = `
 당신은 리햅프로(Rehab Pro)의 수석 운동 컨디셔닝 AI 에이전트입니다.
 아래 기능 평가 결과와 통증 데이터를 바탕으로, 현장 트레이너가 "50분 풀 세션(1회 50분 기준)"을 완벽하고 전문성 있게 지도할 수 있도록 다각도 맞춤 프로그램을 구성해 주십시오.
