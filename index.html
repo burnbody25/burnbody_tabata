@@ -129,7 +129,7 @@
             </div>
         </section>
 
-        <!-- CENTER COLUMN: 부위별 기능 평가표 & 50분 프로그램 생성 (5 Cols) -->
+        <!-- CENTER COLUMN: 정밀 기능 평가표 & 50분 프로그램 생성 (5 Cols) -->
         <section class="lg:col-span-5 space-y-6">
             <div class="bg-darkcard border border-darkborder rounded-2xl p-5 glow-effect">
                 <h2 class="text-base font-semibold text-white mb-4 flex items-center justify-between">
@@ -227,6 +227,30 @@
         </section>
     </main>
 
+    <!-- [신규 복원] 증정밀 상세보기 모달 UI -->
+    <div id="detailModal" class="fixed inset-0 bg-black/75 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-darkcard border border-darkborder rounded-2xl p-6 max-w-lg w-full space-y-4 glow-effect max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-darkborder pb-3">
+                <h3 id="modalTitle" class="text-base font-bold text-brand-400 flex items-center gap-2">
+                    <i data-lucide="search" class="w-5 h-5"></i> 평가 항목 상세 정보
+                </h3>
+                <button onclick="closeDetailModal()" class="text-gray-400 hover:text-white p-1 rounded-lg bg-darkbg border border-darkborder">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            
+            <div id="modalBody" class="space-y-3 text-xs text-gray-300">
+                <!-- 동적으로 세부 정보가 삽입됩니다 -->
+            </div>
+
+            <div class="pt-3 border-t border-darkborder flex justify-end">
+                <button onclick="closeDetailModal()" class="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-xs transition">
+                    확인 및 닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- API Key Modal -->
     <div id="apiKeyModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
         <div class="bg-darkcard border border-darkborder rounded-2xl p-6 max-w-md w-full mx-4 space-y-4 glow-effect">
@@ -244,33 +268,141 @@
 
     <!-- Script Logic -->
     <script>
-        // 기준과 평가방법이 구체화된 정밀 기능 평가표 DB
+        // 상세보기 세부 데이터가 포함된 정밀 평가 DB
         const evaluationData = {
             scapula: {
                 title: "상체 및 견갑골 정밀 기능 평가표",
                 questions: [
-                    { id: "s1", label: "아플리 스크래치 테스트: 손가락 간격 >15cm (회전근개/가동성 제한)", type: "checkbox" },
-                    { id: "s2", label: "벽 푸시업 익상견갑 테스트: 날개뼈 내측연 뜸 현상 (전거근 약화)", type: "checkbox" },
-                    { id: "s3", label: "오버헤드 리치 테스트: 팔 올릴 때 어깨 충돌 및 통증 (경봉하 찝힘)", type: "checkbox" },
-                    { id: "s4", label: "흉추 회전 테스트 (T-Spine): 회전 각도 <45도 미만 제한 (굽은등/흉추 고목)", type: "checkbox" }
+                    { 
+                        id: "s1", 
+                        name: "아플리 스크래치 테스트",
+                        label: "아플리 스크래치 테스트: 손가락 간격 >15cm (회전근개/가동성 제한)", 
+                        type: "checkbox",
+                        testMethod: "한 손은 등 뒤 위로, 반대 손은 등 뒤 아래로 뻗어 등 뒤에서 양 손가락 끝 사이의 거리를 측정합니다.",
+                        cutoff: "양 손가락 간격 15cm 이상 차이 발생 시 양성",
+                        tp: "극상근, 극하근, 소원근, 견갑하근 (회전근개 4근육) 및 소흉근",
+                        protocol: "1단계: 소흉근 및 극하근 볼 릴리즈 (8분) -> 2단계: 흉추 회전 모빌리티 (10분) -> 3단계: Y-TW 밴드 활성화 (12분) -> 4단계: 견갑골 수동 유동화 (5분)"
+                    },
+                    { 
+                        id: "s2", 
+                        name: "벽 푸시업 익상견갑 검사",
+                        label: "벽 푸시업 익상견갑 테스트: 날개뼈 내측연 뜸 현상 (전거근 약화)", 
+                        type: "checkbox",
+                        testMethod: "벽에 손을 대고 천천히 체중을 실어 푸시업 동작을 수행하며 견갑골 내측연이 들리는지 관찰합니다.",
+                        cutoff: "수행 중 날개뼈 안쪽이 새 날개처럼 뒤로 솟아오르면 양성",
+                        tp: "전거근, 소흉근, 전사각근",
+                        protocol: "1단계: 전거근 폼롤러 릴리즈 (8분) -> 2단계: 견갑골 전인-후인 모빌리티 (10분) -> 3단계: 월 슬라이드 & 펀치 (12분) -> 4단계: 견갑골 수동 핑거 스트레칭 (5분)"
+                    },
+                    { 
+                        id: "s3", 
+                        name: "오버헤드 리치 검사",
+                        label: "오버헤드 리치 테스트: 팔 올릴 때 어깨 충돌 및 통증 (경봉하 찝힘)", 
+                        type: "checkbox",
+                        testMethod: "팔을 엄지손가락이 위로 가도록 하여 만세 자세로 천천히 올려 170도 이상 외반 가동성을 확인합니다.",
+                        cutoff: "90도~120도 구간에서 통증이 발생하거나 어깨가 과도하게 으쓱하면 양성",
+                        tp: "상부 승모근, 견갑거근, 삼각근, 소흉근",
+                        protocol: "1단계: 상부승모근 및 견갑거근 이완 (8분) -> 2단계: 어깨 외회전 가동성 (10분) -> 3단계: 하부승모근 강화 (12분) -> 4단계: 견관절 수동 캡슐 견인 (5분)"
+                    },
+                    { 
+                        id: "s4", 
+                        name: "흉추 회전 검사 (T-Spine)",
+                        label: "흉추 회전 테스트 (T-Spine): 회전 각도 <45도 미만 제한 (굽은등/흉추 고목)", 
+                        type: "checkbox",
+                        testMethod: "네발기기 자세에서 한 손을 머리 뒤에 대고 요추를 고정한 채 흉추를 측면으로 회전시킵니다.",
+                        cutoff: "회전 각도가 45도 미만이거나 요추에서 보상 작용 발생 시 양성",
+                        tp: "흉방형근, 다열근, 대흉근",
+                        protocol: "1단계: 대흉근 마사지볼 이완 (8분) -> 2단계: Open Book 흉추 모빌리티 (10분) -> 3단계: 흉추 신전-회전 코어 연동 (12분) -> 4단계: 흉추 수동 회전 이완 (5분)"
+                    }
                 ]
             },
             pelvis: {
                 title: "골반 및 코어 정밀 기능 평가표",
                 questions: [
-                    { id: "p1", label: "토마스 테스트: 누웠을 때 허벅지 이탈 (장요근/대퇴직근 단축)", type: "checkbox" },
-                    { id: "p2", label: "트렌델렌버그 테스트: 외발 서기 시 골반 측방 낙하 (중둔근 약화)", type: "checkbox" },
-                    { id: "p3", label: "오버헤드 스쿼트: 상체 과도 굴곡 및 골반 회전 보상 (전방경사/코어 불균형)", type: "checkbox" },
-                    { id: "p4", label: "고관절 패트릭(FABER) 테스트: 무릎 높이 비대칭 및 고관절 찝힘", type: "checkbox" }
+                    { 
+                        id: "p1", 
+                        name: "토마스 테스트 (Thomas Test)",
+                        label: "토마스 테스트: 누웠을 때 허벅지 이탈 (장요근/대퇴직근 단축)", 
+                        type: "checkbox",
+                        testMethod: "테이블 끝에 앉아 한쪽 무릎을 가슴으로 바짝 당기며 뒤로 눕습니다.",
+                        cutoff: "반대쪽 허벅지가 침대에서 떠오르거나 무릎이 90도 이하로 펴지면 양성",
+                        tp: "장요근, 대퇴직근, 대퇴근막장근(TFL)",
+                        protocol: "1단계: 장요근/대퇴직근 폼롤러 릴리즈 (8분) -> 2단계: 런지 파트너 모빌리티 (10분) -> 3단계: 글루트 브릿지 & 둔근 강화 (12분) -> 4단계: 장요근 수동 PNF 스트레칭 (5분)"
+                    },
+                    { 
+                        id: "p2", 
+                        name: "트렌델렌버그 검사",
+                        label: "트렌델렌버그 테스트: 외발 서기 시 골반 측방 낙하 (중둔근 약화)", 
+                        type: "checkbox",
+                        testMethod: "양손을 허리에 얹고 한쪽 발을 들어 10초간 균형을 유지합니다.",
+                        cutoff: "들어 올린 쪽 골반이 아래로 기울어지거나 상체가 옆으로 기우는 보상이 생기면 양성",
+                        tp: "중둔근, 요방형근, 내전근",
+                        protocol: "1단계: 타이트한 내전근 및 요방형근 이완 (8분) -> 2단계: 고관절 측방 외전 가동성 (10분) -> 3단계: 사이드 플랭크 & 클램셸 (12분) -> 4단계: 요방형근 수동 스트레칭 (5분)"
+                    },
+                    { 
+                        id: "p3", 
+                        name: "오버헤드 스쿼트 검사 (OHSA)",
+                        label: "오버헤드 스쿼트: 상체 과도 굴곡 및 골반 회전 보상 (전방경사/코어 불균형)", 
+                        type: "checkbox",
+                        testMethod: "양팔을 수직으로 올리고 시선은 정면을 향한 채 깊게 스쿼트를 5회 수행합니다.",
+                        cutoff: "상체가 대전자기준 정강이와 평행을 이루지 못하고 앞으로 쏟아지면 양성",
+                        tp: "비복근, 대퇴직근, 햄스트링, 요방형근",
+                        protocol: "1단계: 비복근/가자미근 마사지볼 이완 (8분) -> 2단계: 고관절 굴곡 가동성 (10분) -> 3단계: Bird-Dog 코어 안정화 (12분) -> 4단계: 햄스트링 수동 이완 (5분)"
+                    },
+                    { 
+                        id: "p4", 
+                        name: "패트릭 검사 (FABER Test)",
+                        label: "고관절 패트릭(FABER) 테스트: 무릎 높이 비대칭 및 고관절 찝힘", 
+                        type: "checkbox",
+                        testMethod: "바로 누워 한쪽 발목을 반대쪽 무릎 위에 올리고 숫자 '4' 모양을 만든 후 무릎을 바닥 쪽으로 내립니다.",
+                        cutoff: "구부린 무릎이 반대쪽 평행면까지 내려가지 않거나 서타구니 통증 발생 시 양성",
+                        tp: "이상근, 내전근, 고관절 낭(Capsule)",
+                        protocol: "1단계: 이상근/둔근 마사지볼 압박 (8분) -> 2단계: 고관절 내/외회전 가동성 (10분) -> 3단계: 둔근 삼차원 활성화 (12분) -> 4단계: 고관절 낭 수동 모빌라이제이션 (5분)"
+                    }
                 ]
             },
             ankle: {
                 title: "하지 및 발목 정밀 기능 평가표",
                 questions: [
-                    { id: "a1", label: "벽 발목 배측굴곡(WBDF) 테스트: 벽-발가락 거리 <10cm 미만 (발목 가동성 제한)", type: "checkbox" },
-                    { id: "a2", label: "딥 스쿼트 시 발뒤꿈치 이탈 및 무릎 내측 무너짐 (Valgus Collapse)", type: "checkbox" },
-                    { id: "a3", label: "윈들라스(Windlass) 테스트: 발가락 신전 시 족저근막/아킬레스건 통증", type: "checkbox" },
-                    { id: "a4", label: "오버 스쿼트 평가: 허벅지 측면 장경인대(ITBS) 및 대퇴근막장근 타이트함", type: "checkbox" }
+                    { 
+                        id: "a1", 
+                        name: "벽 발목 배측굴곡 검사 (WBDF)",
+                        label: "벽 발목 배측굴곡(WBDF) 테스트: 벽-발가락 거리 <10cm 미만 (발목 가동성 제한)", 
+                        type: "checkbox",
+                        testMethod: "발가락을 벽에서 10cm 떼고 서서 뒤꿈치를 붙인 채 무릎을 벽에 터치합니다.",
+                        cutoff: "발뒤꿈치가 지면에서 떨어지거나 무릎이 벽에 닿지 않으면 양성",
+                        tp: "가자미근, 비복근, 아킬레스건",
+                        protocol: "1단계: 종아리 심부 폼롤러 압박 (8분) -> 2단계: 족관절 밴드 관절 가동성 (10분) -> 3단계: Short Foot 발바닥 내재근 강화 (12분) -> 4단계: 아킬레스건 수동 신전 (5분)"
+                    },
+                    { 
+                        id: "a2", 
+                        name: "무릎 정렬 검사 (Valgus Collapse)",
+                        label: "딥 스쿼트 시 발뒤꿈치 이탈 및 무릎 내측 무너짐 (Valgus Collapse)", 
+                        type: "checkbox",
+                        testMethod: "스쿼트 하강 동작 중 정면에서 무릎의 궤적과 엄지발가락 정렬을 관찰합니다.",
+                        cutoff: "무릎 중심이 둘째 발가락 안쪽으로 과도하게 모여 X자 모양이 되면 양성",
+                        tp: "대퇴근막장근(TFL), 내전근, 중둔근 약화",
+                        protocol: "1단계: TFL 및 내전근 릴리즈 (8분) -> 2단계: 고관절 외회전 가동성 (10분) -> 3단계: 밴드 룹 스쿼트 (12분) -> 4단계: 측면 사선 체인 수동 스트레칭 (5분)"
+                    },
+                    { 
+                        id: "a3", 
+                        name: "윈들라스 검사 (Windlass Test)",
+                        label: "윈들라스(Windlass) 테스트: 발가락 신전 시 족저근막/아킬레스건 통증", 
+                        type: "checkbox",
+                        testMethod: "의자에 앉아 트레이너가 회원의 엄지발가락을 위로 과도하게 젖힙니다.",
+                        cutoff: "발바닥 아치 중앙이나 뒤꿈치 부위에 찌릿한 통증이 재현되면 양성",
+                        tp: "족저근막, 족저근, 후경골근",
+                        protocol: "1단계: 발바닥 골프공 릴리즈 (8분) -> 2단계: 발가락 신전 가동성 (10분) -> 3단계: 카프 레이즈 & 밸런스 (12분) -> 4단계: 족저근막 수동 스트레칭 (5분)"
+                    },
+                    { 
+                        id: "a4", 
+                        name: "장경인대 마찰 검사 (Ober Test)",
+                        label: "오버 스쿼트 평가: 허벅지 측면 장경인대(ITBS) 및 대퇴근막장근 타이트함", 
+                        type: "checkbox",
+                        testMethod: "옆으로 누워 위쪽 다리를 무릎 90도로 구부린 채 고관절을 신전시킨 후 다리를 바닥 쪽으로 떨굽니다.",
+                        cutoff: "다리가 침대 바닥 쪽으로 수평 이하로 떨어지지 않고 공중에 떠 있으면 양성",
+                        tp: "대퇴근막장근(TFL), 장경인대, 대둔근",
+                        protocol: "1단계: TFL & 장경인대 측면 폼롤러 (8분) -> 2단계: 고관절 내회전 가동성 (10분) -> 3단계: 중둔근 후방섬유 강화 (12분) -> 4단계: TFL 수동 측면 신전 (5분)"
+                    }
                 ]
             }
         };
@@ -300,19 +432,58 @@
             renderEvaluationForm();
         }
 
+        // [신규] 상세보기 모달 UI 포함 평가표 렌더링
         function renderEvaluationForm() {
             const container = document.getElementById('evalSection');
             const data = evaluationData[currentRegion];
             let html = `<p class="text-xs font-bold text-brand-400 mb-2">${data.title}</p>`;
             data.questions.forEach(q => {
                 html += `
-                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-darkborder bg-darkbg cursor-pointer hover:border-brand-500/50 transition">
-                        <input type="checkbox" id="${q.id}" class="w-4 h-4 rounded border-darkborder text-brand-500 focus:ring-brand-500 bg-darkcard">
-                        <span class="text-xs text-gray-300 font-medium">${q.label}</span>
-                    </label>
+                    <div class="flex items-center justify-between p-2.5 rounded-xl border border-darkborder bg-darkbg hover:border-brand-500/50 transition">
+                        <label class="flex items-center gap-2.5 cursor-pointer flex-1">
+                            <input type="checkbox" id="${q.id}" class="w-4 h-4 rounded border-darkborder text-brand-500 focus:ring-brand-500 bg-darkcard">
+                            <span class="text-xs text-gray-300 font-medium">${q.label}</span>
+                        </label>
+                        <button onclick="openDetailModal('${currentRegion}', '${q.id}')" class="px-2 py-1 bg-brand-500/10 border border-brand-500/30 text-brand-400 rounded-lg text-[10px] hover:bg-brand-500/20 transition flex items-center gap-1">
+                            <i data-lucide="info" class="w-3 h-3"></i> 상세보기
+                        </button>
+                    </div>
                 `;
             });
             container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // [신규] 상세보기 모달 열기 함수
+        function openDetailModal(region, id) {
+            const item = evaluationData[region].questions.find(q => q.id === id);
+            if(!item) return;
+
+            document.getElementById('modalTitle').innerText = `📋 ${item.name} 상세 프로토콜`;
+            document.getElementById('modalBody').innerHTML = `
+                <div class="bg-darkbg p-3 rounded-xl border border-darkborder space-y-1">
+                    <p class="font-bold text-brand-400">1. 검사 절차 및 방법</p>
+                    <p class="text-gray-300 leading-normal">${item.testMethod}</p>
+                </div>
+                <div class="bg-darkbg p-3 rounded-xl border border-darkborder space-y-1">
+                    <p class="font-bold text-red-400">2. 양성(불균형) 판정 기준</p>
+                    <p class="text-gray-300 leading-normal">${item.cutoff}</p>
+                </div>
+                <div class="bg-darkbg p-3 rounded-xl border border-darkborder space-y-1">
+                    <p class="font-bold text-yellow-400">3. 타겟 근육 & Trigger Point (TP)</p>
+                    <p class="text-gray-300 leading-normal">${item.tp}</p>
+                </div>
+                <div class="bg-darkbg p-3 rounded-xl border border-darkborder space-y-1">
+                    <p class="font-bold text-green-400">4. 권장 4단계 컨디셔닝 개요</p>
+                    <p class="text-gray-300 leading-normal">${item.protocol}</p>
+                </div>
+            `;
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.add('hidden');
         }
 
         async function generateAiProtocol() {
