@@ -69,7 +69,6 @@
 
         <!-- LEFT COLUMN: 회원 세션 관리 & 공간 효율형 실시간 체형 촬영 (3 Cols) -->
         <section class="lg:col-span-4 space-y-6">
-            <!-- 회원 관리 카드 -->
             <div class="bg-darkcard border border-darkborder rounded-2xl p-5 glow-effect">
                 <h2 class="text-base font-semibold text-white mb-4 flex items-center gap-2">
                     <i data-lucide="user-check" class="w-5 h-5 text-brand-400"></i> 회원 세션 관리
@@ -93,7 +92,7 @@
                 </div>
             </div>
 
-            <!-- [공간 개편] 실시간 체형 사진 촬영 & 멀티모달 분석 업로더 -->
+            <!-- 실시간 체형 사진 촬영 & 멀티모달 분석 업로더 -->
             <div class="bg-darkcard border border-darkborder rounded-2xl p-5 glow-effect">
                 <h2 class="text-base font-semibold text-white mb-3 flex items-center justify-between">
                     <span class="flex items-center gap-2"><i data-lucide="camera" class="w-5 h-5 text-brand-400"></i> 실시간 체형 사진 업로드</span>
@@ -113,7 +112,6 @@
                 </button>
             </div>
 
-            <!-- 세션 이력 -->
             <div class="bg-darkcard border border-darkborder rounded-2xl p-5 glow-effect">
                 <h2 class="text-base font-semibold text-white mb-3 flex items-center gap-2">
                     <i data-lucide="history" class="w-5 h-5 text-brand-400"></i> 지난 세션 이력
@@ -150,7 +148,6 @@
                 </button>
             </div>
 
-            <!-- AI 출력 리포트 -->
             <div id="reportBox" class="bg-darkcard border border-darkborder rounded-2xl p-5 glow-effect hidden">
                 <div class="flex items-center justify-between border-b border-darkborder pb-3 mb-4">
                     <h3 class="text-sm font-bold text-brand-400 flex items-center gap-2">
@@ -335,7 +332,6 @@
             lucide.createIcons();
         }
 
-        // 즉시 촬영 사진 핸들러 (멀티모달 Base64 변환)
         function handleInstantPhoto(e) {
             const file = e.target.files[0];
             if(file) {
@@ -375,7 +371,7 @@
 
         function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); }
 
-        // 멀티모달 제미나이 AI 프로토콜 생성 엔진
+        // 멀티모달 제미나이 AI 프로토콜 생성 엔진 (창의적 소도구 조건 이식 완료)
         async function generateAiProtocol() {
             let apiKey = localStorage.getItem('rehab_gemini_api_key');
             if(!apiKey) { openApiKeyModal(); return; }
@@ -397,24 +393,25 @@
             const reportBox = document.getElementById('reportBox');
             const reportContent = document.getElementById('reportContent');
             reportBox.classList.remove('hidden');
-            reportContent.innerHTML = `<div class="text-center py-6"><i data-lucide="loader" class="w-6 h-6 animate-spin text-brand-400 mx-auto mb-2"></i><p class="text-xs text-gray-400">제미나이 멀티모달 AI가 실시간 체형 사진과 평가표를 종합하여 50분 세션을 구성 중입니다...</p></div>`;
+            reportContent.innerHTML = `<div class="text-center py-6"><i data-lucide="loader" class="w-6 h-6 animate-spin text-brand-400 mx-auto mb-2"></i><p class="text-xs text-gray-400">제미나이 2.5 Flash가 소도구 믹스 프로토콜을 포함하여 50분 세션을 구성 중입니다...</p></div>`;
             lucide.createIcons();
 
             let contentsParts = [];
             let promptText = `
 당신은 리햅프로(Rehab Pro)의 수석 운동 컨디셔닝 AI 에이전트입니다.
-첨부된 회원 사진 및 기능 평가 결과를 바탕으로, 현장 트레이너가 "50분 풀 세션(1회 50분 기준)"을 완벽하고 전문성 있게 지도할 수 있도록 맞춤 프로그램을 구성해 주십시오.
+첨부된 회원 사진 및 기능 평가 결과를 바탕으로, 현장 트레이너가 "50분 풀 세션(1회 50분 기준)"을 완벽하고 전문성 있게 지도할 수 있도록 다각도 맞춤 프로그램을 구성해 주십시오.
 
 [회원 기능 평가 및 통증 데이터]
 ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '체크된 항목 없음'}
 [추가 통증 부위 및 동작 특이사항]
 ${customPain || '특이사항 없음'}
 
-[출력 작성 규칙]
-1. 의료법 준수: '진단', '처방', '치료', '병명' 등 의료법 저촉 용어 사용 금지 ('기능적 평가', '운동 컨디셔닝', 'MFR', '관절 가동성'으로 표현).
-2. 50분 세션 구성: 각 단계마다 2~3가지 세부 동작과 구체적인 세트/회수/도구를 명시하여 세션이 풍성하게 구성되도록 할 것.
+[핵심 이행 지시]
+1. 단순 맨몸 운동이나 뻔한 동작만 나열하지 말고, 폼롤러, 마사지볼, 루프/미니 밴드, 케틀벨 등 피트니스 센터 소도구를 입체적이고 창의적으로 활용한 4단계 컨디셔닝 세션 루틴을 제시할 것.
+2. 각 단계별로 구체적인 도구명, 세트, 회수, 이완 타임을 명시할 것.
+3. 의료법 준수: '진단', '처방', '치료', '병명' 단어 사용 금지 ('기능적 평가', '운동 컨디셔닝', 'MFR', '관절 가동성'으로 대체).
 
-[출력 양식]
+[출력 포맷]
 📋 [50분 세션 종합 컨디셔닝 리포트]
 
 1. 🔍 [구조적 불균형 및 제한 원인 분석]
@@ -423,15 +420,15 @@ ${customPain || '특이사항 없음'}
 2. 🎯 [타겟 근육 및 Trigger Point (TP)]
    - 긴장/과사용 근육 2가지 이상 및 억제/약화 근육 2가지 이상 명시
 
-3. 🛠️ [50분 메인 4단계 컨디셔닝 프로토콜]
+3. 🛠️ [50분 메인 4단계 소도구 믹스 컨디셔닝 프로토콜]
    ■ 1단계: MFR (근막이완 & 타겟 압박) - [8분 소요]
-     1) (도구 및 타겟 부위 1) - 압박 타임
-     2) (도구 및 타겟 부위 2) - 압박 타임
+     1) (소도구 예: 마사지볼/폼롤러 및 타겟 부위 1) - 압박 타임
+     2) (소도구 및 타겟 부위 2) - 압박 타임
    ■ 2단계: Joint Mobility (관절 가동성) - [10분 소요]
-     1) (가동성 동작 1) - 10회 2세트
+     1) (소도구 활용 가동성 동작 1) - 10회 2세트
      2) (가동성 동작 2) - 10회 2세트
    ■ 3단계: Active Movement (능동 활성화 & 강화) - [12분 소요]
-     1) (약화 근육 활성화 운동 1) - 12회 3세트
+     1) (밴드/케틀벨 활용 약화 근육 강화 1) - 12회 3세트
      2) (코어/정렬 연동 통합 운동 2) - 12회 3세트
    ■ 4단계: Passive Stretching (수동 파트너 이완) - [5분 소요]
      1) (트레이너 수동 스트레칭 1) - 30초 유지 2회
@@ -461,7 +458,7 @@ ${customPain || '특이사항 없음'}
                     body: JSON.stringify({
                         contents: [{ parts: contentsParts }],
                         systemInstruction: {
-                            parts: [{ text: "당신은 전문 운동 컨디셔닝 에이전트입니다. 의료법을 철저히 준수하며 기능적 50분 세션 운동 프로그램을 작성합니다." }]
+                            parts: [{ text: "당신은 전문 운동 컨디셔닝 에이전트입니다. 클리닉에서 흔히 쓰는 뻔한 동작 외에, 폼롤러, 밴드, 마사지볼, 케틀벨 등 소도구를 활용한 입체적이고 창의적인 4단계 세션 루틴을 믹스해서 제안하십시오." }]
                         }
                     })
                 });
