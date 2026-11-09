@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 근거 컨디셔닝 에이전트</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -54,9 +54,9 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">VISUAL PRO 4.0</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">VISUAL CARD v4.5</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium">시각적 해부학 카드 & 40가지 증상 맞춤 컨디셔닝 에이전트</p>
+                    <p class="text-xs text-slate-500 font-medium">시각적 해부학 카드 리포트 & 40가지 증상 컨디셔닝 에이전트</p>
                 </div>
             </div>
             
@@ -71,7 +71,7 @@
         </div>
     </header>
 
-    <!-- Main Workspace (2-Column Optimized Layout: Left Input / Right Visual Report) -->
+    <!-- Main Workspace (2-Column Optimized Layout) -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
         <!-- LEFT COLUMN: 회원 관리, 사진 업로드, 40가지 증상 평가 (5 Cols) -->
@@ -150,7 +150,7 @@
             <div id="reportBox" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hidden">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
                     <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> 🎯 [시각적 임상 해부학 & 컨디셔닝 리포트]
+                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> 🎯 [시각적 해부학 카드 리포트]
                     </h3>
                     <div class="flex items-center gap-2">
                         <button onclick="copyReport()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
@@ -160,7 +160,7 @@
                 </div>
                 
                 <!-- 시각적 카드 리포트 렌더링 영역 -->
-                <div id="reportContent" class="space-y-6 text-xs text-slate-700 font-medium"></div>
+                <div id="reportContent" class="space-y-4 text-xs text-slate-700 font-medium"></div>
 
                 <div class="mt-6 pt-4 border-t border-slate-200 text-[10px] text-slate-400 text-center font-normal">
                     ※ 본 리포트는 의료법을 준수하며, 질환의 진단·치료가 아닌 기능적 체형 개선 및 운동 컨디셔닝 목적의 가이드라인입니다.
@@ -174,7 +174,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-800">회원 맞춤 시각적 리포트 대기 중</h3>
                 <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                    좌측에서 회원을 선택하고, 통증 부위나 평가 항목을 체크한 뒤 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span> 버튼을 누르면 첨부하신 이미지처럼 직관적인 상담용 카드가 생성됩니다.
+                    좌측에서 통증 부위나 평가 항목을 체크한 뒤 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span> 버튼을 누르면 첨부하신 이미지처럼 직관적인 상담용 카드가 생성됩니다.
                 </p>
             </div>
 
@@ -392,11 +392,11 @@
             instantBase64Photo = null;
             document.getElementById('instantPhotoPreview').src = '';
             document.getElementById('instantPhotoPreview').classList.add('hidden');
-            document.getElementById('photoPlaceholder').classList.add('hidden');
+            document.getElementById('photoPlaceholder').classList.remove('hidden');
             document.getElementById('removePhotoBtn').classList.add('hidden');
         }
 
-        // 첨부하신 이미지 카드 형식으로 리포트를 생성하는 AI 엔진
+        // 첨부하신 이미지 카드 형식으로 리포트를 HTML 박스 카드로 변환하는 AI 엔진
         async function generateAiProtocol() {
             let apiKey = localStorage.getItem('rehab_gemini_api_key');
             if(!apiKey) { openApiKeyModal(); return; }
@@ -423,36 +423,44 @@
             
             reportPlaceholder.classList.add('hidden');
             reportBox.classList.remove('hidden');
-            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">제미나이 EBM 엔진이 첨부하신 해부학 카드 형태의 시각적 리포트를 구성 중입니다...</p></div>`;
+            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">제미나이 EBM 엔진이 시각적 해부학 카드 리포트를 구성 중입니다...</p></div>`;
             lucide.createIcons();
 
             let contentsParts = [];
             let promptText = `
 당신은 리햅프로(Rehab Pro)의 수석 운동학(Kinesiology) 에이전트입니다.
-회원이 선택한 증상 및 첨부된 체형 사진을 분석하여, 사용자가 제시한 [참고 이미지 카드 형태(제목, 해부학적 위치, 통증 양상/방사통, 원인, 대처법)]와 정확히 일치하는 구조화된 시각적 컨디셔닝 카드를 작성해 주십시오.
+회원이 선택한 증상 및 첨부된 체형 사진을 분석하여, 사용자가 제시한 [참고 이미지 카드 형태]와 정확히 일치하는 직관적인 HTML 카드 UI 코드를 생성해 주십시오.
 
 [선택된 증상 및 평가 데이터]
 ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '선택된 항목 없음'}
 [추가 통증 부위 및 특이사항]
 ${customPain || '특이사항 없음'}
 
-[작성 원칙 및 형식 준수]
-- 허위 사실 없이 NASM, FMS, Neumann Kinesiology 근거에 기반할 것.
-- 의료법 준수 ('진단', '처방', '치료' 용어 금지).
-- 반드시 아래의 HTML/Markdown 구조 카드 형태로 출력하여 화면에 곧바로 렌더링될 수 있게 할 것.
+[작성 지침]
+1. 허위 사실 없이 NASM, FMS, Neumann Kinesiology 근거에 기반할 것.
+2. 의료법 준수 ('진단', '처방', '치료' 용어 금지).
+3. 반드시 아래의 Tailwind CSS가 적용된 깔끔한 HTML 박스 카드 형태로 출력할 것. 마크다운 코드블록(\`\`\`html ... \`\`\`)으로 감싸서 출력해 주세요.
 
-[출력 포맷 요구사항]
-각 증상별로 아래 카드를 생성해 주세요:
-### 📌 [1] (증상명 또는 근육명) TP — "(대표적인 회원 호소 멘트 1줄)"
-- 📍 **해부학적 위치**: (목 뒤쪽, 관절 바로 아래 등 구체적 위치 서술)
-- ⚡ **통증 양상 및 방사통**: (관절 부위, 두통, 저림 등 방사 양상 서술)
-- 🔍 **핵심 원인**: (장시간 고개 숙임, 특정 수축, 스트레스 등 원인 서술)
-- 🛠️ **실전 대처법 (4단계 소도구 믹스)**:
-  1) **MFR (8분)**: (구체적 소도구 및 압박법)
-  2) **Mobility (10분)**: (가동성 동작)
-  3) **Active (12분)**: (약화 부위 강화)
-  4) **Passive (5분)**: (수동 파트너 스트레칭)
-- 💡 **상담 및 티칭 멘트**: (회원 재등록/세션 연장 유도 멘트 1줄)
+[HTML 카드 템플릿 양식]
+<div class="bg-white border-2 border-emerald-500/30 rounded-2xl p-5 shadow-sm space-y-3 mb-4">
+    <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
+        <span class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold">TP 1</span>
+        <h4 class="text-sm font-extrabold text-slate-900">(증상명 또는 근육명) — "(회원 호소 멘트 1줄)"</h4>
+    </div>
+    <div class="space-y-2 text-xs text-slate-700">
+        <p>👉 <b>위치:</b> (해부학적 위치 서술)</p>
+        <p>⚡ <b>통증 양상:</b> (방사통 및 통증 양상 서술)</p>
+        <p>🔍 <b>원인:</b> (핵심 원인 서술)</p>
+        <div class="bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 space-y-1 mt-2">
+            <p class="font-bold text-emerald-800">🛠️ 실전 4단계 소도구 믹스 대처법:</p>
+            <p>• <b>1단계 MFR (8분):</b> (압박 및 이완법)</p>
+            <p>• <b>2단계 Mobility (10분):</b> (가동성 동작)</p>
+            <p>• <b>3단계 Active (12분):</b> (강화 운동)</p>
+            <p>• <b>4단계 Passive (5분):</b> (수동 스트레칭)</p>
+        </div>
+        <p class="text-emerald-700 font-semibold pt-1">💡 티칭 멘트: "(상담 및 연장 유도 멘트)"</p>
+    </div>
+</div>
 `;
 
             contentsParts.push({ text: promptText });
@@ -475,16 +483,24 @@ ${customPain || '특이사항 없음'}
                     body: JSON.stringify({
                         contents: [{ parts: contentsParts }],
                         systemInstruction: {
-                            parts: [{ text: "당신은 운동학 시각화 전문가입니다. 해부학 카드 형태로 직관적인 분석 리포트를 작성합니다." }]
+                            parts: [{ text: "당신은 운동학 시각화 전문가입니다. Tailwind CSS가 포함된 HTML 카드 형태로 직관적인 분석 리포트를 작성합니다." }]
                         }
                     })
                 });
 
                 const data = await response.json();
                 if(data.candidates && data.candidates[0].content.parts[0].text) {
-                    const text = data.candidates[0].content.parts[0].text;
-                    reportContent.innerHTML = `<div class="space-y-4 bg-slate-50 p-5 rounded-2xl border border-slate-200 leading-relaxed whitespace-pre-line">${text}</div>`;
-                    currentReportText = text;
+                    let rawText = data.candidates[0].content.parts[0].text;
+                    
+                    // 만약 마크다운 코드블록으로 감싸져 있다면 정제
+                    if(rawText.includes("```html")) {
+                        rawText = rawText.split("```html")[1].split("```")[0].trim();
+                    } else if(rawText.includes("```")) {
+                        rawText = rawText.split("```")[1].split("```")[0].trim();
+                    }
+
+                    reportContent.innerHTML = rawText;
+                    currentReportText = rawText;
                 } else {
                     throw new Error(data.error?.message || 'API 응답 오류');
                 }
