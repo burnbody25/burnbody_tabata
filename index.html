@@ -497,3 +497,88 @@ ${customPain || '특이사항 없음'}
                         rawText = rawText.split("```html")[1].split("```")[0].trim();
                     } else if(rawText.includes("```")) {
                         rawText = rawText.split("```")[1].split("```")[0].trim();
+                    }
+
+                    reportContent.innerHTML = rawText;
+                    currentReportText = rawText;
+                } else {
+                    throw new Error(data.error?.message || 'API 응답 오류');
+                }
+            } catch(err) {
+                reportContent.innerHTML = `<p class="text-rose-500 font-bold">AI 호출 실패: ${err.message}<br>API 키가 올바른지 확인해 주세요.</p>`;
+            }
+        }
+
+        function openApiKeyModal() { document.getElementById('apiKeyModal').classList.remove('hidden'); }
+        function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.add('hidden'); }
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if(!key) return;
+            localStorage.setItem('rehab_gemini_api_key', key);
+            closeApiKeyModal();
+            alert('API 키가 안전하게 저장되었습니다.');
+        }
+
+        function createNewClient() {
+            const name = prompt('신규 회원 이름을 입력하세요:');
+            if(!name) return;
+            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            clients.push({ id: Date.now(), name: name, sessions: [] });
+            localStorage.setItem('rehab_clients', JSON.stringify(clients));
+            loadClientList();
+        }
+
+        function loadClientList() {
+            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            const select = document.getElementById('clientSelect');
+            select.innerHTML = '<option value="">-- 회원을 선택하세요 --</option>' + 
+                clients.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        }
+
+        function loadClientData() {
+            const id = document.getElementById('clientSelect').value;
+            const infoBox = document.getElementById('clientInfoBox');
+            if(!id) { infoBox.classList.add('hidden'); return; }
+            
+            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            let client = clients.find(c => c.id == id);
+            if(client) {
+                infoBox.classList.remove('hidden');
+                document.getElementById('infoName').innerText = client.name;
+                document.getElementById('infoSessionCount').innerText = `${client.sessions.length}회차`;
+            }
+        }
+
+        function saveSessionRecord() {
+            const id = document.getElementById('clientSelect').value;
+            if(!id) { alert('회원을 먼저 선택하세요.'); return; }
+
+            const vBefore = document.getElementById('vasBefore').value;
+            const vAfter = document.getElementById('vasAfter').value;
+            const memo = document.getElementById('sessionMemo').value;
+
+            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            let client = clients.find(c => c.id == id);
+            
+            if(client) {
+                client.sessions.push({
+                    date: new Date().toLocaleDateString(),
+                    vasBefore: vBefore,
+                    vasAfter: vAfter,
+                    memo: memo,
+                    report: currentReportText
+                });
+                localStorage.setItem('rehab_clients', JSON.stringify(clients));
+                alert('세션 기록이 안전하게 아카이브에 저장되었습니다.');
+                loadClientData();
+            }
+        }
+
+        function copyReport() {
+            if(!currentReportText) return;
+            navigator.clipboard.writeText(currentReportText);
+            alert('리포트 내용이 클립보드에 복사되었습니다.');
+        }
+    </script>
+</body>
+</html>
