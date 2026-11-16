@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v5.0</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v5.2 SECURE</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -48,14 +48,14 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v5.0 MASTER</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v5.2 SECURE</span>
                     </h1>
                     <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · AI 해부학 카드 리포트</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2.5">
                 <button id="headerLicenseBtn" onclick="openLicenseModal()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">라이센스 인증 관리</span>
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">라이센스 인증 필요</span>
                 </button>
                 <button onclick="openApiKeyModal()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
                     <i data-lucide="key" class="w-4 h-4 text-emerald-600"></i> API 키 설정
@@ -214,20 +214,35 @@
         </div>
     </div>
 
-    <!-- 라이센스 인증 팝업 모달 -->
-    <div id="licenseModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-xl text-center">
+    <!-- 라이센스 인증 팝업 모달 (보안 강화 버전) -->
+    <div id="licenseModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl text-center">
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-full w-12 h-12 flex items-center justify-center mx-auto text-emerald-600">
                 <i data-lucide="shield-check" class="w-6 h-6"></i>
             </div>
-            <h3 class="text-lg font-bold text-slate-900">REHAB PRO 정품 인증</h3>
-            <p class="text-xs text-slate-500 leading-relaxed font-medium">
-                본 정품 키는 <span class="text-emerald-700 font-bold">최초 등록된 1대 기기</span>에 영구 귀속됩니다. 키를 입력해 주세요.
+            <h3 class="text-lg font-extrabold text-slate-900">REHAB PRO 보안 라이센스 인증</h3>
+            <p id="licenseModalDesc" class="text-xs text-slate-500 leading-relaxed font-medium">
+                발급받으신 <span class="text-emerald-700 font-bold">영구 라이센스</span> 또는 <span class="text-amber-600 font-bold">기간제 구독 코드</span>를 입력해 주세요.<br>
+                <span class="text-rose-500">※ 체험판(7D) 코드는 기기당 1회만 사용 가능합니다.</span>
             </p>
-            <input type="text" id="licenseKeyInput" placeholder="예: REHAB-PRO-2026-XXXX" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-center text-slate-900 focus:outline-none focus:border-emerald-500 font-mono font-bold">
-            <button onclick="verifyAndSaveLicense()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md shadow-emerald-600/20">
-                기기 인증 및 잠금 해제
-            </button>
+            
+            <!-- 현재 인증 상태 표시 영역 -->
+            <div id="currentLicenseStatusBox" class="hidden p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-left space-y-1">
+                <p class="text-slate-600"><span class="text-slate-400">적용 코드:</span> <span id="statusCode" class="font-mono font-bold text-slate-900"></span></p>
+                <p class="text-slate-600"><span class="text-slate-400">이용 유형:</span> <span id="statusType" class="font-bold text-emerald-600"></span></p>
+                <p class="text-slate-600"><span class="text-slate-400">만료 일시:</span> <span id="statusExpiry" class="font-bold text-slate-800"></span></p>
+            </div>
+
+            <input type="text" id="licenseKeyInput" placeholder="예: REHAB-30D-SUB01" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-center text-slate-900 focus:outline-none focus:border-emerald-500 font-mono font-bold uppercase">
+            
+            <div class="flex gap-2">
+                <button id="closeLicenseBtn" onclick="closeLicenseModal()" class="hidden px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold rounded-xl transition">
+                    닫기
+                </button>
+                <button onclick="verifyAndSaveLicense()" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md shadow-emerald-600/20">
+                    기기 인증 및 코드 적용
+                </button>
+            </div>
             <p id="licenseMsg" class="text-[11px] text-rose-500 font-bold hidden"></p>
         </div>
     </div>
@@ -249,17 +264,25 @@
 
     <!-- Script Logic -->
     <script>
-        const VALID_LICENSES = [
+        // =========================================================================
+        // [대표님 전용 라이센스 발급 관리 영역]
+        // =========================================================================
+        const UNLIMITED_LICENSES = [
             "BURNBODY-REHAB-2026-VIP",
             "REHAB-PRO-LAUNCH-001",
             "REHAB-PRO-LAUNCH-002",
             "TRAINER-JANG-2026"
         ];
 
-        // 헬퍼: 유튜브 시연 영상 검색 링크 생성 (추후 자체 숏폼 URL로 교체 가능)
-        function getYtLink(exerciseName) {
-            return `https://www.youtube.com/results?search_query=${encodeURIComponent(exerciseName + ' 운동 시연')}`;
-        }
+        const TIMED_LICENSES = {
+            "REHAB-7D-TRIAL01": 7,      
+            "REHAB-7D-TRIAL02": 7,      
+            "REHAB-30D-SUB01": 30,      
+            "REHAB-30D-SUB02": 30,      
+            "REHAB-90D-PRO01": 90,      
+            "REHAB-365D-YEAR01": 365    
+        };
+        // =========================================================================
 
         const evaluationData = {
             scapula: {
@@ -274,7 +297,7 @@
                     { id: "s7", name: "사각근 증후군 (TOS)", label: "사각근 과긴장: 팔 저림 및 쇄골 아래 압통", why: "상완신경총 압박으로 인한 손끝 저림 증상 감별", method: "아들슨 테스트 (고개 돌리고 심호흡 시 맥박 변화)", standard: "맥박 약화 및 저림 발생" },
                     { id: "s8", name: "대흉근 쇄골부 단축", label: "대흉근 단축: 팔 수평 외전 제한", why: "상완골 내회전 변위 및 흉곽 가동성 저하 진단", method: "앙와위에서 팔 수평 외전 가동범위 측정", standard: "바닥과의 수평 도달 여부" },
                     { id: "s9", name: "능형근 만성 긴장", label: "능형근 통증: 날개뼈 사이 쑤심", why: "견갑골 후인근 피로도 및 거북목 보상 작용 평가", method: "견갑골 사이 능형근 촉진 및 압통 확인", standard: "국소 압통 및 근막 경결" },
-                    { id: "s10", name: "상완이두근 장두 건염", label: "이두근 장두: 어깨 앞쪽 홈 부위 통증", why: "결절간구 내 건마찰 및 슬랩(SLAP) 부하 검상", method: "스피드 테스트 (저항 주며 어깨 굴곡)", standard: "결절간구 부위 통증 유발" }
+                    { id: "s10", name: "상완이두근 장두 건염", label: "이두근 장두: 어깨 앞쪽 홈 부위 통증", why: "결절간구 내 건마찰 및 슬랩(SLAP) 부하 검사", method: "스피드 테스트 (저항 주며 어깨 굴곡)", standard: "결절간구 부위 통증 유발" }
                 ]
             },
             pelvis: {
@@ -284,7 +307,7 @@
                     { id: "p2", name: "중둔근 약화 (트렌델렌버그)", label: "중둔근 약화: 보행 시 골반 낙하", why: "측방 골반 안정화 실패 및 보행 시 무릎 무너짐 평가", method: "한 발 서기 시 골반 수평 유지 상태 관찰", standard: "지지 반대쪽 골반이 아래로 떨어짐" },
                     { id: "p3", name: "요방형근 과사용", label: "요방형근 통증: 허리 측면 묵직함 및 결림", why: "골반 비대칭 및 측면 굴곡 제한 진단", method: "요방형근 촉진 및 측면 굴곡 가동범위 확인", standard: "편측 압통 및 긴장도 차이" },
                     { id: "p4", name: "이상근 증후군", label: "이상근 긴장: 엉덩이 깊은 곳 찌릿함 & 방사통", why: "좌골신경 압박 여부 및 고관절 외회전근 과긴장 평가", method: "패트릭 테스트 (FABER Test) 수행", standard: "서혜부 또는 엉덩이 심부 통증" },
-                    { id: "p5", name: "햄스트링 단축", label: "햄스트링 타이트함: 허리 숙일 때 골반 후만", why: "골반 가동성 제한 및 좌골신경 유동성 검상", method: "직거상 검사 (SLR Test)", standard: "70도 미만에서 당김 발생" },
+                    { id: "p5", name: "햄스트링 단축", label: "햄스트링 타이트함: 허리 숙일 때 골반 후만", why: "골반 가동성 제한 및 좌골신경 유동성 검사", method: "직거상 검사 (SLR Test)", standard: "70도 미만에서 당김 발생" },
                     { id: "p6", name: "고관절 찝힘 (FAIS)", label: "고관절 찝힘: 스쿼트 시 서혜부 통증", why: "관절낭 타이트함 및 대퇴골두 비구 충돌 평가", method: "고관절 굴곡-내회전 복합 검사", standard: "서혜부 찝힘 및 통증 발생" },
                     { id: "p7", name: "대퇴직근 단축", label: "대퇴직근 단축: 무릎 구부릴 때 앞벅지 땡김", why: "슬개골 상단 견인 및 골반 전방경사 보상 진단", method: "엎드려서 무릎 굽힐 때 골반 들림 확인", standard: "무릎 굴곡 시 골반이 전방으로 들림" },
                     { id: "p8", name: "복횡근 코어 억제", label: "복압 유지 실패: 데드버그 시 허리 들림", why: "심부 안정화 근육 기능 저하 진단", method: "데드버그 동작 시 요추 전만 유지력 평가", standard: "요추 바닥 밀착 실패 및 허리 들림" },
@@ -320,39 +343,155 @@
             loadClientList();
         };
 
+        // =========================================================================
+        // [보안 강화] 중복 사용 및 기한 만료 검증 로직
+        // =========================================================================
         function checkLicenseOnLoad() {
-            const savedLicense = localStorage.getItem('rehab_pro_verified_license');
             let deviceId = localStorage.getItem('rehab_pro_device_id');
             if(!deviceId) {
                 deviceId = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
                 localStorage.setItem('rehab_pro_device_id', deviceId);
             }
-            if(savedLicense && VALID_LICENSES.includes(savedLicense)) {
-                document.getElementById('licenseModal').classList.add('hidden');
-                document.getElementById('licenseBtnText').innerText = "정품 인증 완료";
-                document.getElementById('headerLicenseBtn').className = "px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
-            } else {
-                document.getElementById('licenseModal').classList.remove('hidden');
+
+            const authDataRaw = localStorage.getItem('rehab_pro_auth_data');
+            if(!authDataRaw) {
+                lockApp("라이센스 인증이 필요합니다. 발급받으신 코드를 입력해 주세요.");
+                return;
             }
+
+            const authData = JSON.parse(authDataRaw);
+            const now = Date.now();
+
+            if(authData.type === 'UNLIMITED' && UNLIMITED_LICENSES.includes(authData.code)) {
+                unlockApp(authData);
+                return;
+            }
+
+            if(authData.type === 'TIMED' && TIMED_LICENSES.hasOwnProperty(authData.code)) {
+                if(now < authData.expiresAt) {
+                    unlockApp(authData);
+                } else {
+                    const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
+                    lockApp(`구독 기간이 만료되었습니다 (${expDateStr} 종료). 연장 코드를 입력해 주세요.`);
+                }
+                return;
+            }
+
+            lockApp("유효하지 않거나 만료된 라이센스입니다. 새 코드를 입력해 주세요.");
         }
 
         function verifyAndSaveLicense() {
-            const inputKey = document.getElementById('licenseKeyInput').value.trim();
+            const inputKey = document.getElementById('licenseKeyInput').value.trim().toUpperCase();
             const msgEl = document.getElementById('licenseMsg');
-            if(VALID_LICENSES.includes(inputKey)) {
-                localStorage.setItem('rehab_pro_verified_license', inputKey);
-                document.getElementById('licenseModal').classList.add('hidden');
-                document.getElementById('licenseBtnText').innerText = "정품 인증 완료";
-                document.getElementById('headerLicenseBtn').className = "px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
-                alert('기기 정품 인증이 성공적으로 완료되었습니다. 본 기기에 영구 귀속됩니다!');
+            const now = Date.now();
+
+            // 1. 무제한 코드 검증
+            if(UNLIMITED_LICENSES.includes(inputKey)) {
+                const authData = {
+                    code: inputKey,
+                    type: 'UNLIMITED',
+                    activatedAt: now,
+                    expiresAt: null
+                };
+                localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
+                msgEl.classList.add('hidden');
+                unlockApp(authData);
+                alert('✅ 영구(무제한) 정품 라이센스 인증이 완료되었습니다!');
+                return;
+            }
+
+            // 2. 기한제 코드 검증 및 [만료된 코드 재사용 차단 보안 로직]
+            if(TIMED_LICENSES.hasOwnProperty(inputKey)) {
+                const days = TIMED_LICENSES[inputKey];
+                
+                // 기존 기기에서 이 코드를 이미 사용한 이력이 있는지 영구 대조
+                const historyRaw = localStorage.getItem('rehab_pro_used_history') || '{}';
+                let history = JSON.parse(historyRaw);
+
+                let expiresAt;
+                if(history[inputKey]) {
+                    // 이미 등록된 적이 있는 코드는 최초 발급된 만료일을 그대로 유지함 (만료 후 재입력으로 기간 연장 꼼수 원천 차단)
+                    expiresAt = history[inputKey];
+                    if(now >= expiresAt) {
+                        msgEl.innerText = `[보안 차단] 이미 만료된 코드는 재사용할 수 없습니다. 신규 연장 코드를 발급받아 주세요.`;
+                        msgEl.classList.remove('hidden');
+                        return;
+                    }
+                } else {
+                    // 최초 등록 시 만료일 계산 및 이력 박제
+                    expiresAt = now + (days * 24 * 60 * 60 * 1000);
+                    history[inputKey] = expiresAt;
+                    localStorage.setItem('rehab_pro_used_history', JSON.stringify(history));
+                }
+
+                const authData = {
+                    code: inputKey,
+                    type: 'TIMED',
+                    days: days,
+                    activatedAt: now,
+                    expiresAt: expiresAt
+                };
+                localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
+                msgEl.classList.add('hidden');
+                unlockApp(authData);
+                
+                const expDateStr = new Date(expiresAt).toLocaleString();
+                alert(`✅ 기한제(${days}일) 라이센스 인증 완료!\n만료 일시: ${expDateStr}`);
+                return;
+            }
+
+            msgEl.innerText = "유효하지 않은 인증 코드입니다. 올바른 코드를 입력해 주세요.";
+            msgEl.classList.remove('hidden');
+        }
+
+        function unlockApp(authData) {
+            document.getElementById('licenseModal').classList.add('hidden');
+            document.getElementById('closeLicenseBtn').classList.remove('hidden');
+            
+            const statusBox = document.getElementById('currentLicenseStatusBox');
+            statusBox.classList.remove('hidden');
+            document.getElementById('statusCode').innerText = authData.code;
+
+            const btn = document.getElementById('headerLicenseBtn');
+            const btnText = document.getElementById('licenseBtnText');
+
+            if(authData.type === 'UNLIMITED') {
+                btnText.innerText = "영구 정품 인증됨";
+                btn.className = "px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
+                document.getElementById('statusType').innerText = "무제한 영구 라이센스";
+                document.getElementById('statusExpiry').innerText = "만료 없음 (평생 이용)";
             } else {
-                msgEl.innerText = "유효하지 않은 라이센스 키입니다. 구매처에 문의해 주세요.";
-                msgEl.classList.remove('hidden');
+                const remainMs = authData.expiresAt - Date.now();
+                const remainDays = Math.ceil(remainMs / (1000 * 60 * 60 * 24));
+                const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
+
+                btnText.innerText = `구독중 (D-${remainDays})`;
+                btn.className = "px-3.5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
+                document.getElementById('statusType').innerText = `기한제 구독 (${authData.days}일권)`;
+                document.getElementById('statusExpiry').innerText = `${expDateStr} 까지 (약 ${remainDays}일 남음)`;
             }
         }
 
-        function openLicenseModal() { document.getElementById('licenseModal').classList.remove('hidden'); }
+        function lockApp(reasonMsg) {
+            const modal = document.getElementById('licenseModal');
+            modal.classList.remove('hidden');
+            document.getElementById('closeLicenseBtn').classList.add('hidden'); 
+            
+            const msgEl = document.getElementById('licenseMsg');
+            msgEl.innerText = reasonMsg;
+            msgEl.classList.remove('hidden');
 
+            const btn = document.getElementById('headerLicenseBtn');
+            btn.className = "px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
+            document.getElementById('licenseBtnText').innerText = "인증 만료/필요";
+        }
+
+        function openLicenseModal() { document.getElementById('licenseModal').classList.remove('hidden'); }
+        function closeLicenseModal() { document.getElementById('licenseModal').classList.add('hidden'); }
+
+        // =========================================================================
+        // 평가표 및 AI 카드 리포트 엔진 동일 유지
+        // =========================================================================
         function switchRegion(region) {
             currentRegion = region;
             ['scapula', 'pelvis', 'ankle'].forEach(r => {
@@ -422,7 +561,6 @@
             document.getElementById('removePhotoBtn').classList.add('hidden');
         }
 
-        // 시각적 해부학 카드 리포트 생성 및 시연 영상 연동 엔진
         async function generateAiProtocol() {
             let apiKey = localStorage.getItem('rehab_gemini_api_key');
             if(!apiKey) { openApiKeyModal(); return; }
