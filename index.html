@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v5.0</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -31,7 +31,7 @@
     </script>
     <style>
         body { background-color: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .glow-effect { box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.1); }
+        .glow-effect { box-shadow: 0 4px 20px 2px rgba(16, 185, 129, 0.1); }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
@@ -44,25 +44,18 @@
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-600 shadow-sm flex items-center justify-center">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                        <line x1="6" y1="1" x2="6" y2="4"></line>
-                        <line x1="10" y1="1" x2="10" y2="4"></line>
-                        <line x1="14" y1="1" x2="14" y2="4"></line>
-                    </svg>
+                    <i data-lucide="activity" class="w-6 h-6"></i>
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">VISUAL CARD v4.5</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v5.0 MASTER</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium">시각적 해부학 카드 리포트 & 40가지 증상 컨디셔닝 에이전트</p>
+                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · AI 해부학 카드 리포트</p>
                 </div>
             </div>
-            
             <div class="flex items-center space-x-2.5">
                 <button id="headerLicenseBtn" onclick="openLicenseModal()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">🔑 라이센스 인증 관리</span>
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">라이센스 인증 관리</span>
                 </button>
                 <button onclick="openApiKeyModal()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
                     <i data-lucide="key" class="w-4 h-4 text-emerald-600"></i> API 키 설정
@@ -71,11 +64,12 @@
         </div>
     </header>
 
-    <!-- Main Workspace (2-Column Optimized Layout) -->
+    <!-- Main Workspace -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
         <!-- LEFT COLUMN: 회원 관리, 사진 업로드, 40가지 증상 평가 (5 Cols) -->
         <section class="lg:col-span-5 space-y-6">
+            
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
                     <i data-lucide="user-check" class="w-5 h-5 text-emerald-600"></i> 회원 세션 관리
@@ -119,19 +113,18 @@
                 </button>
             </div>
 
-            <!-- 부위별 정밀 기능 평가표 (30가지 + 확장형) -->
+            <!-- 부위별 정밀 기능 평가표 (가이드 & 체크박스 통합) -->
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center justify-between">
-                    <span class="flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-emerald-600"></i> 40가지 증상 및 평가 선택</span>
-                    <span class="text-xs text-emerald-600 font-semibold">다중 선택 가능</span>
+                    <span class="flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-emerald-600"></i> 40가지 증상 및 기능검사</span>
+                    <span class="text-xs text-emerald-600 font-semibold">가이드 및 체크</span>
                 </h2>
-
                 <div class="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-xl mb-4 text-xs font-bold text-center">
                     <button id="regionScapulaBtn" onclick="switchRegion('scapula')" class="py-2 rounded-lg bg-white text-emerald-700 shadow-sm border border-slate-200">상체/목 (10)</button>
                     <button id="regionPelvisBtn" onclick="switchRegion('pelvis')" class="py-2 rounded-lg text-slate-500 hover:text-slate-900">골반/코어 (10)</button>
                     <button id="regionAnkleBtn" onclick="switchRegion('ankle')" class="py-2 rounded-lg text-slate-500 hover:text-slate-900">하지/발목 (10)</button>
                 </div>
-
+                
                 <div id="evalSection" class="space-y-2 mb-4 max-h-[320px] overflow-y-auto pr-1"></div>
 
                 <div class="space-y-2 pt-3 border-t border-slate-200">
@@ -143,14 +136,16 @@
                     <i data-lucide="sparkles" class="w-4 h-4"></i> 시각적 해부학 카드 리포트 생성
                 </button>
             </div>
+
         </section>
 
-        <!-- RIGHT COLUMN: 첨부 사진 형태의 시각적 해부학 카드 리포트 (7 Cols) -->
+        <!-- RIGHT COLUMN: 해부학 카드 리포트 & 세션 마감 (7 Cols) -->
         <section class="lg:col-span-7 space-y-6">
+            
             <div id="reportBox" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hidden">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
                     <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> 🎯 [시각적 해부학 카드 리포트]
+                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> [시각적 해부학 카드 리포트 & 시연 영상]
                     </h3>
                     <div class="flex items-center gap-2">
                         <button onclick="copyReport()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
@@ -158,12 +153,10 @@
                         </button>
                     </div>
                 </div>
-                
                 <!-- 시각적 카드 리포트 렌더링 영역 -->
                 <div id="reportContent" class="space-y-4 text-xs text-slate-700 font-medium"></div>
-
                 <div class="mt-6 pt-4 border-t border-slate-200 text-[10px] text-slate-400 text-center font-normal">
-                    ※ 본 리포트는 의료법을 준수하며, 질환의 진단·치료가 아닌 기능적 체형 개선 및 운동 컨디셔닝 목적의 가이드라인입니다.
+                    ※ 본 리포트는 의료법을 준수하며, 질환의 진단·치료가 아닌 기능적 체형 개선 및 운동 컨디셔닝 목적으로 시연 영상과 함께 제공됩니다.
                 </div>
             </div>
 
@@ -174,7 +167,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-800">회원 맞춤 시각적 리포트 대기 중</h3>
                 <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                    좌측에서 통증 부위나 평가 항목을 체크한 뒤 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span> 버튼을 누르면 첨부하신 이미지처럼 직관적인 상담용 카드가 생성됩니다.
+                    좌측에서 검사 가이드를 확인하고 이상 소견에 체크한 뒤 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span> 버튼을 누르면 4단계 운동과 시연 영상이 포함된 상담용 카드가 생성됩니다.
                 </p>
             </div>
 
@@ -186,11 +179,11 @@
                 <div class="space-y-3">
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">세션 전 통증(VAS)</label>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">세션 전 통증 (VAS)</label>
                             <input type="number" id="vasBefore" min="0" max="10" placeholder="0-10" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 font-medium">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">세션 후 통증(VAS)</label>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">세션 후 통증 (VAS)</label>
                             <input type="number" id="vasAfter" min="0" max="10" placeholder="0-10" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 font-medium">
                         </div>
                     </div>
@@ -203,8 +196,23 @@
                     </button>
                 </div>
             </div>
+
         </section>
+
     </main>
+
+    <!-- 검사 가이드 매뉴얼 팝업 모달 -->
+    <div id="guideModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl">
+            <h3 id="guideModalTitle" class="text-base font-bold text-emerald-700 flex items-center gap-2">
+                <i data-lucide="help-circle" class="w-5 h-5"></i> 기능검사 가이드 매뉴얼
+            </h3>
+            <div id="guideModalContent" class="text-xs text-slate-700 space-y-3 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200"></div>
+            <div class="flex justify-end">
+                <button onclick="closeGuideModal()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700">확인</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 라이센스 인증 팝업 모달 -->
     <div id="licenseModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 hidden">
@@ -248,50 +256,55 @@
             "TRAINER-JANG-2026"
         ];
 
+        // 헬퍼: 유튜브 시연 영상 검색 링크 생성 (추후 자체 숏폼 URL로 교체 가능)
+        function getYtLink(exerciseName) {
+            return `https://www.youtube.com/results?search_query=${encodeURIComponent(exerciseName + ' 운동 시연')}`;
+        }
+
         const evaluationData = {
             scapula: {
                 title: "상체 및 목 통증/기능 평가 (10가지)",
                 questions: [
-                    { id: "s1", name: "상부승모근 TP & 긴장성 두통", label: "상부승모근 TP: 목 뻐근함, 관절자극 두통", why: "목 뒤쪽 및 관절 부위 방사통 유발 및 경추 회전 제한 평가" },
-                    { id: "s2", name: "견갑거근 단축 & 락킹", label: "견갑거근: 고개 한쪽으로 돌릴 때 담 결림", why: "상견각 부착부 압박 및 견갑골 상방 회전 제한 감별" },
-                    { id: "s3", name: "소흉근 단축 & 라운드숄더", label: "소흉근 단축: 어깨 전면 찝힘 및 굽은 등", why: "견갑골 전방경사 및 흉곽 압박으로 인한 오십견 유사 증상 평가" },
-                    { id: "s4", name: "전거근 약화 & 익상견갑", label: "전거근 약화: 푸시업 시 날개뼈 뜸", why: "흉벽 밀착력 저하 및 상완골 회전 장애 진단" },
-                    { id: "s5", name: "극상근 회전근개 부하", label: "극상근 건병증: 팔 들 때 90도 구간 찌릿함", why: "견봉하 공간 협소화 및 회전근개 마찰 진단" },
-                    { id: "s6", name: "흉추 회전 변위 (T-Spine)", label: "흉추 회전 제한: 등 뒤 뻐근함 및 회전 각도 부족", why: "요추 보상 작용 차단 및 흉추 분절 가동범위 측정" },
-                    { id: "s7", name: "사각근 증후군 (TOS)", label: "사각근 과긴장: 팔 저림 및 쇄골 아래 압통", why: "상완신경총 압박으로 인한 손끝 저림 증상 감별" },
-                    { id: "s8", name: "대흉근 쇄골부 단축", label: "대흉근 단축: 팔 수평 외전 제한", why: "상완골 내회전 변위 및 흉곽 가동성 저하 진단" },
-                    { id: "s9", name: "능형근 만성 긴장", label: "능형근 통증: 날개뼈 사이 쑤심", why: "견갑골 후인근 피로도 및 거북목 보상 작용 평가" },
-                    { id: "s10", name: "상완이두근 장두 건염", label: "이두근 장두: 어깨 앞쪽 홈 부위 통증", why: "결절간구 내 건마찰 및 슬랩(SLAP) 부하 검사" }
+                    { id: "s1", name: "상부승모근 TP & 두통", label: "상부승모근 TP: 목 뻐근함, 관절자극 두통", why: "목 뒤쪽 및 관절 부위 방사통 유발 및 경추 회전 제한 평가", method: "회원을 앉힌 상태에서 상부승모근 긴장도 및 압통 촉진", standard: "대칭적 긴장 및 통증 유무 확인" },
+                    { id: "s2", name: "견갑거근 단축 & 락킹", label: "견갑거근: 고개 한쪽으로 돌릴 때 담 결림", why: "상견각 부착부 압박 및 견갑골 상방 회전 제한 감별", method: "목을 반대쪽으로 숙인 후 회전 시 상각 부위 통증 확인", standard: "측굴 및 회전 각도 제한 발생 시 양성" },
+                    { id: "s3", name: "소흉근 단축 & 라운드숄더", label: "소흉근 단축: 어깨 전면 찝힘 및 굽은 등", why: "견갑골 전방경사 및 흉곽 압박으로 인한 오십견 유사 증상 평가", method: "바로 누운 상태에서 어깨 전면 오리엔테이션 및 오목 관찰", standard: "견봉이 바닥으로부터 들리는지 확인" },
+                    { id: "s4", name: "전거근 약화 & 익상견갑", label: "전거근 약화: 푸시업 시 날개뼈 뜸", why: "흉벽 밀착력 저하 및 상완골 회전 장애 진단", method: "벽 푸시업 시 견갑골 하각 들림 현상 관찰", standard: "하각이 흉곽에서 뜨면 전거근 약화" },
+                    { id: "s5", name: "극상근 회전근개 부하", label: "극상근 건병증: 팔 들 때 90도 구간 찌릿함", why: "견봉하 공간 협소화 및 회전근개 마찰 진단", method: "팔을 외회전/내회전 상태로 90도 외전 시 통증 유무", standard: "특정 각도 구간 통증(Painful Arc)" },
+                    { id: "s6", name: "흉추 회전 변위 (T-Spine)", label: "흉추 회전 제한: 등 뒤 뻐근함 및 회전 각도 부족", why: "요추 보상 작용 차단 및 흉추 분절 가동범위 측정", method: "네발 기기 자세에서 흉추 회전 각도 비교", standard: "좌우 회전 비대칭 확인" },
+                    { id: "s7", name: "사각근 증후군 (TOS)", label: "사각근 과긴장: 팔 저림 및 쇄골 아래 압통", why: "상완신경총 압박으로 인한 손끝 저림 증상 감별", method: "아들슨 테스트 (고개 돌리고 심호흡 시 맥박 변화)", standard: "맥박 약화 및 저림 발생" },
+                    { id: "s8", name: "대흉근 쇄골부 단축", label: "대흉근 단축: 팔 수평 외전 제한", why: "상완골 내회전 변위 및 흉곽 가동성 저하 진단", method: "앙와위에서 팔 수평 외전 가동범위 측정", standard: "바닥과의 수평 도달 여부" },
+                    { id: "s9", name: "능형근 만성 긴장", label: "능형근 통증: 날개뼈 사이 쑤심", why: "견갑골 후인근 피로도 및 거북목 보상 작용 평가", method: "견갑골 사이 능형근 촉진 및 압통 확인", standard: "국소 압통 및 근막 경결" },
+                    { id: "s10", name: "상완이두근 장두 건염", label: "이두근 장두: 어깨 앞쪽 홈 부위 통증", why: "결절간구 내 건마찰 및 슬랩(SLAP) 부하 검상", method: "스피드 테스트 (저항 주며 어깨 굴곡)", standard: "결절간구 부위 통증 유발" }
                 ]
             },
             pelvis: {
                 title: "골반 및 코어 통증/기능 평가 (10가지)",
                 questions: [
-                    { id: "p1", name: "장요근 단축 (Thomas 양성)", label: "장요근 단축: 골반 전방경사 및 요통", why: "요추 전만 과다 및 고관절 굴곡 제한 진단" },
-                    { id: "p2", name: "중둔근 약화 (트렌델렌버그)", label: "중둔근 약화: 보행 시 골반 낙하", why: "측방 골반 안정화 실패 및 보행 시 무릎 무너짐 평가" },
-                    { id: "p3", name: "요방형근 과사용", label: "요방형근 통증: 허리 측면 묵직함 및 결림", why: "골반 비대칭 및 측면 굴곡 제한 진단" },
-                    { id: "p4", name: "이상근 증후군", label: "이상근 긴장: 엉덩이 깊은 곳 찌릿함 & 방사통", why: "좌골신경 압박 여부 및 고관절 외회전근 과긴장 평가" },
-                    { id: "p5", name: "햄스트링 단축", label: "햄스트링 타이트함: 허리 숙일 때 골반 후만", why: "골반 가동성 제한 및 좌골신경 유동성 검사" },
-                    { id: "p6", name: "고관절 찝힘 (FAIS)", label: "고관절 찝힘: 스쿼트 시 서혜부 통증", why: "관절낭 타이트함 및 대퇴골두 비구 충돌 평가" },
-                    { id: "p7", name: "대퇴직근 단축", label: "대퇴직근 단축: 무릎 구부릴 때 앞벅지 땡김", why: "슬개골 상단 견인 및 골반 전방경사 보상 진단" },
-                    { id: "p8", name: "복횡근 코어 억제", label: "복압 유지 실패: 데드버그 시 허리 들림", why: "심부 안정화 근육 기능 저하 진단" },
-                    { id: "p9", name: "내전근 그룹 타이트함", label: "내전근 단축: 다리 벌릴 때 서혜부 제한", why: "고관절 외전 가동범위 및 골반 정렬 평가" },
-                    { id: "p10", name: "천장관절(SI Joint) 불안정", label: "SI Joint 통증: 엉치 아래쪽 뻐근한 통증", why: "골반대 결합부 안정성 및 인대 스트레스 평가" }
+                    { id: "p1", name: "장요근 단축 (Thomas 양성)", label: "장요근 단축: 골반 전방경사 및 요통", why: "요추 전만 과다 및 고관절 굴곡 제한 진단", method: "토마스 테스트 (벤치 끝에서 다리 감싸 안고 누움)", standard: "반대쪽 허벅지가 바닥에서 뜨면 양성" },
+                    { id: "p2", name: "중둔근 약화 (트렌델렌버그)", label: "중둔근 약화: 보행 시 골반 낙하", why: "측방 골반 안정화 실패 및 보행 시 무릎 무너짐 평가", method: "한 발 서기 시 골반 수평 유지 상태 관찰", standard: "지지 반대쪽 골반이 아래로 떨어짐" },
+                    { id: "p3", name: "요방형근 과사용", label: "요방형근 통증: 허리 측면 묵직함 및 결림", why: "골반 비대칭 및 측면 굴곡 제한 진단", method: "요방형근 촉진 및 측면 굴곡 가동범위 확인", standard: "편측 압통 및 긴장도 차이" },
+                    { id: "p4", name: "이상근 증후군", label: "이상근 긴장: 엉덩이 깊은 곳 찌릿함 & 방사통", why: "좌골신경 압박 여부 및 고관절 외회전근 과긴장 평가", method: "패트릭 테스트 (FABER Test) 수행", standard: "서혜부 또는 엉덩이 심부 통증" },
+                    { id: "p5", name: "햄스트링 단축", label: "햄스트링 타이트함: 허리 숙일 때 골반 후만", why: "골반 가동성 제한 및 좌골신경 유동성 검상", method: "직거상 검사 (SLR Test)", standard: "70도 미만에서 당김 발생" },
+                    { id: "p6", name: "고관절 찝힘 (FAIS)", label: "고관절 찝힘: 스쿼트 시 서혜부 통증", why: "관절낭 타이트함 및 대퇴골두 비구 충돌 평가", method: "고관절 굴곡-내회전 복합 검사", standard: "서혜부 찝힘 및 통증 발생" },
+                    { id: "p7", name: "대퇴직근 단축", label: "대퇴직근 단축: 무릎 구부릴 때 앞벅지 땡김", why: "슬개골 상단 견인 및 골반 전방경사 보상 진단", method: "엎드려서 무릎 굽힐 때 골반 들림 확인", standard: "무릎 굴곡 시 골반이 전방으로 들림" },
+                    { id: "p8", name: "복횡근 코어 억제", label: "복압 유지 실패: 데드버그 시 허리 들림", why: "심부 안정화 근육 기능 저하 진단", method: "데드버그 동작 시 요추 전만 유지력 평가", standard: "요추 바닥 밀착 실패 및 허리 들림" },
+                    { id: "p9", name: "내전근 그룹 타이트함", label: "내전근 단축: 다리 벌릴 때 서혜부 제한", why: "고관절 외전 가동범위 및 골반 정렬 평가", method: "나비 자세에서 무릎 바닥 하강 높이 측정", standard: "좌우 비대칭 및 높이 제한" },
+                    { id: "p10", name: "천장관절(SI Joint) 불안정", label: "SI Joint 통증: 엉치 아래쪽 뻐근한 통증", why: "골반대 결합부 안정성 및 인대 스트레스 평가", method: "오브렌 테스트 (Gaenslen's Test)", standard: "천장관절 부위 통증 유발" }
                 ]
             },
             ankle: {
                 title: "하지 및 발목 통증/기능 평가 (10가지)",
                 questions: [
-                    { id: "a1", name: "가자미근/비복근 단축", label: "종아리 타이트함: 스쿼트 시 발뒤꿈치 들림", why: "발목 배측굴곡 제한 및 아킬레스건 부하 평가" },
-                    { id: "a2", name: "무릎 내측 무너짐 (Valgus)", label: "무릎 내회전/외반: 스쿼트 시 무릎 안쪽 모임", why: "족부 아치 무너짐 및 대퇴 내전근 과활성 진단" },
-                    { id: "a3", name: "족저근막 타이트함", label: "족저근막염: 아침에 첫 걸을 때 발바닥 찌릿", why: "발바닥 윈들라스 메커니즘 및 아치 소실 평가" },
-                    { id: "a4", name: "전경골근 약화", label: "전경골근 피로: 걸을 때 발등이 잘 안 들림", why: "발목 배측굴곡 보상 및 정강이 앞쪽 뻐근함 진단" },
-                    { id: "a5", name: "후경골근/평발화", label: "주상골 낙하: 과도한 평발 및 발목 안쪽 무너짐", why: "발바닥 내재근 약화 및 회내 변위 진단" },
-                    { id: "a6", name: "비골근 긴장 (외측 안정성)", label: "비골근 단축: 발목 외측 뻐근함 & 잦은 접질림", why: "발목 염좌 후유증 및 외측 안정근 과긴장 평가" },
-                    { id: "a7", name: "슬개골 정렬 이상 (Tracking)", label: "슬개골 연골 마찰: 계단 내려갈 때 무릎 앞쪽 통증", why: "대퇴사두근 내/외측 불균형 진단" },
-                    { id: "a8", name: "무릎 과신전 (Back Knee)", label: "무릎 과신전: 서 있을 때 무릎이 뒤로 꺾임", why: "햄스트링/비복근 억제 및 관절 후방 스트레스 평가" },
-                    { id: "a9", name: "아킬레스건 건병증", label: "아킬레스건 비대: 건 부위 압통 및 뻣뻣함", why: "종건 이행부 미세 손상 및 탄성 저하 진단" },
-                    { id: "a10", name: "발목 전방 관절 충돌", label: "발목 앞쪽 찝힘: 깊게 앉을 때 발등 앞쪽 통증", why: "족관절 전방 관절낭 유착 및 가동범위 제한 진단" }
+                    { id: "a1", name: "가자미근/비복근 단축", label: "종아리 타이트함: 스쿼트 시 발뒤꿈치 들림", why: "발목 배측굴곡 제한 및 아킬레스건 부하 평가", method: "무릎 벽 테스트 (WBTD) 수행", standard: "발뒤꿈치 들림 또는 10cm 미만" },
+                    { id: "a2", name: "무릎 내측 무너짐 (Valgus)", label: "무릎 내회전/외반: 스쿼트 시 무릎 안쪽 모임", why: "족부 아치 무너짐 및 대퇴 내전근 과활성 진단", method: "싱글 레그 스쿼트 정렬 관찰", standard: "무릎이 발가락 안쪽 방향으로 모임" },
+                    { id: "a3", name: "족저근막 타이트함", label: "족저근막염: 아침에 첫 걸을 때 발바닥 찌릿", why: "발바닥 윈들라스 메커니즘 및 아치 소실 평가", method: "윈들라스 테스트 (엄지발가락 신전)", standard: "발바닥 내측 팽팽함 및 통증" },
+                    { id: "a4", name: "전경골근 약화", label: "전경골근 피로: 걸을 때 발등이 잘 안 들림", why: "발목 배측굴곡 보상 및 정강이 앞쪽 뻐근함 진단", method: "보행 시 발끝 끌림 또는 저항 테스트", standard: "배측굴곡 근력 저하 확인" },
+                    { id: "a5", name: "후경골근/평발화", label: "주상골 낙하: 과도한 평발 및 발목 안쪽 무너짐", why: "발바닥 내재근 약화 및 회내 변위 진단", method: "서 있는 상태에서 주상골 높이 및 아치 관찰", standard: "주상골 과도 하강 (평발)" },
+                    { id: "a6", name: "비골근 긴장 (외측 안정성)", label: "비골근 단축: 발목 외측 뻐근함 & 잦은 접질림", why: "발목 염좌 후유증 및 외측 안정근 과긴장 평가", method: "발목 외번 저항 테스트 및 촉진", standard: "외측 복사뼈 아래 압통 및 긴장" },
+                    { id: "a7", name: "슬개골 정렬 이상 (Tracking)", label: "슬개골 연골 마찰: 계단 내려갈 때 무릎 앞쪽 통증", why: "대퇴사두근 내/외측 불균형 진단", method: "슬개골 수동 활주 검사 및 궤적 관찰", standard: "외측으로 편위되어 이동" },
+                    { id: "a8", name: "무릎 과신전 (Back Knee)", label: "무릎 과신전: 서 있을 때 무릎이 뒤로 꺾임", why: "햄스트링/비복근 억제 및 관절 후방 스트레스 평가", method: "스탠딩 시 측면 슬관절 정렬 관찰", standard: "슬관절이 신전 0도를 넘어 뒤로 꺾임" },
+                    { id: "a9", name: "아킬레스건 건병증", label: "아킬레스건 비대: 건 부위 압통 및 뻣뻣함", why: "종건 이행부 미세 손상 및 탄성 저하 진단", method: "아킬레스건 중부 촉진 및 홉 테스트", standard: "국소 비대 및 압통 발생" },
+                    { id: "a10", name: "발목 전방 관절 충돌", label: "발목 앞쪽 찝힘: 깊게 앉을 때 발등 앞쪽 통증", why: "족관절 전방 관절낭 유착 및 가동범위 제한 진단", method: "발목 최대 배측굴곡 시 압통 확인", standard: "관절 전방부 골성/연부 조직 찝힘" }
                 ]
             }
         };
@@ -314,10 +327,9 @@
                 deviceId = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
                 localStorage.setItem('rehab_pro_device_id', deviceId);
             }
-
             if(savedLicense && VALID_LICENSES.includes(savedLicense)) {
                 document.getElementById('licenseModal').classList.add('hidden');
-                document.getElementById('licenseBtnText').innerText = "🔑 정품 인증 완료";
+                document.getElementById('licenseBtnText').innerText = "정품 인증 완료";
                 document.getElementById('headerLicenseBtn').className = "px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
             } else {
                 document.getElementById('licenseModal').classList.remove('hidden');
@@ -327,11 +339,10 @@
         function verifyAndSaveLicense() {
             const inputKey = document.getElementById('licenseKeyInput').value.trim();
             const msgEl = document.getElementById('licenseMsg');
-            
             if(VALID_LICENSES.includes(inputKey)) {
                 localStorage.setItem('rehab_pro_verified_license', inputKey);
                 document.getElementById('licenseModal').classList.add('hidden');
-                document.getElementById('licenseBtnText').innerText = "🔑 정품 인증 완료";
+                document.getElementById('licenseBtnText').innerText = "정품 인증 완료";
                 document.getElementById('headerLicenseBtn').className = "px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
                 alert('기기 정품 인증이 성공적으로 완료되었습니다. 본 기기에 영구 귀속됩니다!');
             } else {
@@ -366,11 +377,26 @@
                             <input type="checkbox" id="${q.id}" class="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 bg-white">
                             <span class="text-xs text-slate-800 font-medium">${q.label}</span>
                         </label>
+                        <button onclick="openGuideModal('${q.name}', \`${q.method}\`, \`${q.standard}\`)" class="px-2 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg text-[10px] font-bold hover:bg-emerald-100 transition flex items-center gap-1 flex-shrink-0">
+                            <i data-lucide="info" class="w-3 h-3"></i> 가이드
+                        </button>
                     </div>
                 `;
             });
             container.innerHTML = html;
+            lucide.createIcons();
         }
+
+        function openGuideModal(title, method, standard) {
+            document.getElementById('guideModalTitle').innerHTML = `<i data-lucide="help-circle" class="w-5 h-5 text-emerald-600"></i> ${title} 매뉴얼`;
+            document.getElementById('guideModalContent').innerHTML = `
+                <p><strong class="text-slate-900 font-bold">🔍 검사 방법:</strong><br>${method}</p>
+                <p class="pt-2 border-t border-slate-200"><strong class="text-slate-900 font-bold">📊 정상 판정 기준:</strong><br>${standard}</p>
+            `;
+            document.getElementById('guideModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+        function closeGuideModal() { document.getElementById('guideModal').classList.add('hidden'); }
 
         function handleInstantPhoto(e) {
             const file = e.target.files[0];
@@ -396,7 +422,7 @@
             document.getElementById('removePhotoBtn').classList.add('hidden');
         }
 
-        // 첨부하신 이미지 카드 형식으로 리포트를 HTML 박스 카드로 변환하는 AI 엔진
+        // 시각적 해부학 카드 리포트 생성 및 시연 영상 연동 엔진
         async function generateAiProtocol() {
             let apiKey = localStorage.getItem('rehab_gemini_api_key');
             if(!apiKey) { openApiKeyModal(); return; }
@@ -405,8 +431,8 @@
             ['scapula', 'pelvis', 'ankle'].forEach(reg => {
                 evaluationData[reg].questions.forEach(q => {
                     const el = document.getElementById(q.id);
-                    if(el && el.checked) { 
-                        evaluatedItems.push(`[${evaluationData[reg].title}] ${q.label} (임상적 이유: ${q.why})`); 
+                    if(el && el.checked) {
+                        evaluatedItems.push(`[${evaluationData[reg].title}] ${q.label} (임상적 이유: ${q.why})`);
                     }
                 });
             });
@@ -423,16 +449,18 @@
             
             reportPlaceholder.classList.add('hidden');
             reportBox.classList.remove('hidden');
-            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">제미나이 EBM 엔진이 시각적 해부학 카드 리포트를 구성 중입니다...</p></div>`;
+            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">제미나이 EBM 엔진이 시각적 해부학 카드 리포트 및 시연 영상 링크를 구성 중입니다...</p></div>`;
             lucide.createIcons();
 
             let contentsParts = [];
             let promptText = `
 당신은 리햅프로(Rehab Pro)의 수석 운동학(Kinesiology) 에이전트입니다.
 회원이 선택한 증상 및 첨부된 체형 사진을 분석하여, 사용자가 제시한 [참고 이미지 카드 형태]와 정확히 일치하는 직관적인 HTML 카드 UI 코드를 생성해 주십시오.
+특히 각 운동 단계(1단계 MFR ~ 4단계 Passive)마다 유튜브 시연 영상 링크 버튼(예: <a href="유튜브검색URL" target="_blank" class="text-rose-500 font-bold underline">[▶ 시연영상 보기]</a>)을 반드시 포함시켜 주십시오.
 
 [선택된 증상 및 평가 데이터]
 ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '선택된 항목 없음'}
+
 [추가 통증 부위 및 특이사항]
 ${customPain || '특이사항 없음'}
 
@@ -445,34 +473,30 @@ ${customPain || '특이사항 없음'}
 <div class="bg-white border-2 border-emerald-500/30 rounded-2xl p-5 shadow-sm space-y-3 mb-4">
     <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
         <span class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold">TP 1</span>
-        <h4 class="text-sm font-extrabold text-slate-900">(증상명 또는 근육명) — "(회원 호소 멘트 1줄)"</h4>
+        <h4 class="text-sm font-extrabold text-slate-900">(증상명 또는 근육명) - "(회원 호소 멘트 1줄)"</h4>
     </div>
     <div class="space-y-2 text-xs text-slate-700">
-        <p>👉 <b>위치:</b> (해부학적 위치 서술)</p>
-        <p>⚡ <b>통증 양상:</b> (방사통 및 통증 양상 서술)</p>
-        <p>🔍 <b>원인:</b> (핵심 원인 서술)</p>
-        <div class="bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 space-y-1 mt-2">
-            <p class="font-bold text-emerald-800">🛠️ 실전 4단계 소도구 믹스 대처법:</p>
-            <p>• <b>1단계 MFR (8분):</b> (압박 및 이완법)</p>
-            <p>• <b>2단계 Mobility (10분):</b> (가동성 동작)</p>
-            <p>• <b>3단계 Active (12분):</b> (강화 운동)</p>
-            <p>• <b>4단계 Passive (5분):</b> (수동 스트레칭)</p>
+        <p><b>위치:</b> (해부학적 위치 서술)</p>
+        <p><b>통증 양상:</b> (방사통 및 통증 양상 서술)</p>
+        <p><b>원인:</b> (핵심 원인 서술)</p>
+        <div class="bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 space-y-1.5 mt-2">
+            <p class="font-bold text-emerald-800"> 실전 4단계 소도구 믹스 대처법 & 시연 영상:</p>
+            <p>• <b>1단계 MFR (8분):</b> (압박 및 이완법) <a href="https://www.youtube.com/results?search_query=근막이완+운동" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
+            <p>• <b>2단계 Mobility (10분):</b> (가동성 동작) <a href="https://www.youtube.com/results?search_query=가동성+스트레칭" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
+            <p>• <b>3단계 Active (12분):</b> (강화 운동) <a href="https://www.youtube.com/results?search_query=신경근활성화+운동" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
+            <p>• <b>4단계 Passive (5분):</b> (수동 스트레칭) <a href="https://www.youtube.com/results?search_query=수동스트레칭+컨디셔닝" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
         </div>
-        <p class="text-emerald-700 font-semibold pt-1">💡 티칭 멘트: "(상담 및 연장 유도 멘트)"</p>
+        <p class="text-emerald-700 font-semibold pt-1"> 티칭 멘트: "(상담 및 연장 유도 멘트)"</p>
     </div>
 </div>
 `;
 
             contentsParts.push({ text: promptText });
-
             if(instantBase64Photo) {
                 const base64Data = instantBase64Photo.split(',')[1];
                 const mimeType = instantBase64Photo.split(';')[0].split(':')[1];
                 contentsParts.push({
-                    inlineData: {
-                        mimeType: mimeType,
-                        data: base64Data
-                    }
+                    inlineData: { mimeType: mimeType, data: base64Data }
                 });
             }
 
@@ -483,7 +507,7 @@ ${customPain || '특이사항 없음'}
                     body: JSON.stringify({
                         contents: [{ parts: contentsParts }],
                         systemInstruction: {
-                            parts: [{ text: "당신은 운동학 시각화 전문가입니다. Tailwind CSS가 포함된 HTML 카드 형태로 직관적인 분석 리포트를 작성합니다." }]
+                            parts: [{ text: "당신은 운동학 시각화 전문가입니다. Tailwind CSS가 포함된 HTML 카드 형태로 시연 영상 링크가 포함된 직관적인 분석 리포트를 작성합니다." }]
                         }
                     })
                 });
@@ -491,16 +515,14 @@ ${customPain || '특이사항 없음'}
                 const data = await response.json();
                 if(data.candidates && data.candidates[0].content.parts[0].text) {
                     let rawText = data.candidates[0].content.parts[0].text;
-                    
-                    // 만약 마크다운 코드블록으로 감싸져 있다면 정제
                     if(rawText.includes("```html")) {
                         rawText = rawText.split("```html")[1].split("```")[0].trim();
                     } else if(rawText.includes("```")) {
                         rawText = rawText.split("```")[1].split("```")[0].trim();
                     }
-
                     reportContent.innerHTML = rawText;
                     currentReportText = rawText;
+                    lucide.createIcons();
                 } else {
                     throw new Error(data.error?.message || 'API 응답 오류');
                 }
@@ -539,7 +561,6 @@ ${customPain || '특이사항 없음'}
             const id = document.getElementById('clientSelect').value;
             const infoBox = document.getElementById('clientInfoBox');
             if(!id) { infoBox.classList.add('hidden'); return; }
-            
             let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
             let client = clients.find(c => c.id == id);
             if(client) {
@@ -552,14 +573,12 @@ ${customPain || '특이사항 없음'}
         function saveSessionRecord() {
             const id = document.getElementById('clientSelect').value;
             if(!id) { alert('회원을 먼저 선택하세요.'); return; }
-
             const vBefore = document.getElementById('vasBefore').value;
             const vAfter = document.getElementById('vasAfter').value;
             const memo = document.getElementById('sessionMemo').value;
 
             let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
             let client = clients.find(c => c.id == id);
-            
             if(client) {
                 client.sessions.push({
                     date: new Date().toLocaleDateString(),
