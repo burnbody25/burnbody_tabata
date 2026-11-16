@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v5.2 SECURE</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.0</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -48,17 +48,23 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v5.2 SECURE</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.0 COMMERCE</span>
                     </h1>
                     <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · AI 해부학 카드 리포트</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2.5">
-                <button id="headerLicenseBtn" onclick="openLicenseModal()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">라이센스 인증 필요</span>
+            <div class="flex items-center space-x-2 flex-wrap">
+                <button onclick="openPricingModal()" class="px-3 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 transition">
+                    <i data-lucide="credit-card" class="w-4 h-4"></i> 결제 및 요금제
                 </button>
-                <button onclick="openApiKeyModal()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
-                    <i data-lucide="key" class="w-4 h-4 text-emerald-600"></i> API 키 설정
+                <button onclick="openApiGuideModal()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
+                    <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> API 연결 안내
+                </button>
+                <button id="headerLicenseBtn" onclick="openLicenseModal()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">라이센스 인증</span>
+                </button>
+                <button onclick="openApiKeyModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+                    <i data-lucide="key" class="w-4 h-4 text-emerald-400"></i> API 키 설정
                 </button>
             </div>
         </div>
@@ -201,6 +207,85 @@
 
     </main>
 
+    <!-- 결제 및 요금제 안내 모달 -->
+    <div id="pricingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="credit-card" class="w-5 h-5 text-rose-500"></i> 리햅프로 라이센스 요금제 안내
+                </h3>
+                <button onclick="closePricingModal()" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
+            </div>
+            
+            <div class="space-y-3 text-xs text-slate-700">
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-extrabold text-rose-700 text-sm">🔥 12월 31일 까지 얼리버드 특가</span>
+                        <span class="px-2 py-0.5 bg-rose-600 text-white rounded font-bold text-[10px]">한정 이벤트</span>
+                    </div>
+                    <p class="text-slate-600">• <b>1년 구독권:</b> <span class="line-through text-slate-400">9만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">6만 9천원</span></p>
+                    <p class="text-slate-600">• <b>영구 소장권:</b> <span class="line-through text-slate-400">16만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">9만 9천원</span></p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <p class="font-bold text-slate-900">📌 정상가 안내 (1월 1일 이후)</p>
+                    <p class="text-slate-600">• 1년 구독권: 9만 9천원 / 영구 소장권: 16만 9천원</p>
+                </div>
+
+                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-center">
+                    <p class="font-bold text-emerald-900 text-sm">💳 결제 및 라이센스 코드 발급 문의</p>
+                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다[cite: 15].</p>
+                    <p class="font-mono font-bold text-emerald-700 text-sm bg-white py-1.5 px-3 rounded-lg border border-emerald-200 inline-block">
+                        📧 rehappro@gmail.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="closePricingModal()" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition">
+                    확인 완료
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- API 키 연결 안내 모달 -->
+    <div id="apiGuideModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="key" class="w-5 h-5 text-emerald-600"></i> 제미나이(Gemini) API 키 연결 가이드
+                </h3>
+                <button onclick="closeApiGuideModal()" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
+            </div>
+            
+            <div class="space-y-3 text-xs text-slate-700 leading-relaxed">
+                <p>리햅프로는 별도의 복잡한 백엔드 서버 없이, 사용자 브라우저에서 구글 제미나이 AI와 다이렉트로 통신하여 초고속 리포트를 생성합니다. 아래 순서대로 무료 API 키를 발급받아 연동해 주세요.</p>
+                
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                    <p class="font-bold text-slate-900">1단계: 구글 AI 스튜디오 접속</p>
+                    <p class="text-slate-600">인터넷 주소창에 <a href="https://aistudio.google.com" target="_blank" class="text-emerald-600 font-bold underline">aistudio.google.com</a> 접속 후 구글 계정으로 로그인합니다.</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                    <p class="font-bold text-slate-900">2단계: API 키 생성 (무료)</p>
+                    <p class="text-slate-600">좌측 상단의 <b>[Get API key]</b> 버튼을 누른 뒤 <b>[Create API key in new project]</b>를 클릭하여 키를 생성하고 복사합니다.</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                    <p class="font-bold text-slate-900">3단계: 리햅프로에 등록</p>
+                    <p class="text-slate-600">우측 상단의 <b>[API 키 설정]</b> 버튼을 누르고 복사한 키(AIzaSy...)를 입력해 저장하면 즉시 사용 가능합니다.</p>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="closeApiGuideModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">
+                    확인 완료
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- 검사 가이드 매뉴얼 팝업 모달 -->
     <div id="guideModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl">
@@ -223,10 +308,9 @@
             <h3 class="text-lg font-extrabold text-slate-900">REHAB PRO 보안 라이센스 인증</h3>
             <p id="licenseModalDesc" class="text-xs text-slate-500 leading-relaxed font-medium">
                 발급받으신 <span class="text-emerald-700 font-bold">영구 라이센스</span> 또는 <span class="text-amber-600 font-bold">기간제 구독 코드</span>를 입력해 주세요.<br>
-                <span class="text-rose-500">※ 체험판(7D) 코드는 기기당 1회만 사용 가능합니다.</span>
+                <span class="text-rose-500">※ 이메일(rehappro@gmail.com) 문의로 코드를 발급받으세요[cite: 15].</span>
             </p>
             
-            <!-- 현재 인증 상태 표시 영역 -->
             <div id="currentLicenseStatusBox" class="hidden p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-left space-y-1">
                 <p class="text-slate-600"><span class="text-slate-400">적용 코드:</span> <span id="statusCode" class="font-mono font-bold text-slate-900"></span></p>
                 <p class="text-slate-600"><span class="text-slate-400">이용 유형:</span> <span id="statusType" class="font-bold text-emerald-600"></span></p>
@@ -275,7 +359,7 @@
         ];
 
         const TIMED_LICENSES = {
-            "REHAB-1D-TRIAL01": 1,      
+            "REHAB-7D-TRIAL01": 7,      
             "REHAB-7D-TRIAL02": 7,      
             "REHAB-30D-SUB01": 30,      
             "REHAB-30D-SUB02": 30,      
@@ -344,7 +428,7 @@
         };
 
         // =========================================================================
-        // [보안 강화] 중복 사용 및 기한 만료 검증 로직
+        // 보안 인증 및 만료 관리 로직
         // =========================================================================
         function checkLicenseOnLoad() {
             let deviceId = localStorage.getItem('rehab_pro_device_id');
@@ -355,7 +439,7 @@
 
             const authDataRaw = localStorage.getItem('rehab_pro_auth_data');
             if(!authDataRaw) {
-                lockApp("라이센스 인증이 필요합니다. 발급받으신 코드를 입력해 주세요.");
+                lockApp("라이센스 인증이 필요합니다. 상단의 [결제 및 요금제]를 확인해 주세요.");
                 return;
             }
 
@@ -372,7 +456,7 @@
                     unlockApp(authData);
                 } else {
                     const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
-                    lockApp(`구독 기간이 만료되었습니다 (${expDateStr} 종료). 연장 코드를 입력해 주세요.`);
+                    lockApp(`구독 기간이 만료되었습니다 (${expDateStr} 종료). 연장 코드를 문의해 주세요.`);
                 }
                 return;
             }
@@ -385,14 +469,8 @@
             const msgEl = document.getElementById('licenseMsg');
             const now = Date.now();
 
-            // 1. 무제한 코드 검증
             if(UNLIMITED_LICENSES.includes(inputKey)) {
-                const authData = {
-                    code: inputKey,
-                    type: 'UNLIMITED',
-                    activatedAt: now,
-                    expiresAt: null
-                };
+                const authData = { code: inputKey, type: 'UNLIMITED', activatedAt: now, expiresAt: null };
                 localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
                 msgEl.classList.add('hidden');
                 unlockApp(authData);
@@ -400,37 +478,26 @@
                 return;
             }
 
-            // 2. 기한제 코드 검증 및 [만료된 코드 재사용 차단 보안 로직]
             if(TIMED_LICENSES.hasOwnProperty(inputKey)) {
                 const days = TIMED_LICENSES[inputKey];
-                
-                // 기존 기기에서 이 코드를 이미 사용한 이력이 있는지 영구 대조
                 const historyRaw = localStorage.getItem('rehab_pro_used_history') || '{}';
                 let history = JSON.parse(historyRaw);
 
                 let expiresAt;
                 if(history[inputKey]) {
-                    // 이미 등록된 적이 있는 코드는 최초 발급된 만료일을 그대로 유지함 (만료 후 재입력으로 기간 연장 꼼수 원천 차단)
                     expiresAt = history[inputKey];
                     if(now >= expiresAt) {
-                        msgEl.innerText = `[보안 차단] 이미 만료된 코드는 재사용할 수 없습니다. 신규 연장 코드를 발급받아 주세요.`;
+                        msgEl.innerText = `[보안 차단] 이미 만료된 코드는 재사용할 수 없습니다. rehappro@gmail.com으로 연장을 문의하세요.`;
                         msgEl.classList.remove('hidden');
                         return;
                     }
                 } else {
-                    // 최초 등록 시 만료일 계산 및 이력 박제
                     expiresAt = now + (days * 24 * 60 * 60 * 1000);
                     history[inputKey] = expiresAt;
                     localStorage.setItem('rehab_pro_used_history', JSON.stringify(history));
                 }
 
-                const authData = {
-                    code: inputKey,
-                    type: 'TIMED',
-                    days: days,
-                    activatedAt: now,
-                    expiresAt: expiresAt
-                };
+                const authData = { code: inputKey, type: 'TIMED', days: days, activatedAt: now, expiresAt: expiresAt };
                 localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
                 msgEl.classList.add('hidden');
                 unlockApp(authData);
@@ -488,6 +555,12 @@
 
         function openLicenseModal() { document.getElementById('licenseModal').classList.remove('hidden'); }
         function closeLicenseModal() { document.getElementById('licenseModal').classList.add('hidden'); }
+        
+        function openPricingModal() { document.getElementById('pricingModal').classList.remove('hidden'); }
+        function closePricingModal() { document.getElementById('pricingModal').classList.add('hidden'); }
+
+        function openApiGuideModal() { document.getElementById('apiGuideModal').classList.remove('hidden'); }
+        function closeApiGuideModal() { document.getElementById('apiGuideModal').classList.add('hidden'); }
 
         // =========================================================================
         // 평가표 및 AI 카드 리포트 엔진 동일 유지
