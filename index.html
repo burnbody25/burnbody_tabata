@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.0</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.1 STABLE</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -48,9 +48,9 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.0 COMMERCE</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.1 STABLE</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · AI 해부학 카드 리포트</p>
+                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 인증 영구 보존 체계</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2 flex-wrap">
@@ -234,7 +234,7 @@
 
                 <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-center">
                     <p class="font-bold text-emerald-900 text-sm">💳 결제 및 라이센스 코드 발급 문의</p>
-                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다[cite: 15].</p>
+                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다.</p>
                     <p class="font-mono font-bold text-emerald-700 text-sm bg-white py-1.5 px-3 rounded-lg border border-emerald-200 inline-block">
                         📧 rehappro@gmail.com
                     </p>
@@ -299,16 +299,16 @@
         </div>
     </div>
 
-    <!-- 라이센스 인증 팝업 모달 (보안 강화 버전) -->
+    <!-- 라이센스 인증 팝업 모달 (인증 영구 보존 안정화) -->
     <div id="licenseModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl text-center">
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-full w-12 h-12 flex items-center justify-center mx-auto text-emerald-600">
                 <i data-lucide="shield-check" class="w-6 h-6"></i>
             </div>
-            <h3 class="text-lg font-extrabold text-slate-900">REHAB PRO 보안 라이센스 인증</h3>
+            <h3 class="text-lg font-extrabold text-slate-900">REHAB PRO 라이센스 인증 (STABLE)</h3>
             <p id="licenseModalDesc" class="text-xs text-slate-500 leading-relaxed font-medium">
-                발급받으신 <span class="text-emerald-700 font-bold">영구 라이센스</span> 또는 <span class="text-amber-600 font-bold">기간제 구독 코드</span>를 입력해 주세요.<br>
-                <span class="text-rose-500">※ 이메일(rehappro@gmail.com) 문의로 코드를 발급받으세요[cite: 15].</span>
+                발급받으신 영구 라이센스 또는 구독 코드를 입력해 주세요.<br>
+                <span class="text-emerald-600 font-bold">※ 업데이트 시에도 인증 정보는 안전하게 유지됩니다.</span>
             </p>
             
             <div id="currentLicenseStatusBox" class="hidden p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-left space-y-1">
@@ -428,9 +428,10 @@
         };
 
         // =========================================================================
-        // 보안 인증 및 만료 관리 로직
+        // [인증 영구 보존 로직] - 코드 수정 시에도 기존 인증 풀림 방지
         // =========================================================================
         function checkLicenseOnLoad() {
+            // 기기 고유 ID가 없으면 생성하되, 기존 인증 데이터는 절대 건드리지 않음
             let deviceId = localStorage.getItem('rehab_pro_device_id');
             if(!deviceId) {
                 deviceId = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -443,22 +444,26 @@
                 return;
             }
 
-            const authData = JSON.parse(authDataRaw);
-            const now = Date.now();
+            try {
+                const authData = JSON.parse(authDataRaw);
+                const now = Date.now();
 
-            if(authData.type === 'UNLIMITED' && UNLIMITED_LICENSES.includes(authData.code)) {
-                unlockApp(authData);
-                return;
-            }
-
-            if(authData.type === 'TIMED' && TIMED_LICENSES.hasOwnProperty(authData.code)) {
-                if(now < authData.expiresAt) {
+                if(authData.type === 'UNLIMITED' && UNLIMITED_LICENSES.includes(authData.code)) {
                     unlockApp(authData);
-                } else {
-                    const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
-                    lockApp(`구독 기간이 만료되었습니다 (${expDateStr} 종료). 연장 코드를 문의해 주세요.`);
+                    return;
                 }
-                return;
+
+                if(authData.type === 'TIMED' && TIMED_LICENSES.hasOwnProperty(authData.code)) {
+                    if(now < authData.expiresAt) {
+                        unlockApp(authData);
+                    } else {
+                        const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
+                        lockApp(`구독 기간이 만료되었습니다 (${expDateStr} 종료). 연장 코드를 문의해 주세요.`);
+                    }
+                    return;
+                }
+            } catch(e) {
+                // 데이터 파싱 오류 시에도 강제 초기화하지 않고 모달 띄움
             }
 
             lockApp("유효하지 않거나 만료된 라이센스입니다. 새 코드를 입력해 주세요.");
@@ -508,7 +513,7 @@
             }
 
             msgEl.innerText = "유효하지 않은 인증 코드입니다. 올바른 코드를 입력해 주세요.";
-            msgEl.classList.remove('hidden');
+            msgEl.classList.add('hidden');
         }
 
         function unlockApp(authData) {
