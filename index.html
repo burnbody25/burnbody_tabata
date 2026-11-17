@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.1 STABLE</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.2 BRAND</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -43,12 +43,13 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-600 shadow-sm flex items-center justify-center">
-                    <i data-lucide="activity" class="w-6 h-6"></i>
+                <!-- 미래형 크롬 R 로고 적용 -->
+                <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex items-center justify-center bg-slate-900 flex-shrink-0">
+                    <img src="액체 크롬 미래형 R 로고.png" alt="Rehab Pro Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.1 STABLE</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.2 BRAND</span>
                     </h1>
                     <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 인증 영구 보존 체계</p>
                 </div>
@@ -220,7 +221,7 @@
             <div class="space-y-3 text-xs text-slate-700">
                 <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1">
                     <div class="flex justify-between items-center">
-                        <span class="font-extrabold text-rose-700 text-sm">🔥 11월 30일 까지 얼리버드 특가</span>
+                        <span class="font-extrabold text-rose-700 text-sm">🔥 12월 31일 까지 얼리버드 특가</span>
                         <span class="px-2 py-0.5 bg-rose-600 text-white rounded font-bold text-[10px]">한정 이벤트</span>
                     </div>
                     <p class="text-slate-600">• <b>1년 구독권:</b> <span class="line-through text-slate-400">9만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">6만 9천원</span></p>
@@ -228,13 +229,13 @@
                 </div>
 
                 <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                    <p class="font-bold text-slate-900">📌 정상가 안내 (12월 1일 이후)</p>
+                    <p class="font-bold text-slate-900">📌 정상가 안내 (1월 1일 이후)</p>
                     <p class="text-slate-600">• 1년 구독권: 9만 9천원 / 영구 소장권: 16만 9천원</p>
                 </div>
 
                 <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-center">
                     <p class="font-bold text-emerald-900 text-sm">💳 결제 및 라이센스 코드 발급 문의</p>
-                    <p class="text-slate-600 text-[11px]">입금문의 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다.</p>
+                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다[cite: 15].</p>
                     <p class="font-mono font-bold text-emerald-700 text-sm bg-white py-1.5 px-3 rounded-lg border border-emerald-200 inline-block">
                         📧 rehappro@gmail.com
                     </p>
@@ -364,8 +365,7 @@
             "REHAB-30D-SUB01": 30,      
             "REHAB-30D-SUB02": 30,      
             "REHAB-90D-PRO01": 90,      
-            "REHAB-365D-YEAR01": 365,
-            "REHAB-1D-TRIAL01": 1
+            "REHAB-365D-YEAR01": 365    
         };
         // =========================================================================
 
@@ -432,7 +432,6 @@
         // [인증 영구 보존 로직] - 코드 수정 시에도 기존 인증 풀림 방지
         // =========================================================================
         function checkLicenseOnLoad() {
-            // 기기 고유 ID가 없으면 생성하되, 기존 인증 데이터는 절대 건드리지 않음
             let deviceId = localStorage.getItem('rehab_pro_device_id');
             if(!deviceId) {
                 deviceId = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -463,9 +462,7 @@
                     }
                     return;
                 }
-            } catch(e) {
-                // 데이터 파싱 오류 시에도 강제 초기화하지 않고 모달 띄움
-            }
+            } catch(e) {}
 
             lockApp("유효하지 않거나 만료된 라이센스입니다. 새 코드를 입력해 주세요.");
         }
