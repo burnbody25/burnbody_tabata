@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.2 BRAND</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.3 STABLE</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -43,18 +43,22 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <!-- 미래형 크롬 R 로고 적용 -->
-                <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex items-center justify-center bg-slate-900 flex-shrink-0">
-                    <img src="액체 크롬 미래형 R 로고.png" alt="Rehab Pro Logo" class="w-full h-full object-cover">
+                <!-- 메탈릭 크롬 감성의 R 로고 심볼 (오류 방지 인라인 벡터) -->
+                <div class="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/30 shadow-md flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 flex-shrink-0 relative">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent"></div>
+                    <span class="text-emerald-400 font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(16,185,129,0.5)]">R</span>
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.2 BRAND</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.3 PRO</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 인증 영구 보존 체계</p>
+                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 새로고침 최적화</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2 flex-wrap">
+                <button onclick="resetAppWorkspace()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1 transition" title="새로운 회원 상담을 위해 화면을 초기화합니다">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4 text-emerald-600"></i> 새로고침
+                </button>
                 <button onclick="openPricingModal()" class="px-3 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 transition">
                     <i data-lucide="credit-card" class="w-4 h-4"></i> 결제 및 요금제
                 </button>
@@ -427,6 +431,43 @@
             renderEvaluationForm();
             loadClientList();
         };
+
+        // =========================================================================
+        // [새로고침 / 초기화 기능 구현] 인증 정보는 유지하고 상담 화면만 깨끗이 리셋
+        // =========================================================================
+        function resetAppWorkspace() {
+            if(confirm('현재 작성 중인 검사 체크 및 리포트 화면을 초기화하시겠습니까? (저장된 회원 및 인증 정보는 유지됩니다)')) {
+                // 1. 체크박스 전체 해제
+                ['scapula', 'pelvis', 'ankle'].forEach(reg => {
+                    evaluationData[reg].questions.forEach(q => {
+                        const el = document.getElementById(q.id);
+                        if(el) el.checked = false;
+                    });
+                });
+                // 2. 추가 통증 입력 초기화
+                const customInput = document.getElementById('customPainInput');
+                if(customInput) customInput.value = '';
+
+                // 3. 사진 업로드 초기화
+                removeInstantPhoto();
+
+                // 4. 리포트 영역 초기화
+                document.getElementById('reportBox').classList.add('hidden');
+                document.getElementById('reportPlaceholder').classList.remove('hidden');
+                document.getElementById('reportContent').innerHTML = '';
+                currentReportText = '';
+
+                // 5. VAS 및 메모 초기화
+                const vB = document.getElementById('vasBefore');
+                const vA = document.getElementById('vasAfter');
+                const memo = document.getElementById('sessionMemo');
+                if(vB) vB.value = '';
+                if(vA) vA.value = '';
+                if(memo) memo.value = '';
+
+                alert('새로운 회원 상담을 위한 준비가 완료되었습니다!');
+            }
+        }
 
         // =========================================================================
         // [인증 영구 보존 로직] - 코드 수정 시에도 기존 인증 풀림 방지
