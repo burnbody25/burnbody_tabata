@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.5 MASTER</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.2 STABLE</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -43,16 +43,16 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <!-- 메탈릭 크롬 감성의 R 로고 심볼 (인라인 벡터) -->
+                <!-- 미래형 크롬 R 로고 (인라인 SVG로 이미지 엑박 오류 원천 차단) -->
                 <div class="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/30 shadow-md flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 flex-shrink-0 relative">
                     <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent"></div>
                     <span class="text-emerald-400 font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(16,185,129,0.5)]">R</span>
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.5 PRO</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.2 PRO</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 요금제 개편 완료</p>
+                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 인증 영구 보존</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2 flex-wrap">
@@ -212,7 +212,7 @@
 
     </main>
 
-    <!-- 결제 및 요금제 안내 모달 (1개월 6만9천 / 1년 30만 / 영구 35만 반영) -->
+    <!-- 결제 및 요금제 안내 모달 -->
     <div id="pricingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -223,14 +223,18 @@
             </div>
             
             <div class="space-y-3 text-xs text-slate-700">
-                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1.5">
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1">
                     <div class="flex justify-between items-center">
-                        <span class="font-extrabold text-rose-700 text-sm">🔥 공식 라이센스 요금제</span>
-                        <span class="px-2 py-0.5 bg-rose-600 text-white rounded font-bold text-[10px]">인기 패키지</span>
+                        <span class="font-extrabold text-rose-700 text-sm">🔥 12월 31일 까지 얼리버드 특가</span>
+                        <span class="px-2 py-0.5 bg-rose-600 text-white rounded font-bold text-[10px]">한정 이벤트</span>
                     </div>
-                    <p class="text-slate-700">• <b>1개월 구독권:</b> <span class="text-rose-600 font-extrabold text-sm">6만 9천원</span> /월</p>
-                    <p class="text-slate-700">• <b>1년 구독권:</b> <span class="text-rose-600 font-extrabold text-sm">30만 0천원</span> /년 (추천)</p>
-                    <p class="text-slate-700">• <b>영구 소장권:</b> <span class="text-rose-600 font-extrabold text-sm">35만 0천원</span> (평생 이용)</p>
+                    <p class="text-slate-600">• <b>1년 구독권:</b> <span class="line-through text-slate-400">9만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">6만 9천원</span></p>
+                    <p class="text-slate-600">• <b>영구 소장권:</b> <span class="line-through text-slate-400">16만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">9만 9천원</span></p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <p class="font-bold text-slate-900">📌 정상가 안내 (1월 1일 이후)</p>
+                    <p class="text-slate-600">• 1년 구독권: 9만 9천원 / 영구 소장권: 16만 9천원</p>
                 </div>
 
                 <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-center">
@@ -275,7 +279,7 @@
 
                 <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
                     <p class="font-bold text-slate-900">3단계: 리햅프로에 등록</p>
-                    <p class="text-slate-600">우측 상단의 <b>[API 설정]</b> 버튼을 누르고 복사한 키(AIzaSy...)를 입력해 저장하면 즉시 사용 가능합니다.</p>
+                    <p class="text-slate-600">우측 상단의 <b>[API 키 설정]</b> 버튼을 누르고 복사한 키(AIzaSy...)를 입력해 저장하면 즉시 사용 가능합니다.</p>
                 </div>
             </div>
 
@@ -360,10 +364,12 @@
         ];
 
         const TIMED_LICENSES = {
-            "REHAB-30D-SUB01": 30,      // 1개월 구독권 (6만 9천원)
+            "REHAB-7D-TRIAL01": 7,      
+            "REHAB-7D-TRIAL02": 7,      
+            "REHAB-30D-SUB01": 30,      
             "REHAB-30D-SUB02": 30,      
-            "REHAB-365D-YEAR01": 365,   // 1년 구독권 (30만 원)
-            "REHAB-365D-YEAR02": 365
+            "REHAB-90D-PRO01": 90,      
+            "REHAB-365D-YEAR01": 365    
         };
         // =========================================================================
 
@@ -427,47 +433,17 @@
         };
 
         // =========================================================================
-        // [새로고침 / 초기화 기능 구현] 인증 정보는 유지하고 상담 화면만 깨끗이 리셋
-        // =========================================================================
-        function resetAppWorkspace() {
-            if(confirm('현재 작성 중인 검사 체크 및 리포트 화면을 초기화하시겠습니까? (저장된 회원 및 인증 정보는 유지됩니다)')) {
-                ['scapula', 'pelvis', 'ankle'].forEach(reg => {
-                    evaluationData[reg].questions.forEach(q => {
-                        const el = document.getElementById(q.id);
-                        if(el) el.checked = false;
-                    });
-                });
-                const customInput = document.getElementById('customPainInput');
-                if(customInput) customInput.value = '';
-
-                removeInstantPhoto();
-
-                document.getElementById('reportBox').classList.add('hidden');
-                document.getElementById('reportPlaceholder').classList.remove('hidden');
-                document.getElementById('reportContent').innerHTML = '';
-                currentReportText = '';
-
-                const vB = document.getElementById('vasBefore');
-                const vA = document.getElementById('vasAfter');
-                const memo = document.getElementById('sessionMemo');
-                if(vB) vB.value = '';
-                if(vA) vA.value = '';
-                if(memo) memo.value = '';
-
-                alert('새로운 회원 상담을 위한 준비가 완료되었습니다!');
-            }
-        }
-
-        // =========================================================================
-        // [인증 영구 보존 로직] - 코드 수정 시에도 기존 인증 풀림 방지
+        // [핵심] 라이센스 인증 영구 보존 로직 (소스코드 업데이트 시에도 풀리지 않음)
         // =========================================================================
         function checkLicenseOnLoad() {
+            // 기기 고유 ID 생성 또는 유지
             let deviceId = localStorage.getItem('rehab_pro_device_id');
             if(!deviceId) {
                 deviceId = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
                 localStorage.setItem('rehab_pro_device_id', deviceId);
             }
 
+            // localStorage에 저장된 영구 인증 데이터 확인
             const authDataRaw = localStorage.getItem('rehab_pro_auth_data');
             if(!authDataRaw) {
                 lockApp("라이센스 인증이 필요합니다. 상단의 [결제 및 요금제]를 확인해 주세요.");
@@ -478,11 +454,13 @@
                 const authData = JSON.parse(authDataRaw);
                 const now = Date.now();
 
+                // 1. 영구 라이센스 검증
                 if(authData.type === 'UNLIMITED' && UNLIMITED_LICENSES.includes(authData.code)) {
                     unlockApp(authData);
                     return;
                 }
 
+                // 2. 기한제 구독 라이센스 검증
                 if(authData.type === 'TIMED' && TIMED_LICENSES.hasOwnProperty(authData.code)) {
                     if(now < authData.expiresAt) {
                         unlockApp(authData);
@@ -575,7 +553,7 @@
         function lockApp(reasonMsg) {
             const modal = document.getElementById('licenseModal');
             modal.classList.remove('hidden');
-            document.getElementById('closeLicenseBtn').classList.add('hidden'); 
+            document.getElementById('closeLicenseBtn').classList.add('hidden'); // 강제 인증 유도
             
             const msgEl = document.getElementById('licenseMsg');
             msgEl.innerText = reasonMsg;
