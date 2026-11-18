@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.3 STABLE</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.4 PREMIUM</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -43,16 +43,16 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <!-- 메탈릭 크롬 감성의 R 로고 심볼 (오류 방지 인라인 벡터) -->
+                <!-- 메탈릭 크롬 감성의 R 로고 심볼 (인라인 벡터) -->
                 <div class="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/30 shadow-md flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 flex-shrink-0 relative">
                     <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent"></div>
                     <span class="text-emerald-400 font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(16,185,129,0.5)]">R</span>
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.3 PRO</span>
+                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.4 PRO</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 새로고침 최적화</p>
+                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 영구소장 35만 원</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2 flex-wrap">
@@ -212,7 +212,7 @@
 
     </main>
 
-    <!-- 결제 및 요금제 안내 모달 -->
+    <!-- 결제 및 요금제 안내 모달 (영구소장 35만원 반영) -->
     <div id="pricingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -229,17 +229,17 @@
                         <span class="px-2 py-0.5 bg-rose-600 text-white rounded font-bold text-[10px]">한정 이벤트</span>
                     </div>
                     <p class="text-slate-600">• <b>1년 구독권:</b> <span class="line-through text-slate-400">9만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">6만 9천원</span></p>
-                    <p class="text-slate-600">• <b>영구 소장권:</b> <span class="line-through text-slate-400">16만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">9만 9천원</span></p>
+                    <p class="text-slate-600">• <b>영구 소장권:</b> <span class="line-through text-slate-400">45만 0천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">35만 0천원</span></p>
                 </div>
 
                 <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
                     <p class="font-bold text-slate-900">📌 정상가 안내 (1월 1일 이후)</p>
-                    <p class="text-slate-600">• 1년 구독권: 9만 9천원 / 영구 소장권: 16만 9천원</p>
+                    <p class="text-slate-600">• 1년 구독권: 9만 9천원 / 영구 소장권: 45만 0천원</p>
                 </div>
 
                 <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-center">
                     <p class="font-bold text-emerald-900 text-sm">💳 결제 및 라이센스 코드 발급 문의</p>
-                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다[cite: 15].</p>
+                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다.</p>
                     <p class="font-mono font-bold text-emerald-700 text-sm bg-white py-1.5 px-3 rounded-lg border border-emerald-200 inline-block">
                         📧 rehappro@gmail.com
                     </p>
@@ -437,27 +437,22 @@
         // =========================================================================
         function resetAppWorkspace() {
             if(confirm('현재 작성 중인 검사 체크 및 리포트 화면을 초기화하시겠습니까? (저장된 회원 및 인증 정보는 유지됩니다)')) {
-                // 1. 체크박스 전체 해제
                 ['scapula', 'pelvis', 'ankle'].forEach(reg => {
                     evaluationData[reg].questions.forEach(q => {
                         const el = document.getElementById(q.id);
                         if(el) el.checked = false;
                     });
                 });
-                // 2. 추가 통증 입력 초기화
                 const customInput = document.getElementById('customPainInput');
                 if(customInput) customInput.value = '';
 
-                // 3. 사진 업로드 초기화
                 removeInstantPhoto();
 
-                // 4. 리포트 영역 초기화
                 document.getElementById('reportBox').classList.add('hidden');
                 document.getElementById('reportPlaceholder').classList.remove('hidden');
                 document.getElementById('reportContent').innerHTML = '';
                 currentReportText = '';
 
-                // 5. VAS 및 메모 초기화
                 const vB = document.getElementById('vasBefore');
                 const vA = document.getElementById('vasAfter');
                 const memo = document.getElementById('sessionMemo');
