@@ -117,7 +117,7 @@
                     </h1>
 
                     <p class="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-                        40가지 기능검사, 자동 압축 체형 사진 분석, 4단계 소도구 컨디셔닝, 시연 영상 폴백 링크, 그리고 단순 적용부터 다중 덧댐 순서까지의 스포츠 테이핑 가이드(적용부위 이미지·부착위치·시작방향·텐션정도)를 한 번에 생성합니다.
+                        40가지 기능검사, 자동 압축 체형 사진 분석, 4단계 소도구 컨디셔닝, 시연 영상 폴백 링크, 그리고 단순 적용부터 다중 덧댐 순서까지의 스포츠 테이핑 가이드를 한 번에 생성합니다.
                     </p>
 
                     <div class="flex flex-wrap items-center gap-3 pt-1">
@@ -137,7 +137,7 @@
                             <h2 class="text-base font-extrabold text-white flex items-center gap-2">
                                 <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i> 라이센스 인증코드 입력
                             </h2>
-                            <p class="text-[11px] text-slate-400 mt-0.5">SHA-256 해시 검증 및 기기 인증 보존 적용</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5">기존 코드 등록 완료 · 브라우저 저장 및 설정 백업 지원</p>
                         </div>
                         <span id="landingLicenseBadge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30">
                             미인증
@@ -146,7 +146,7 @@
 
                     <div class="space-y-2.5">
                         <div class="flex gap-2">
-                            <input type="text" id="landingLicenseInput" placeholder="인증코드 입력"
+                            <input type="text" id="landingLicenseInput" placeholder="인증코드 입력 (예: REHAB-30D-SUB01)"
                                 class="flex-1 bg-slate-950 border border-slate-700 focus:border-emerald-400 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono font-bold uppercase focus:outline-none">
                             <button onclick="verifyLicenseFromLanding()" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-black transition whitespace-nowrap">
                                 인증 적용
@@ -167,7 +167,7 @@
                             </a>
                         </div>
                         <p class="text-[11px] text-slate-400 leading-relaxed">
-                            공용 PC 사용 시 작업 후 <span class="text-slate-200 font-semibold">[삭제]</span>를 권장하며, 장기 운영 시 백엔드 프록시 연동을 권장합니다.
+                            동일 주소/브라우저에서는 업데이트 후에도 유지되며, 다른 경로/기기로 옮길 때는 <span class="text-slate-200 font-semibold">[설정 백업/복원]</span>을 쓰시면 재입력을 줄일 수 있습니다.
                         </p>
                         <div class="flex gap-2">
                             <input type="password" id="landingApiKeyInput" placeholder="Gemini API 키 입력 (AIzaSy...)"
@@ -180,6 +180,20 @@
                             </button>
                         </div>
                         <p id="landingApiKeyStatus" class="text-[11px] text-slate-400">API 키 미등록 상태</p>
+                    </div>
+
+                    <!-- 인증·API 키 설정 백업/복원 -->
+                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+                        <span class="text-[11px] text-slate-400">인증·API 설정 이동/보관</span>
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="exportAuthAndApiConfig()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-[11px] font-bold transition">
+                                설정 백업
+                            </button>
+                            <label class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-[11px] font-bold transition cursor-pointer">
+                                설정 복원
+                                <input type="file" accept="application/json" onchange="importAuthAndApiConfig(event)" class="hidden">
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -412,9 +426,22 @@
 
     <script>
         // =========================================================================
-        // 1. SHA-256 라이센스 해시 검증
+        // 1. 라이센스 설정 복원 (영구권 + 기간제 구독권) & SHA-256 검증
         // =========================================================================
-        const LICENSE_HASH_REGISTRY = {};
+        const REHAB_LICENSE_CONFIG = {
+            unlimitedCodes: [
+                "BURNBODY-REHAB-2026-VIP",
+                "REHAB-PRO-LAUNCH-001",
+                "REHAB-PRO-LAUNCH-002",
+                "TRAINER-JANG-2026"
+            ],
+            timedCodes: {
+                "REHAB-30D-SUB01": 30,
+                "REHAB-30D-SUB02": 30,
+                "REHAB-365D-YEAR01": 365,
+                "REHAB-365D-YEAR02": 365
+            }
+        };
 
         async function sha256Hex(text) {
             const encoder = new TextEncoder();
@@ -423,6 +450,28 @@
             return Array.from(new Uint8Array(hashBuffer))
                 .map(b => b.toString(16).padStart(2, '0'))
                 .join('');
+        }
+
+        async function resolveLicenseCode(inputKey) {
+            const normalized = inputKey.trim().toUpperCase();
+            const hash = await sha256Hex(normalized);
+
+            if (REHAB_LICENSE_CONFIG.unlimitedCodes.map(c => c.toUpperCase()).includes(normalized)) {
+                return { valid: true, type: 'UNLIMITED', hash, days: null };
+            }
+
+            const matchedTimedKey = Object.keys(REHAB_LICENSE_CONFIG.timedCodes)
+                .find(k => k.toUpperCase() === normalized);
+            if (matchedTimedKey) {
+                return {
+                    valid: true,
+                    type: 'TIMED',
+                    hash,
+                    days: REHAB_LICENSE_CONFIG.timedCodes[matchedTimedKey]
+                };
+            }
+
+            return { valid: false };
         }
 
         // =========================================================================
@@ -693,18 +742,17 @@
                 return;
             }
 
-            const hash = await sha256Hex(inputKey);
-            const matched = LICENSE_HASH_REGISTRY[hash];
+            const matched = await resolveLicenseCode(inputKey);
             const now = Date.now();
             const masked = inputKey.length > 6 ? `${inputKey.slice(0, 4)}••••${inputKey.slice(-2)}` : 'VERIFIED';
 
-            if (!matched) {
-                alert('등록되지 않은 인증코드이거나 해시 레지스트리 설정이 필요합니다.');
+            if (!matched.valid) {
+                alert('유효하지 않은 인증코드입니다. 코드를 다시 확인해 주세요.');
                 return;
             }
 
             if (matched.type === 'UNLIMITED') {
-                const authData = { codeHash: hash, codeMasked: masked, type: 'UNLIMITED', activatedAt: now, expiresAt: null };
+                const authData = { codeHash: matched.hash, codeMasked: masked, type: 'UNLIMITED', activatedAt: now, expiresAt: null };
                 localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
                 checkLicenseOnLoad();
                 alert('✅ 영구 소장권이 인증되었습니다.');
@@ -715,17 +763,17 @@
             if (matched.type === 'TIMED') {
                 const days = matched.days || 30;
                 const history = JSON.parse(localStorage.getItem('rehab_pro_used_history') || '{}');
-                let expiresAt = history[hash];
+                let expiresAt = history[matched.hash];
                 if (expiresAt && now >= expiresAt) {
                     alert('이미 만료된 구독 코드입니다.');
                     return;
                 }
                 if (!expiresAt) {
                     expiresAt = now + (days * 24 * 60 * 60 * 1000);
-                    history[hash] = expiresAt;
+                    history[matched.hash] = expiresAt;
                     localStorage.setItem('rehab_pro_used_history', JSON.stringify(history));
                 }
-                const authData = { codeHash: hash, codeMasked: masked, type: 'TIMED', days, activatedAt: now, expiresAt };
+                const authData = { codeHash: matched.hash, codeMasked: masked, type: 'TIMED', days, activatedAt: now, expiresAt };
                 localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
                 checkLicenseOnLoad();
                 alert(`✅ ${days}일 구독이 인증되었습니다. (만료일: ${new Date(expiresAt).toLocaleDateString()})`);
@@ -760,6 +808,45 @@
                 el.innerHTML = `API 키 등록 완료 (<span class="font-mono text-emerald-300">${key.slice(0, 8)}••••</span>)`;
             } else {
                 el.innerText = 'API 키 미등록 상태';
+            }
+        }
+
+        function exportAuthAndApiConfig() {
+            const payload = {
+                authData: JSON.parse(localStorage.getItem('rehab_pro_auth_data') || 'null'),
+                usedHistory: JSON.parse(localStorage.getItem('rehab_pro_used_history') || '{}'),
+                geminiApiKey: localStorage.getItem('rehab_gemini_api_key') || ''
+            };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `rehabpro-config-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        async function importAuthAndApiConfig(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+                const parsed = JSON.parse(await file.text());
+                if (parsed.authData) {
+                    localStorage.setItem('rehab_pro_auth_data', JSON.stringify(parsed.authData));
+                }
+                if (parsed.usedHistory && typeof parsed.usedHistory === 'object') {
+                    localStorage.setItem('rehab_pro_used_history', JSON.stringify(parsed.usedHistory));
+                }
+                if (typeof parsed.geminiApiKey === 'string' && parsed.geminiApiKey.trim()) {
+                    localStorage.setItem('rehab_gemini_api_key', parsed.geminiApiKey.trim());
+                }
+                checkLicenseOnLoad();
+                syncApiKeyStatusUI();
+                alert('✅ 인증 및 API 설정이 복원되었습니다.');
+            } catch (err) {
+                alert(`설정 복원 실패: ${err.message}`);
+            } finally {
+                e.target.value = '';
             }
         }
 
@@ -1020,10 +1107,10 @@ ${customPain || '특이사항 없음'}
 3. 4단계(1. MFR, 2. Mobility, 3. Active, 4. Passive) 소도구 컨디셔닝과 각 단계별 YouTube 검색 링크(https://www.youtube.com/results?search_query=...)를 포함할 것.
 4. [스포츠 테이핑 단계별 적용 가이드] 섹션을 반드시 포함하되, [1단계: 단순 기본 적용(단일 I-스트립)] → [2단계: 분지/교차 확장 적용(Y/X 스트립)] → [3단계: 다중 덧댐 지지 적용(교차·중첩 레이어링)] 순서로 구성할 것.
 5. 각 테이핑 단계마다 반드시 다음 4항목을 빠짐없이 명시할 것:
-   - 적용부위 (제공된 참고 부위 A: 하지·관절 지지 또는 참고 부위 B: 체간·허리 주변 연결 안내)
+   - 적용부위
    - 부착위치
    - 시작방향 (앵커 3~5cm 무텐션 구간 명시 포함)
-   - 텐션정도 (예: 앵커 0%, 1단계 15~25%, 2단계 25~35%, 3단계 35~50% 등 수치와 강도 안내)
+   - 텐션정도
 6. 가급적 \`\`\`html ... \`\`\` 코드블록 안에 깔끔한 HTML 카드로 출력할 것.
 `;
 
