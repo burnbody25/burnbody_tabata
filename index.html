@@ -1029,47 +1029,121 @@
         }
 
         function buildTapingVisualGuideHtml() {
-            return `
+    return `
 <div class="mt-5 p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-4">
   <div class="flex flex-wrap items-center justify-between gap-2">
     <h4 class="text-sm font-extrabold text-emerald-950">스포츠 테이핑 단계별 적용 가이드 (1단계 단순 → 2단계 교차 → 3단계 다중 덧댐)</h4>
-    <span class="text-[10px] font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-full border border-emerald-200">한글 표기 · 앵커(0%) · 텐션 수치</span>
+    <span class="text-[10px] font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-full border border-emerald-200">부착부위 확대 · 한글 · 앵커 0% · 텐션 수치</span>
   </div>
 
   <!-- 1단계: 단순 적용 -->
   <div class="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2">
     <div class="flex flex-wrap items-center justify-between gap-1">
       <span class="text-xs font-extrabold text-emerald-900">1단계: 단순 적용 (단일 스트립 기본 라인)</span>
-      <span class="text-[11px] font-bold text-emerald-700">앵커 0% · 본체 15~25%</span>
+      <span class="text-[11px] font-bold text-emerald-700">앵커 0% · 텐션 15~25%</span>
     </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 155" width="100%" role="img" aria-label="1단계 단순 적용 부착 부위 확대 그림: 앵커 0%, 본체 텐션 15~25%, 주행 방향 표시">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 160" width="100%" role="img" aria-label="1단계 단순 적용 부착 부위 확대 그림: 앵커 0%, 텐션 15~25%, 시작 방향 화살표">
       <defs>
         <marker id="arrStep1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
         </marker>
       </defs>
-      <rect x="4" y="4" width="672" height="147" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
-      <path d="M 32 34 Q 145 24 256 46 L 244 122 Q 135 134 26 116 Z" fill="#fef3c7" fill-opacity="0.45" stroke="#d97706" stroke-dasharray="4 3"/>
-      <text x="140" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">부착 부위 확대 (상부·어깨 라인)</text>
+      <rect x="4" y="4" width="672" height="152" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+      <!-- 부착 부위 확대 외곽 -->
+      <path d="M 28 36 Q 142 22 254 48 L 240 128 Q 130 140 24 118 Z" fill="#fef3c7" fill-opacity="0.45" stroke="#d97706" stroke-dasharray="4 3"/>
+      <text x="138" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">부착 부위 확대 (상부·어깨 라인)</text>
 
-      <rect x="42" y="64" width="54" height="28" rx="5" fill="#0f172a"/>
-      <text x="69" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">앵커 0%</text>
+      <!-- 앵커 0% -> 15~25% -> 앵커 0% -->
+      <rect x="38" y="64" width="54" height="28" rx="5" fill="#0f172a"/>
+      <text x="65" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">앵커 0%</text>
 
-      <rect x="96" y="64" width="102" height="28" rx="4" fill="#10b981" fill-opacity="0.25" stroke="#059669" stroke-width="2"/>
-      <text x="147" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">15~25%</text>
+      <rect x="92" y="64" width="106" height="28" rx="4" fill="#10b981" fill-opacity="0.25" stroke="#059669" stroke-width="2"/>
+      <text x="145" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">15~25%</text>
 
       <rect x="198" y="64" width="54" height="28" rx="5" fill="#0f172a"/>
       <text x="225" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">앵커 0%</text>
 
-      <line x1="52" y1="104" x2="236" y2="104" stroke="#047857" stroke-width="2.2" marker-end="url(#arrStep1)"/>
-      <text x="144" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">시작방향: 기시 → 정지 진행</text>
+      <line x1="48" y1="106" x2="238" y2="106" stroke="#047857" stroke-width="2.2" marker-end="url(#arrStep1)"/>
+      <text x="142" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">시작방향: 시작 앵커(0%) → 주행 방향</text>
 
-      <text x="282" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 평가된 과긴장·불균형 타깃 근육/관절 라인</text>
-      <text x="282" y="68" font-size="12" fill="#334155">• 부착위치: 시작·끝 앵커(3~5cm) 무텐션 밀착, 중앙 직선 부착</text>
-      <text x="282" y="94" font-size="12" fill="#334155">• 시작방향: 시작 앵커 고정 후 근육·관절 주행 방향 따라 진행</text>
-      <text x="282" y="120" font-size="12" font-weight="700" fill="#065f46">• 텐션정도: 앵커 0% / 본체 15~25% (가벼운 피부 리프팅·인지)</text>
+      <!-- 4요소 안내 -->
+      <text x="280" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 평가된 과긴장·불균형 타깃 근육/관절 라인</text>
+      <text x="280" y="68" font-size="12" fill="#334155">• 부착위치: 양끝 앵커(3~5cm) 무텐션 밀착, 중앙 직선 부착</text>
+      <text x="280" y="94" font-size="12" fill="#334155">• 시작방향: 시작 앵커 고정 후 근육·관절 주행 방향 따라 진행</text>
+      <text x="280" y="120" font-size="12" font-weight="700" fill="#065f46">• 텐션정도: 앵커 0% / 본체 15~25%</text>
     </svg>
   </div>
+
+  <!-- 2단계: 보조/교차 적용 -->
+  <div class="bg-white p-3.5 rounded-xl border border-sky-200 space-y-2">
+    <div class="flex flex-wrap items-center justify-between gap-1">
+      <span class="text-xs font-extrabold text-sky-900">2단계: 보조·교차 적용 (분지/교차 스트립 확장)</span>
+      <span class="text-[11px] font-bold text-sky-700">앵커 0% · 텐션 25~35%</span>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 160" width="100%" role="img" aria-label="2단계 보조 교차 적용 부착 부위 확대 그림: 앵커 0%, 텐션 25~35%, 분지 화살표">
+      <defs>
+        <marker id="arrStep2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#0369a1"/>
+        </marker>
+      </defs>
+      <rect x="4" y="4" width="672" height="152" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+      <path d="M 28 36 Q 142 22 254 48 L 240 128 Q 130 140 24 118 Z" fill="#e0f2fe" fill-opacity="0.45" stroke="#0284c7" stroke-dasharray="4 3"/>
+      <text x="138" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#0369a1">부착 부위 확대 (분지·교차 정렬 라인)</text>
+
+      <line x1="46" y1="78" x2="236" y2="78" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 72 46 L 142 78 L 228 48" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 72 110 L 142 78 L 228 108" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <rect x="32" y="64" width="54" height="24" rx="5" fill="#0f172a"/>
+      <text x="59" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">앵커 0%</text>
+      <rect x="106" y="64" width="72" height="24" rx="5" fill="#ffffff" stroke="#0284c7" stroke-width="1.8"/>
+      <text x="142" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#0369a1">25~35%</text>
+
+      <line x1="152" y1="72" x2="218" y2="52" stroke="#0369a1" stroke-width="2" marker-end="url(#arrStep2)"/>
+      <text x="142" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#0369a1">시작방향: 중심 고정(0%) → 분지 확장</text>
+
+      <text x="280" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 1단계 라인 주변 정렬 지지 및 협응 구간</text>
+      <text x="280" y="68" font-size="12" fill="#334155">• 부착위치: 1단계 스트립과 겹치되 관절 정렬 궤도를 감싸듯 부착</text>
+      <text x="280" y="94" font-size="12" fill="#334155">• 시작방향: 고정 앵커(0%)에서 시작해 두 갈래로 벌리며 진행</text>
+      <text x="280" y="120" font-size="12" font-weight="700" fill="#0369a1">• 텐션정도: 앵커 0% / 분지·교차 구간 25~35%</text>
+    </svg>
+  </div>
+
+  <!-- 3단계: 다중 덧댐 적용 -->
+  <div class="bg-white p-3.5 rounded-xl border border-amber-200 space-y-2">
+    <div class="flex flex-wrap items-center justify-between gap-1">
+      <span class="text-xs font-extrabold text-amber-900">3단계: 다중 덧댐 적용 (교차·중첩 레이어링 지지)</span>
+      <span class="text-[11px] font-bold text-amber-800">앵커 0% · 텐션 35~50%</span>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 160" width="100%" role="img" aria-label="3단계 다중 덧댐 적용 부착 부위 확대 그림: 앵커 0%, 텐션 35~50%, 중첩 교차 표시">
+      <defs>
+        <marker id="arrStep3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
+        </marker>
+      </defs>
+      <rect x="4" y="4" width="672" height="152" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+      <path d="M 28 36 Q 142 22 254 48 L 240 128 Q 130 140 24 118 Z" fill="#fef3c7" fill-opacity="0.55" stroke="#d97706" stroke-dasharray="4 3"/>
+      <text x="138" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">부착 부위 확대 (다중 덧댐 교차 구간)</text>
+
+      <line x1="54" y1="48" x2="232" y2="108" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+      <line x1="54" y1="108" x2="232" y2="48" stroke="#d97706" stroke-width="8" stroke-linecap="round"/>
+
+      <rect x="32" y="66" width="54" height="24" rx="5" fill="#0f172a"/>
+      <text x="59" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">앵커 0%</text>
+      <rect x="102" y="64" width="80" height="28" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+      <text x="142" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">35~50%</text>
+
+      <line x1="184" y1="92" x2="226" y2="106" stroke="#b45309" stroke-width="2" marker-end="url(#arrStep3)"/>
+      <text x="142" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">시작방향: 기존 밖 앵커(0%) → 교차 중첩</text>
+
+      <text x="280" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 부하가 집중되는 관절 주변 및 1·2단계 교차 중심부</text>
+      <text x="280" y="68" font-size="12" fill="#334155">• 부착위치: 기존 스트립 위 중첩 교차(X/팬 패턴)로 지지력 보강</text>
+      <text x="280" y="94" font-size="12" fill="#334155">• 시작방향: 기존 테이프 밖 피부 앵커(0%) 고정 후 교차 진행</text>
+      <text x="280" y="120" font-size="12" font-weight="700" fill="#92400e">• 텐션정도: 앵커 0% / 덧댐 구간 35~50%</text>
+    </svg>
+  </div>
+</div>`;
+}
 
   <!-- 2단계: 보조/교차 적용 -->
   <div class="bg-white p-3.5 rounded-xl border border-sky-200 space-y-2">
