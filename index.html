@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.2 STABLE</title>
+    <title>리햅프로 (Rehab Pro) - 시각적 임상 해부학 컨디셔닝 에이전트 v6.6</title>
     <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,18 +20,49 @@
                             600: '#059669',
                             700: '#047857',
                             900: '#064e3b',
-                        },
-                        lightbg: '#f8fafc',
-                        lightcard: '#ffffff',
-                        lightborder: '#e2e8f0'
+                        }
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .glow-effect { box-shadow: 0 4px 20px 2px rgba(16, 185, 129, 0.1); }
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* 리햅프로 전용 전문 컨디셔닝 랩 배경 */
+        .rehab-hero-bg {
+            background:
+                radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.22), transparent 42%),
+                radial-gradient(circle at 85% 15%, rgba(14, 165, 233, 0.16), transparent 40%),
+                radial-gradient(circle at 75% 85%, rgba(16, 185, 129, 0.14), transparent 45%),
+                linear-gradient(135deg, #060d16 0%, #0b1726 52%, #071b18 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rehab-grid-overlay {
+            background-image:
+                linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.25));
+        }
+
+        .rehab-pulse-ring {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45);
+            animation: rehabPulse 2.4s infinite;
+        }
+
+        @keyframes rehabPulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45); }
+            70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
@@ -39,48 +70,261 @@
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
 
-    <!-- Header -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <!-- 미래형 크롬 R 로고 (인라인 SVG로 이미지 엑박 오류 원천 차단) -->
-                <div class="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/30 shadow-md flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 flex-shrink-0 relative">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent"></div>
-                    <span class="text-emerald-400 font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(16,185,129,0.5)]">R</span>
+    <!-- Top Navigation Bar -->
+    <header class="bg-slate-950/95 text-white border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showLandingPage()">
+                <!-- 메탈릭 크롬 감성의 R 로고 심볼 -->
+                <div class="w-10 h-10 rounded-xl overflow-hidden border border-emerald-400/40 shadow-lg flex items-center justify-center bg-gradient-to-br from-slate-800 via-slate-900 to-emerald-950 flex-shrink-0 relative">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,_rgba(52,211,153,0.35),_transparent_65%)]"></div>
+                    <span class="text-emerald-300 font-black text-xl tracking-tighter drop-shadow-[0_2px_6px_rgba(16,185,129,0.65)]">R</span>
                 </div>
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-                        REHAB PRO <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold">v6.2 PRO</span>
-                    </h1>
-                    <p class="text-xs text-slate-500 font-medium">기능검사 가이드 · 시연 영상 연동 · 인증 영구 보존</p>
+                    <div class="text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
+                        REHAB PRO
+                        <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 font-semibold">v6.6</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Clinical Kinesiology & Conditioning Intelligence</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 flex-wrap">
-                <button onclick="resetAppWorkspace()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1 transition" title="새로운 회원 상담을 위해 화면을 초기화합니다">
-                    <i data-lucide="rotate-ccw" class="w-4 h-4 text-emerald-600"></i> 새로고침
+
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-end">
+                <button onclick="showLandingPage()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
+                    <i data-lucide="home" class="w-3.5 h-3.5 text-emerald-400"></i> 메인 페이지
                 </button>
-                <button onclick="openPricingModal()" class="px-3 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 transition">
-                    <i data-lucide="credit-card" class="w-4 h-4"></i> 결제 및 요금제
+                <button onclick="showWorkspacePage()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-1 transition shadow-sm">
+                    <i data-lucide="activity" class="w-3.5 h-3.5"></i> 검사 워크스페이스
                 </button>
-                <button onclick="openApiGuideModal()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
-                    <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> API 연결 안내
+                <button onclick="resetAppWorkspace()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1 transition" title="현재 검사 및 리포트 화면을 초기화합니다">
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-emerald-400"></i> 새로고침
                 </button>
-                <button id="headerLicenseBtn" onclick="openLicenseModal()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="licenseBtnText">라이센스 인증</span>
-                </button>
-                <button onclick="openApiKeyModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
-                    <i data-lucide="key" class="w-4 h-4 text-emerald-400"></i> API 키 설정
+                <button id="headerLicenseBtn" onclick="scrollToLicenseBox()" class="px-3 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> <span id="licenseBtnText">라이센스 인증</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Workspace -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- ===================================================================== -->
+    <!-- VIEW 1: 전문 리햅프로 메인 랜딩 페이지                                   -->
+    <!-- ===================================================================== -->
+    <div id="landingView" class="flex-1">
+        <!-- Hero Banner with Custom Rehab Pro Background -->
+        <section class="rehab-hero-bg text-white border-b border-slate-800">
+            <div class="rehab-grid-overlay absolute inset-0 pointer-events-none"></div>
 
-        <!-- LEFT COLUMN: 회원 관리, 사진 업로드, 40가지 증상 평가 (5 Cols) -->
+            <!-- 장식용 해부학/바이옴메카닉스 그래픽 SVG -->
+            <svg class="hidden lg:block absolute right-6 top-1/2 -translate-y-1/2 w-[430px] h-[430px] opacity-25 pointer-events-none" viewBox="0 0 400 400" fill="none">
+                <circle cx="200" cy="200" r="165" stroke="#34d399" stroke-width="1" stroke-dasharray="6 6" />
+                <circle cx="200" cy="200" r="120" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6" />
+                <line x1="200" y1="20" x2="200" y2="380" stroke="#34d399" stroke-width="0.8" stroke-opacity="0.4" />
+                <line x1="20" y1="200" x2="380" y2="200" stroke="#34d399" stroke-width="0.8" stroke-opacity="0.4" />
+                <path d="M200 65 C155 105, 145 155, 200 190 C255 155, 245 105, 200 65 Z" stroke="#6ee7b7" stroke-width="1.5" />
+                <path d="M125 145 Q200 215 275 145" stroke="#38bdf8" stroke-width="1.5" />
+                <path d="M135 255 Q200 195 265 255" stroke="#34d399" stroke-width="1.5" />
+                <circle cx="200" cy="125" r="5" fill="#34d399" />
+                <circle cx="150" cy="160" r="4" fill="#38bdf8" />
+                <circle cx="250" cy="160" r="4" fill="#38bdf8" />
+                <circle cx="200" cy="235" r="5" fill="#34d399" />
+            </svg>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Left Hero Copy -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 rehab-pulse-ring"></span>
+                        40가지 기능검사 · 체형 멀티모달 분석 · 4단계 컨디셔닝 카드
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight text-white">
+                        회원 상담을 <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-sky-300">임상적 확신과 매출</span>로<br>
+                        바꾸는 리햅프로(REHAB PRO)
+                    </h1>
+
+                    <p class="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                        상체·골반·하지 40가지 기능검사 매뉴얼과 체형 사진 분석, 그리고 MFR·Mobility·Active·Passive 4단계 프로토콜 및 시연 영상까지 한 번의 클릭으로 회원 전용 카드 리포트를 생성합니다.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                        <button onclick="enterWorkspaceWithCheck()" class="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-2xl text-sm font-black shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition">
+                            <i data-lucide="play-circle" class="w-5 h-5"></i> 검사 워크스페이스 바로 시작
+                        </button>
+                        <a href="#setup-hub" class="px-5 py-3.5 bg-white/10 hover:bg-white/15 text-white border border-white/20 rounded-2xl text-sm font-bold flex items-center gap-2 transition">
+                            <i data-lucide="sliders" class="w-4 h-4 text-emerald-300"></i> 인증·API·요금제 설정
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 pt-4 max-w-xl">
+                        <div class="bg-slate-900/75 border border-slate-800 rounded-2xl p-3.5 backdrop-blur-sm">
+                            <p class="text-lg sm:text-xl font-black text-emerald-300">40 ITEMS</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5">부위별 정밀 기능검사 & 매뉴얼</p>
+                        </div>
+                        <div class="bg-slate-900/75 border border-slate-800 rounded-2xl p-3.5 backdrop-blur-sm">
+                            <p class="text-lg sm:text-xl font-black text-sky-300">4 STEPS</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5">소도구 믹스 & 시연 영상 연동</p>
+                        </div>
+                        <div class="bg-slate-900/75 border border-slate-800 rounded-2xl p-3.5 backdrop-blur-sm">
+                            <p class="text-lg sm:text-xl font-black text-amber-300">PERSISTENT</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5">업데이트 시에도 인증 유지</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Quick Status & Onboarding Card -->
+                <div id="setup-hub" class="lg:col-span-5 bg-slate-900/90 border border-slate-700/80 rounded-3xl p-6 shadow-2xl backdrop-blur-md space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3.5">
+                        <div>
+                            <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i> 라이센스 인증코드 입력
+                            </h2>
+                            <p class="text-[11px] text-slate-400 mt-0.5">발급받은 코드를 입력하면 기기에 영구 저장됩니다.</p>
+                        </div>
+                        <span id="landingLicenseBadge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30">
+                            미인증
+                        </span>
+                    </div>
+
+                    <!-- 인증코드 입력창 -->
+                    <div class="space-y-2.5">
+                        <div class="flex gap-2">
+                            <input type="text" id="landingLicenseInput" placeholder="인증코드 입력 (예: REHAB-30D-SUB01)"
+                                class="flex-1 bg-slate-950 border border-slate-700 focus:border-emerald-400 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono font-bold uppercase focus:outline-none">
+                            <button onclick="verifyLicenseFromLanding()" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-black transition whitespace-nowrap">
+                                인증 적용
+                            </button>
+                        </div>
+                        <p id="landingLicenseStatusText" class="text-[11px] text-slate-300 leading-relaxed">
+                            현재 인증 상태가 확인되지 않았습니다. 아래 결제 안내를 통해 코드를 발급받거나 보유 코드를 입력하세요.
+                        </p>
+                    </div>
+
+                    <!-- Gemini API 키 안내 & 입력창 -->
+                    <div class="pt-4 border-t border-slate-800 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5">
+                                <i data-lucide="key" class="w-4 h-4 text-sky-400"></i> Gemini API 키 설정
+                            </h3>
+                            <a href="https://aistudio.google.com" target="_blank" class="text-[11px] text-sky-300 hover:text-sky-200 underline font-semibold">
+                                AI Studio 키 발급 ↗
+                            </a>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Google AI Studio에서 발급한 <span class="text-slate-200 font-semibold">AIzaSy...</span> 키를 입력하면 체형 사진 및 증상 기반 카드 리포트가 즉시 생성됩니다.
+                        </p>
+                        <div class="flex gap-2">
+                            <input type="password" id="landingApiKeyInput" placeholder="Gemini API 키 입력 (AIzaSy...)"
+                                class="flex-1 bg-slate-950 border border-slate-700 focus:border-sky-400 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none">
+                            <button onclick="saveApiKeyFromLanding()" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 rounded-xl text-xs font-black transition whitespace-nowrap">
+                                키 저장
+                            </button>
+                        </div>
+                        <p id="landingApiKeyStatus" class="text-[11px] text-slate-400">API 키 미등록 상태</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing & Detailed API Guide Section on Main Page -->
+        <section class="max-w-7xl mx-auto px-4 py-12 space-y-10">
+            <!-- 결제 및 요금제 안내 -->
+            <div class="space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-extrabold text-rose-600 uppercase tracking-wider">PRICING & LICENSE</span>
+                        <h2 class="text-2xl font-black text-slate-900 mt-1">리햅프로 결제 및 요금제 안내</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium">
+                        입금 후 <span class="font-mono font-bold text-slate-800">rehappro@gmail.com</span> 으로 센터명·성함을 보내주시면 인증 코드를 발급해 드립니다.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- 1개월 구독권 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-5">
+                        <div class="space-y-2">
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-[11px] font-bold">스타터 체험</span>
+                            <h3 class="text-lg font-extrabold text-slate-900">1개월 구독권</h3>
+                            <p class="text-3xl font-black text-slate-900 pt-1">6만 9천원 <span class="text-xs font-semibold text-slate-400">/ 30일</span></p>
+                            <p class="text-xs text-slate-500 leading-relaxed pt-1">
+                                실제 현장 상담과 40가지 기능검사 리포트를 한 달간 부담 없이 도입해 볼 수 있는 플랜입니다.
+                            </p>
+                        </div>
+                        <button onclick="selectPlanAndFocusCode('1개월 구독권 (6만 9천원)')" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition">
+                            1개월권 코드 문의·입력
+                        </button>
+                    </div>
+
+                    <!-- 1년 구독권 -->
+                    <div class="bg-white border-2 border-emerald-500 rounded-2xl p-6 shadow-md flex flex-col justify-between space-y-5 relative">
+                        <span class="absolute -top-3 right-5 px-3 py-0.5 rounded-full bg-emerald-600 text-white text-[11px] font-extrabold shadow-sm">
+                            가장 합리적인 센터 추천
+                        </span>
+                        <div class="space-y-2">
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-[11px] font-bold">연간 운영 플랜</span>
+                            <h3 class="text-lg font-extrabold text-slate-900">1년 구독권</h3>
+                            <p class="text-3xl font-black text-emerald-700 pt-1">30만 원 <span class="text-xs font-semibold text-slate-400">/ 365일</span></p>
+                            <p class="text-xs text-slate-500 leading-relaxed pt-1">
+                                1년 동안 안정적으로 회원 세션 아카이브와 맞춤 컨디셔닝 카드 리포트를 활용할 수 있습니다.
+                            </p>
+                        </div>
+                        <button onclick="selectPlanAndFocusCode('1년 구독권 (30만 원)')" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">
+                            1년권 코드 문의·입력
+                        </button>
+                    </div>
+
+                    <!-- 영구 소장권 -->
+                    <div class="bg-slate-900 text-white border border-slate-800 rounded-2xl p-6 shadow-lg flex flex-col justify-between space-y-5">
+                        <div class="space-y-2">
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 text-[11px] font-bold">프리미엄 평생 소장</span>
+                            <h3 class="text-lg font-extrabold text-white">영구 소장권</h3>
+                            <p class="text-3xl font-black text-amber-300 pt-1">35만 원 <span class="text-xs font-semibold text-slate-400">/ 평생</span></p>
+                            <p class="text-xs text-slate-300 leading-relaxed pt-1">
+                                추가 구독료 걱정 없이 기기에 영구 인증되는 마스터 플랜으로, 장기 센터 운영자에게 가장 유리합니다.
+                            </p>
+                        </div>
+                        <button onclick="selectPlanAndFocusCode('영구 소장권 (35만 원)')" class="w-full py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl text-xs font-black transition">
+                            영구 소장권 코드 문의·입력
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API 연결 상세 안내 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+                <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="cpu" class="w-5 h-5 text-emerald-600"></i> Gemini API 연결 3단계 가이드
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                        <p class="font-extrabold text-slate-900">1. Google AI Studio 접속</p>
+                        <p class="text-slate-600 leading-relaxed">
+                            <a href="https://aistudio.google.com" target="_blank" class="text-emerald-700 font-bold underline">aistudio.google.com</a> 에 구글 계정으로 접속합니다.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                        <p class="font-extrabold text-slate-900">2. API 키 생성 및 복사</p>
+                        <p class="text-slate-600 leading-relaxed">
+                            <b>[Get API key]</b> → <b>[Create API key]</b> 순서로 생성한 <span class="font-mono">AIzaSy...</span> 키를 복사합니다.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                        <p class="font-extrabold text-slate-900">3. 상단 입력창에 저장</p>
+                        <p class="text-slate-600 leading-relaxed">
+                            위 <b>Gemini API 키 설정</b> 입력창에 붙여넣고 <b>[키 저장]</b>을 누르면 브라우저에 안전하게 보관됩니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 2: 40가지 기능검사 & 카드 리포트 워크스페이스                    -->
+    <!-- ===================================================================== -->
+    <main id="workspaceView" class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 hidden">
+
+        <!-- LEFT COLUMN (5 Cols) -->
         <section class="lg:col-span-5 space-y-6">
-            
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
                     <i data-lucide="user-check" class="w-5 h-5 text-emerald-600"></i> 회원 세션 관리
@@ -104,7 +348,7 @@
                 </div>
             </div>
 
-            <!-- 실시간 체형 사진 촬영 & 멀티모달 분석 업로더 -->
+            <!-- 체형 사진 업로드 -->
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <h2 class="text-base font-bold text-slate-900 mb-3 flex items-center justify-between">
                     <span class="flex items-center gap-2"><i data-lucide="camera" class="w-5 h-5 text-emerald-600"></i> 체형 및 통증 부위 사진 업로드</span>
@@ -124,10 +368,10 @@
                 </button>
             </div>
 
-            <!-- 부위별 정밀 기능 평가표 (가이드 & 체크박스 통합) -->
+            <!-- 부위별 기능 평가표 -->
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center justify-between">
-                    <span class="flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-emerald-600"></i> 40가지 증상 및 기능검사</span>
+                    <span class="flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-emerald-600"></i> 30/40가지 증상 및 기능검사</span>
                     <span class="text-xs text-emerald-600 font-semibold">가이드 및 체크</span>
                 </h2>
                 <div class="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-xl mb-4 text-xs font-bold text-center">
@@ -135,7 +379,7 @@
                     <button id="regionPelvisBtn" onclick="switchRegion('pelvis')" class="py-2 rounded-lg text-slate-500 hover:text-slate-900">골반/코어 (10)</button>
                     <button id="regionAnkleBtn" onclick="switchRegion('ankle')" class="py-2 rounded-lg text-slate-500 hover:text-slate-900">하지/발목 (10)</button>
                 </div>
-                
+
                 <div id="evalSection" class="space-y-2 mb-4 max-h-[320px] overflow-y-auto pr-1"></div>
 
                 <div class="space-y-2 pt-3 border-t border-slate-200">
@@ -147,31 +391,25 @@
                     <i data-lucide="sparkles" class="w-4 h-4"></i> 시각적 해부학 카드 리포트 생성
                 </button>
             </div>
-
         </section>
 
-        <!-- RIGHT COLUMN: 해부학 카드 리포트 & 세션 마감 (7 Cols) -->
+        <!-- RIGHT COLUMN (7 Cols) -->
         <section class="lg:col-span-7 space-y-6">
-            
             <div id="reportBox" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hidden">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
                     <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
                         <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> [시각적 해부학 카드 리포트 & 시연 영상]
                     </h3>
-                    <div class="flex items-center gap-2">
-                        <button onclick="copyReport()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> 복사
-                        </button>
-                    </div>
+                    <button onclick="copyReport()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1 transition">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> 복사
+                    </button>
                 </div>
-                <!-- 시각적 카드 리포트 렌더링 영역 -->
                 <div id="reportContent" class="space-y-4 text-xs text-slate-700 font-medium"></div>
                 <div class="mt-6 pt-4 border-t border-slate-200 text-[10px] text-slate-400 text-center font-normal">
                     ※ 본 리포트는 의료법을 준수하며, 질환의 진단·치료가 아닌 기능적 체형 개선 및 운동 컨디셔닝 목적으로 시연 영상과 함께 제공됩니다.
                 </div>
             </div>
 
-            <!-- 안내 배너 (초기 상태) -->
             <div id="reportPlaceholder" class="bg-white border border-slate-200 rounded-2xl p-12 text-center space-y-4 shadow-sm">
                 <div class="w-16 h-16 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-600">
                     <i data-lucide="layout-template" class="w-8 h-8"></i>
@@ -182,7 +420,6 @@
                 </p>
             </div>
 
-            <!-- 세션 마감 및 CRM 아카이브 저장 -->
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <h2 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
                     <i data-lucide="save" class="w-5 h-5 text-emerald-600"></i> 세션 마감 & 아카이브 저장
@@ -207,89 +444,8 @@
                     </button>
                 </div>
             </div>
-
         </section>
-
     </main>
-
-    <!-- 결제 및 요금제 안내 모달 -->
-    <div id="pricingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                    <i data-lucide="credit-card" class="w-5 h-5 text-rose-500"></i> 리햅프로 라이센스 요금제 안내
-                </h3>
-                <button onclick="closePricingModal()" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
-            </div>
-            
-            <div class="space-y-3 text-xs text-slate-700">
-                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1">
-                    <div class="flex justify-between items-center">
-                        <span class="font-extrabold text-rose-700 text-sm">🔥 11월 30일 까지 얼리버드 특가</span>
-                        <span class="px-2 py-0.5 bg-rose-600 text-white rounded font-bold text-[10px]">한정 이벤트</span>
-                    </div>
-                    <p class="text-slate-600">• <b>월 구독권:</b> <span class="line-through text-slate-400">9만 9천원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">5만</span></p>
-                    <p class="text-slate-600">• <b>영구 소장권:</b> <span class="line-through text-slate-400">45만원</span> ➔ <span class="text-rose-600 font-extrabold text-sm">35만원</span></p>
-                </div>
-
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                    <p class="font-bold text-slate-900">📌 정상가 안내 (12월 1일 이후)</p>
-                    <p class="text-slate-600">• 월 구독권: 9만 9천원 / 영구 소장권: 45만원</p>
-                </div>
-
-                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-center">
-                    <p class="font-bold text-emerald-900 text-sm">💳 결제 및 라이센스 코드 발급 문의</p>
-                    <p class="text-slate-600 text-[11px]">무통장 입금 또는 계좌 이체 후 아래 이메일로 센터명과 성함을 보내주시면 인증 코드를 즉시 발급해 드립니다.</p>
-                    <p class="font-mono font-bold text-emerald-700 text-sm bg-white py-1.5 px-3 rounded-lg border border-emerald-200 inline-block">
-                        📧 rehappro@gmail.com
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex justify-end pt-2">
-                <button onclick="closePricingModal()" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition">
-                    확인 완료
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- API 키 연결 안내 모달 -->
-    <div id="apiGuideModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                    <i data-lucide="key" class="w-5 h-5 text-emerald-600"></i> 제미나이(Gemini) API 키 연결 가이드
-                </h3>
-                <button onclick="closeApiGuideModal()" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
-            </div>
-            
-            <div class="space-y-3 text-xs text-slate-700 leading-relaxed">
-                <p>리햅프로는 별도의 복잡한 백엔드 서버 없이, 사용자 브라우저에서 구글 제미나이 AI와 다이렉트로 통신하여 초고속 리포트를 생성합니다. 아래 순서대로 무료 API 키를 발급받아 연동해 주세요.</p>
-                
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                    <p class="font-bold text-slate-900">1단계: 구글 AI 스튜디오 접속</p>
-                    <p class="text-slate-600">인터넷 주소창에 <a href="https://aistudio.google.com" target="_blank" class="text-emerald-600 font-bold underline">aistudio.google.com</a> 접속 후 구글 계정으로 로그인합니다.</p>
-                </div>
-
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                    <p class="font-bold text-slate-900">2단계: API 키 생성 (무료)</p>
-                    <p class="text-slate-600">좌측 상단의 <b>[Get API key]</b> 버튼을 누른 뒤 <b>[Create API key in new project]</b>를 클릭하여 키를 생성하고 복사합니다.</p>
-                </div>
-
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                    <p class="font-bold text-slate-900">3단계: 리햅프로에 등록</p>
-                    <p class="text-slate-600">우측 상단의 <b>[API 키 설정]</b> 버튼을 누르고 복사한 키(AIzaSy...)를 입력해 저장하면 즉시 사용 가능합니다.</p>
-                </div>
-            </div>
-
-            <div class="flex justify-end pt-2">
-                <button onclick="closeApiGuideModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">
-                    확인 완료
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- 검사 가이드 매뉴얼 팝업 모달 -->
     <div id="guideModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 hidden">
@@ -304,54 +460,6 @@
         </div>
     </div>
 
-    <!-- 라이센스 인증 팝업 모달 (인증 영구 보존 안정화) -->
-    <div id="licenseModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl text-center">
-            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-full w-12 h-12 flex items-center justify-center mx-auto text-emerald-600">
-                <i data-lucide="shield-check" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-lg font-extrabold text-slate-900">REHAB PRO 라이센스 인증 (STABLE)</h3>
-            <p id="licenseModalDesc" class="text-xs text-slate-500 leading-relaxed font-medium">
-                발급받으신 영구 라이센스 또는 구독 코드를 입력해 주세요.<br>
-                <span class="text-emerald-600 font-bold">※ 업데이트 시에도 인증 정보는 안전하게 유지됩니다.</span>
-            </p>
-            
-            <div id="currentLicenseStatusBox" class="hidden p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-left space-y-1">
-                <p class="text-slate-600"><span class="text-slate-400">적용 코드:</span> <span id="statusCode" class="font-mono font-bold text-slate-900"></span></p>
-                <p class="text-slate-600"><span class="text-slate-400">이용 유형:</span> <span id="statusType" class="font-bold text-emerald-600"></span></p>
-                <p class="text-slate-600"><span class="text-slate-400">만료 일시:</span> <span id="statusExpiry" class="font-bold text-slate-800"></span></p>
-            </div>
-
-            <input type="text" id="licenseKeyInput" placeholder="예: REHAB-30D-SUB01" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-center text-slate-900 focus:outline-none focus:border-emerald-500 font-mono font-bold uppercase">
-            
-            <div class="flex gap-2">
-                <button id="closeLicenseBtn" onclick="closeLicenseModal()" class="hidden px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold rounded-xl transition">
-                    닫기
-                </button>
-                <button onclick="verifyAndSaveLicense()" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md shadow-emerald-600/20">
-                    기기 인증 및 코드 적용
-                </button>
-            </div>
-            <p id="licenseMsg" class="text-[11px] text-rose-500 font-bold hidden"></p>
-        </div>
-    </div>
-
-    <!-- API Key 모달 -->
-    <div id="apiKeyModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full mx-4 space-y-4 shadow-xl">
-            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                <i data-lucide="key" class="w-5 h-5 text-emerald-600"></i> 제미나이 API 키 설정
-            </h3>
-            <p class="text-xs text-slate-500 font-medium">브라우저 로컬 스토리지에 안전하게 저장되며 백엔드 서버 없이 직접 AI와 통신합니다.</p>
-            <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-emerald-500 font-mono">
-            <div class="flex gap-2 justify-end">
-                <button onclick="closeApiKeyModal()" class="px-4 py-2 bg-slate-100 border border-slate-200 text-slate-600 rounded-xl text-xs font-semibold">취소</button>
-                <button onclick="saveApiKey()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold">저장</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script Logic -->
     <script>
         // =========================================================================
         // [대표님 전용 라이센스 발급 관리 영역]
@@ -364,14 +472,11 @@
         ];
 
         const TIMED_LICENSES = {
-            "REHAB-7D-TRIAL01": 7,      
-            "REHAB-7D-TRIAL02": 7,      
-            "REHAB-30D-SUB01": 30,      
-            "REHAB-30D-SUB02": 30,      
-            "REHAB-90D-PRO01": 90,      
-            "REHAB-365D-YEAR01": 365    
+            "REHAB-30D-SUB01": 30,      // 1개월 구독권 (6만 9천원)
+            "REHAB-30D-SUB02": 30,
+            "REHAB-365D-YEAR01": 365,   // 1년 구독권 (30만 원)
+            "REHAB-365D-YEAR02": 365
         };
-        // =========================================================================
 
         const evaluationData = {
             scapula: {
@@ -428,78 +533,145 @@
         window.onload = function() {
             lucide.createIcons();
             checkLicenseOnLoad();
+            syncApiKeyStatusUI();
             renderEvaluationForm();
             loadClientList();
         };
 
+        function showLandingPage() {
+            document.getElementById('workspaceView').classList.add('hidden');
+            document.getElementById('landingView').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showWorkspacePage() {
+            document.getElementById('landingView').classList.add('hidden');
+            document.getElementById('workspaceView').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function enterWorkspaceWithCheck() {
+            const status = getLicenseValidity();
+            if (!status.valid) {
+                alert('먼저 우측 인증코드 입력창에서 라이센스 코드를 인증해 주세요.');
+                scrollToLicenseBox();
+                return;
+            }
+            showWorkspacePage();
+        }
+
+        function scrollToLicenseBox() {
+            showLandingPage();
+            const el = document.getElementById('setup-hub');
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const input = document.getElementById('landingLicenseInput');
+                if (input) input.focus();
+            }
+        }
+
+        function selectPlanAndFocusCode(planLabel) {
+            const statusEl = document.getElementById('landingLicenseStatusText');
+            if (statusEl) {
+                statusEl.innerText = `${planLabel} 결제 후 발급받은 인증코드를 아래 입력창에 넣어주세요 (문의: rehappro@gmail.com).`;
+            }
+            scrollToLicenseBox();
+        }
+
         // =========================================================================
-        // [핵심] 라이센스 인증 영구 보존 로직 (소스코드 업데이트 시에도 풀리지 않음)
+        // [인증 영구 보존 로직] - localStorage 기반 유지
         // =========================================================================
-        function checkLicenseOnLoad() {
-            // 기기 고유 ID 생성 또는 유지
+        function getLicenseValidity() {
             let deviceId = localStorage.getItem('rehab_pro_device_id');
-            if(!deviceId) {
+            if (!deviceId) {
                 deviceId = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
                 localStorage.setItem('rehab_pro_device_id', deviceId);
             }
 
-            // localStorage에 저장된 영구 인증 데이터 확인
             const authDataRaw = localStorage.getItem('rehab_pro_auth_data');
-            if(!authDataRaw) {
-                lockApp("라이센스 인증이 필요합니다. 상단의 [결제 및 요금제]를 확인해 주세요.");
-                return;
+            if (!authDataRaw) {
+                return { valid: false, reason: '인증코드 미입력 상태입니다.' };
             }
 
             try {
                 const authData = JSON.parse(authDataRaw);
                 const now = Date.now();
 
-                // 1. 영구 라이센스 검증
-                if(authData.type === 'UNLIMITED' && UNLIMITED_LICENSES.includes(authData.code)) {
-                    unlockApp(authData);
-                    return;
+                if (authData.type === 'UNLIMITED' && UNLIMITED_LICENSES.includes(authData.code)) {
+                    return { valid: true, authData };
                 }
 
-                // 2. 기한제 구독 라이센스 검증
-                if(authData.type === 'TIMED' && TIMED_LICENSES.hasOwnProperty(authData.code)) {
-                    if(now < authData.expiresAt) {
-                        unlockApp(authData);
-                    } else {
-                        const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
-                        lockApp(`구독 기간이 만료되었습니다 (${expDateStr} 종료). 연장 코드를 문의해 주세요.`);
+                if (authData.type === 'TIMED' && TIMED_LICENSES.hasOwnProperty(authData.code)) {
+                    if (now < authData.expiresAt) {
+                        return { valid: true, authData };
                     }
-                    return;
+                    const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
+                    return { valid: false, reason: `구독 기간이 만료되었습니다 (${expDateStr} 종료).` };
                 }
-            } catch(e) {}
+            } catch (e) {}
 
-            lockApp("유효하지 않거나 만료된 라이센스입니다. 새 코드를 입력해 주세요.");
+            return { valid: false, reason: '유효하지 않은 라이센스입니다.' };
         }
 
-        function verifyAndSaveLicense() {
-            const inputKey = document.getElementById('licenseKeyInput').value.trim().toUpperCase();
-            const msgEl = document.getElementById('licenseMsg');
+        function checkLicenseOnLoad() {
+            const res = getLicenseValidity();
+            const headerBtn = document.getElementById('headerLicenseBtn');
+            const headerBtnText = document.getElementById('licenseBtnText');
+            const badge = document.getElementById('landingLicenseBadge');
+            const statusText = document.getElementById('landingLicenseStatusText');
+
+            if (res.valid) {
+                const authData = res.authData;
+                if (authData.type === 'UNLIMITED') {
+                    headerBtnText.innerText = '영구 인증됨';
+                    headerBtn.className = 'px-3 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition';
+                    badge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30';
+                    badge.innerText = '영구 정품';
+                    statusText.innerHTML = `적용 코드: <b class="font-mono text-emerald-300">${authData.code}</b> · 영구 소장권 활성화됨`;
+                } else {
+                    const remainDays = Math.ceil((authData.expiresAt - Date.now()) / (1000 * 60 * 60 * 24));
+                    const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
+                    headerBtnText.innerText = `구독중 (D-${remainDays})`;
+                    headerBtn.className = 'px-3 py-2 bg-sky-400 hover:bg-sky-300 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition';
+                    badge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30';
+                    badge.innerText = `D-${remainDays}`;
+                    statusText.innerHTML = `적용 코드: <b class="font-mono text-sky-300">${authData.code}</b> · 만료일: ${expDateStr}`;
+                }
+            } else {
+                headerBtnText.innerText = '라이센스 인증';
+                headerBtn.className = 'px-3 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition';
+                badge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30';
+                badge.innerText = '미인증';
+                statusText.innerText = res.reason;
+            }
+        }
+
+        function verifyLicenseFromLanding() {
+            const inputKey = document.getElementById('landingLicenseInput').value.trim().toUpperCase();
             const now = Date.now();
 
-            if(UNLIMITED_LICENSES.includes(inputKey)) {
-                const authData = { code: inputKey, type: 'UNLIMITED', activatedAt: now, expiresAt: null };
-                localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
-                msgEl.classList.add('hidden');
-                unlockApp(authData);
-                alert('✅ 영구(무제한) 정품 라이센스 인증이 완료되었습니다!');
+            if (!inputKey) {
+                alert('인증코드를 입력해 주세요.');
                 return;
             }
 
-            if(TIMED_LICENSES.hasOwnProperty(inputKey)) {
-                const days = TIMED_LICENSES[inputKey];
-                const historyRaw = localStorage.getItem('rehab_pro_used_history') || '{}';
-                let history = JSON.parse(historyRaw);
+            if (UNLIMITED_LICENSES.includes(inputKey)) {
+                const authData = { code: inputKey, type: 'UNLIMITED', activatedAt: now, expiresAt: null };
+                localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
+                checkLicenseOnLoad();
+                alert('✅ 영구 소장권 라이센스가 인증되었습니다! 검사 워크스페이스로 이동합니다.');
+                showWorkspacePage();
+                return;
+            }
 
-                let expiresAt;
-                if(history[inputKey]) {
-                    expiresAt = history[inputKey];
-                    if(now >= expiresAt) {
-                        msgEl.innerText = `[보안 차단] 이미 만료된 코드는 재사용할 수 없습니다. rehappro@gmail.com으로 연장을 문의하세요.`;
-                        msgEl.classList.remove('hidden');
+            if (TIMED_LICENSES.hasOwnProperty(inputKey)) {
+                const days = TIMED_LICENSES[inputKey];
+                const history = JSON.parse(localStorage.getItem('rehab_pro_used_history') || '{}');
+                let expiresAt = history[inputKey];
+
+                if (expiresAt) {
+                    if (now >= expiresAt) {
+                        alert('이미 만료된 코드입니다. rehappro@gmail.com 으로 연장을 문의해 주세요.');
                         return;
                     }
                 } else {
@@ -508,82 +680,69 @@
                     localStorage.setItem('rehab_pro_used_history', JSON.stringify(history));
                 }
 
-                const authData = { code: inputKey, type: 'TIMED', days: days, activatedAt: now, expiresAt: expiresAt };
+                const authData = { code: inputKey, type: 'TIMED', days, activatedAt: now, expiresAt };
                 localStorage.setItem('rehab_pro_auth_data', JSON.stringify(authData));
-                msgEl.classList.add('hidden');
-                unlockApp(authData);
-                
-                const expDateStr = new Date(expiresAt).toLocaleString();
-                alert(`✅ 기한제(${days}일) 라이센스 인증 완료!\n만료 일시: ${expDateStr}`);
+                checkLicenseOnLoad();
+                alert(`✅ ${days}일 구독 라이센스가 인증되었습니다! (만료일: ${new Date(expiresAt).toLocaleDateString()})`);
+                showWorkspacePage();
                 return;
             }
 
-            msgEl.innerText = "유효하지 않은 인증 코드입니다. 올바른 코드를 입력해 주세요.";
-            msgEl.classList.remove('hidden');
+            alert('유효하지 않은 인증코드입니다. 코드를 다시 확인해 주세요.');
         }
 
-        function unlockApp(authData) {
-            document.getElementById('licenseModal').classList.add('hidden');
-            document.getElementById('closeLicenseBtn').classList.remove('hidden');
-            
-            const statusBox = document.getElementById('currentLicenseStatusBox');
-            statusBox.classList.remove('hidden');
-            document.getElementById('statusCode').innerText = authData.code;
+        function saveApiKeyFromLanding() {
+            const key = document.getElementById('landingApiKeyInput').value.trim();
+            if (!key) {
+                alert('Gemini API 키를 입력해 주세요.');
+                return;
+            }
+            localStorage.setItem('rehab_gemini_api_key', key);
+            document.getElementById('landingApiKeyInput').value = '';
+            syncApiKeyStatusUI();
+            alert('✅ Gemini API 키가 저장되었습니다.');
+        }
 
-            const btn = document.getElementById('headerLicenseBtn');
-            const btnText = document.getElementById('licenseBtnText');
-
-            if(authData.type === 'UNLIMITED') {
-                btnText.innerText = "영구 정품 인증됨";
-                btn.className = "px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
-                document.getElementById('statusType').innerText = "무제한 영구 라이센스";
-                document.getElementById('statusExpiry').innerText = "만료 없음 (평생 이용)";
+        function syncApiKeyStatusUI() {
+            const key = localStorage.getItem('rehab_gemini_api_key');
+            const el = document.getElementById('landingApiKeyStatus');
+            if (!el) return;
+            if (key) {
+                el.innerHTML = `API 키 등록 완료 (<span class="font-mono text-emerald-300">${key.slice(0, 8)}••••</span>)`;
             } else {
-                const remainMs = authData.expiresAt - Date.now();
-                const remainDays = Math.ceil(remainMs / (1000 * 60 * 60 * 24));
-                const expDateStr = new Date(authData.expiresAt).toLocaleDateString();
-
-                btnText.innerText = `구독중 (D-${remainDays})`;
-                btn.className = "px-3.5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
-                document.getElementById('statusType').innerText = `기한제 구독 (${authData.days}일권)`;
-                document.getElementById('statusExpiry').innerText = `${expDateStr} 까지 (약 ${remainDays}일 남음)`;
+                el.innerText = 'API 키 미등록 상태';
             }
         }
 
-        function lockApp(reasonMsg) {
-            const modal = document.getElementById('licenseModal');
-            modal.classList.remove('hidden');
-            document.getElementById('closeLicenseBtn').classList.add('hidden'); // 강제 인증 유도
-            
-            const msgEl = document.getElementById('licenseMsg');
-            msgEl.innerText = reasonMsg;
-            msgEl.classList.remove('hidden');
-
-            const btn = document.getElementById('headerLicenseBtn');
-            btn.className = "px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition";
-            document.getElementById('licenseBtnText').innerText = "인증 만료/필요";
+        function resetAppWorkspace() {
+            if (!confirm('현재 검사 체크 및 리포트 화면을 초기화하시겠습니까? (인증 및 저장된 데이터는 유지됩니다)')) return;
+            ['scapula', 'pelvis', 'ankle'].forEach(reg => {
+                evaluationData[reg].questions.forEach(q => {
+                    const el = document.getElementById(q.id);
+                    if (el) el.checked = false;
+                });
+            });
+            const customInput = document.getElementById('customPainInput');
+            if (customInput) customInput.value = '';
+            removeInstantPhoto();
+            document.getElementById('reportBox').classList.add('hidden');
+            document.getElementById('reportPlaceholder').classList.remove('hidden');
+            document.getElementById('reportContent').innerHTML = '';
+            currentReportText = '';
+            document.getElementById('vasBefore').value = '';
+            document.getElementById('vasAfter').value = '';
+            document.getElementById('sessionMemo').value = '';
+            alert('검사 화면이 초기화되었습니다.');
         }
 
-        function openLicenseModal() { document.getElementById('licenseModal').classList.remove('hidden'); }
-        function closeLicenseModal() { document.getElementById('licenseModal').classList.add('hidden'); }
-        
-        function openPricingModal() { document.getElementById('pricingModal').classList.remove('hidden'); }
-        function closePricingModal() { document.getElementById('pricingModal').classList.add('hidden'); }
-
-        function openApiGuideModal() { document.getElementById('apiGuideModal').classList.remove('hidden'); }
-        function closeApiGuideModal() { document.getElementById('apiGuideModal').classList.add('hidden'); }
-
-        // =========================================================================
-        // 평가표 및 AI 카드 리포트 엔진 동일 유지
-        // =========================================================================
         function switchRegion(region) {
             currentRegion = region;
             ['scapula', 'pelvis', 'ankle'].forEach(r => {
                 const btn = document.getElementById(`region${r.charAt(0).toUpperCase() + r.slice(1)}Btn`);
-                if(r === region) {
-                    btn.className = "py-2 rounded-lg bg-white text-emerald-700 shadow-sm border border-slate-200 font-bold";
+                if (r === region) {
+                    btn.className = 'py-2 rounded-lg bg-white text-emerald-700 shadow-sm border border-slate-200 font-bold';
                 } else {
-                    btn.className = "py-2 rounded-lg text-slate-500 hover:text-slate-900";
+                    btn.className = 'py-2 rounded-lg text-slate-500 hover:text-slate-900';
                 }
             });
             renderEvaluationForm();
@@ -619,22 +778,24 @@
             document.getElementById('guideModal').classList.remove('hidden');
             lucide.createIcons();
         }
-        function closeGuideModal() { document.getElementById('guideModal').classList.add('hidden'); }
+
+        function closeGuideModal() {
+            document.getElementById('guideModal').classList.add('hidden');
+        }
 
         function handleInstantPhoto(e) {
             const file = e.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    instantBase64Photo = evt.target.result;
-                    const preview = document.getElementById('instantPhotoPreview');
-                    preview.src = instantBase64Photo;
-                    preview.classList.remove('hidden');
-                    document.getElementById('photoPlaceholder').classList.add('hidden');
-                    document.getElementById('removePhotoBtn').classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                instantBase64Photo = evt.target.result;
+                const preview = document.getElementById('instantPhotoPreview');
+                preview.src = instantBase64Photo;
+                preview.classList.remove('hidden');
+                document.getElementById('photoPlaceholder').classList.add('hidden');
+                document.getElementById('removePhotoBtn').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
         }
 
         function removeInstantPhoto() {
@@ -646,21 +807,32 @@
         }
 
         async function generateAiProtocol() {
-            let apiKey = localStorage.getItem('rehab_gemini_api_key');
-            if(!apiKey) { openApiKeyModal(); return; }
+            const lic = getLicenseValidity();
+            if (!lic.valid) {
+                alert('라이센스 인증 후 리포트를 생성할 수 있습니다.');
+                scrollToLicenseBox();
+                return;
+            }
+
+            const apiKey = localStorage.getItem('rehab_gemini_api_key');
+            if (!apiKey) {
+                alert('먼저 Gemini API 키를 등록해 주세요.');
+                scrollToLicenseBox();
+                return;
+            }
 
             let evaluatedItems = [];
             ['scapula', 'pelvis', 'ankle'].forEach(reg => {
                 evaluationData[reg].questions.forEach(q => {
                     const el = document.getElementById(q.id);
-                    if(el && el.checked) {
+                    if (el && el.checked) {
                         evaluatedItems.push(`[${evaluationData[reg].title}] ${q.label} (임상적 이유: ${q.why})`);
                     }
                 });
             });
 
             const customPain = document.getElementById('customPainInput').value;
-            if(evaluatedItems.length === 0 && !customPain && !instantBase64Photo) {
+            if (evaluatedItems.length === 0 && !customPain && !instantBase64Photo) {
                 alert('평가 항목 체크, 통증 입력 또는 체형 사진 촬영 중 하나 이상을 진행해 주세요.');
                 return;
             }
@@ -668,17 +840,15 @@
             const reportBox = document.getElementById('reportBox');
             const reportPlaceholder = document.getElementById('reportPlaceholder');
             const reportContent = document.getElementById('reportContent');
-            
+
             reportPlaceholder.classList.add('hidden');
             reportBox.classList.remove('hidden');
-            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">제미나이 EBM 엔진이 시각적 해부학 카드 리포트 및 시연 영상 링크를 구성 중입니다...</p></div>`;
+            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">시각적 해부학 카드 리포트 및 시연 영상 링크를 생성 중입니다...</p></div>`;
             lucide.createIcons();
 
-            let contentsParts = [];
-            let promptText = `
+            const promptText = `
 당신은 리햅프로(Rehab Pro)의 수석 운동학(Kinesiology) 에이전트입니다.
-회원이 선택한 증상 및 첨부된 체형 사진을 분석하여, 사용자가 제시한 [참고 이미지 카드 형태]와 정확히 일치하는 직관적인 HTML 카드 UI 코드를 생성해 주십시오.
-특히 각 운동 단계(1단계 MFR ~ 4단계 Passive)마다 유튜브 시연 영상 링크 버튼(예: <a href="유튜브검색URL" target="_blank" class="text-rose-500 font-bold underline">[▶ 시연영상 보기]</a>)을 반드시 포함시켜 주십시오.
+선택된 증상 및 첨부된 체형 사진을 분석하여, 4단계(MFR, Mobility, Active, Passive) 소도구 컨디셔닝과 시연 영상 링크가 포함된 HTML 카드 리포트를 생성해 주십시오.
 
 [선택된 증상 및 평가 데이터]
 ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '선택된 항목 없음'}
@@ -687,39 +857,16 @@ ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '선택된 항목 없�
 ${customPain || '특이사항 없음'}
 
 [작성 지침]
-1. 허위 사실 없이 NASM, FMS, Neumann Kinesiology 근거에 기반할 것.
-2. 의료법 준수 ('진단', '처방', '치료' 용어 금지).
-3. 반드시 아래의 Tailwind CSS가 적용된 깔끔한 HTML 박스 카드 형태로 출력할 것. 마크다운 코드블록(\`\`\`html ... \`\`\`)으로 감싸서 출력해 주세요.
-
-[HTML 카드 템플릿 양식]
-<div class="bg-white border-2 border-emerald-500/30 rounded-2xl p-5 shadow-sm space-y-3 mb-4">
-    <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
-        <span class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold">TP 1</span>
-        <h4 class="text-sm font-extrabold text-slate-900">(증상명 또는 근육명) - "(회원 호소 멘트 1줄)"</h4>
-    </div>
-    <div class="space-y-2 text-xs text-slate-700">
-        <p><b>위치:</b> (해부학적 위치 서술)</p>
-        <p><b>통증 양상:</b> (방사통 및 통증 양상 서술)</p>
-        <p><b>원인:</b> (핵심 원인 서술)</p>
-        <div class="bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 space-y-1.5 mt-2">
-            <p class="font-bold text-emerald-800"> 실전 4단계 소도구 믹스 대처법 & 시연 영상:</p>
-            <p>• <b>1단계 MFR (8분):</b> (압박 및 이완법) <a href="https://www.youtube.com/results?search_query=근막이완+운동" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
-            <p>• <b>2단계 Mobility (10분):</b> (가동성 동작) <a href="https://www.youtube.com/results?search_query=가동성+스트레칭" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
-            <p>• <b>3단계 Active (12분):</b> (강화 운동) <a href="https://www.youtube.com/results?search_query=신경근활성화+운동" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
-            <p>• <b>4단계 Passive (5분):</b> (수동 스트레칭) <a href="https://www.youtube.com/results?search_query=수동스트레칭+컨디셔닝" target="_blank" class="text-rose-500 font-bold underline ml-1">[▶ 시연영상]</a></p>
-        </div>
-        <p class="text-emerald-700 font-semibold pt-1"> 티칭 멘트: "(상담 및 연장 유도 멘트)"</p>
-    </div>
-</div>
+1. NASM, FMS, Neumann Kinesiology 근거에 기반할 것.
+2. '진단', '처방', '치료' 용어를 사용하지 말 것.
+3. 마크다운 코드블록(\`\`\`html ... \`\`\`) 안에 깔끔한 Tailwind CSS HTML 카드 형태로 출력할 것.
 `;
 
-            contentsParts.push({ text: promptText });
-            if(instantBase64Photo) {
+            let contentsParts = [{ text: promptText }];
+            if (instantBase64Photo) {
                 const base64Data = instantBase64Photo.split(',')[1];
                 const mimeType = instantBase64Photo.split(';')[0].split(':')[1];
-                contentsParts.push({
-                    inlineData: { mimeType: mimeType, data: base64Data }
-                });
+                contentsParts.push({ inlineData: { mimeType, data: base64Data } });
             }
 
             try {
@@ -727,20 +874,16 @@ ${customPain || '특이사항 없음'}
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ parts: contentsParts }],
-                        systemInstruction: {
-                            parts: [{ text: "당신은 운동학 시각화 전문가입니다. Tailwind CSS가 포함된 HTML 카드 형태로 시연 영상 링크가 포함된 직관적인 분석 리포트를 작성합니다." }]
-                        }
+                        contents: [{ parts: contentsParts }]
                     })
                 });
-
                 const data = await response.json();
-                if(data.candidates && data.candidates[0].content.parts[0].text) {
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
                     let rawText = data.candidates[0].content.parts[0].text;
-                    if(rawText.includes("```html")) {
-                        rawText = rawText.split("```html")[1].split("```")[0].trim();
-                    } else if(rawText.includes("```")) {
-                        rawText = rawText.split("```")[1].split("```")[0].trim();
+                    if (rawText.includes('```html')) {
+                        rawText = rawText.split('```html')[1].split('```')[0].trim();
+                    } else if (rawText.includes('```')) {
+                        rawText = rawText.split('```')[1].split('```')[0].trim();
                     }
                     reportContent.innerHTML = rawText;
                     currentReportText = rawText;
@@ -748,44 +891,34 @@ ${customPain || '특이사항 없음'}
                 } else {
                     throw new Error(data.error?.message || 'API 응답 오류');
                 }
-            } catch(err) {
-                reportContent.innerHTML = `<p class="text-rose-500 font-bold">AI 호출 실패: ${err.message}<br>API 키가 올바른지 확인해 주세요.</p>`;
+            } catch (err) {
+                reportContent.innerHTML = `<p class="text-rose-500 font-bold">AI 호출 실패: ${err.message}</p>`;
             }
-        }
-
-        function openApiKeyModal() { document.getElementById('apiKeyModal').classList.remove('hidden'); }
-        function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.add('hidden'); }
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            if(!key) return;
-            localStorage.setItem('rehab_gemini_api_key', key);
-            closeApiKeyModal();
-            alert('API 키가 안전하게 저장되었습니다.');
         }
 
         function createNewClient() {
             const name = prompt('신규 회원 이름을 입력하세요:');
-            if(!name) return;
-            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
-            clients.push({ id: Date.now(), name: name, sessions: [] });
+            if (!name) return;
+            const clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            clients.push({ id: Date.now(), name, sessions: [] });
             localStorage.setItem('rehab_clients', JSON.stringify(clients));
             loadClientList();
         }
 
         function loadClientList() {
-            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            const clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
             const select = document.getElementById('clientSelect');
-            select.innerHTML = '<option value="">-- 회원을 선택하세요 --</option>' + 
+            select.innerHTML = '<option value="">-- 회원을 선택하세요 --</option>' +
                 clients.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
         }
 
         function loadClientData() {
             const id = document.getElementById('clientSelect').value;
             const infoBox = document.getElementById('clientInfoBox');
-            if(!id) { infoBox.classList.add('hidden'); return; }
-            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
-            let client = clients.find(c => c.id == id);
-            if(client) {
+            if (!id) { infoBox.classList.add('hidden'); return; }
+            const clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            const client = clients.find(c => c.id == id);
+            if (client) {
                 infoBox.classList.remove('hidden');
                 document.getElementById('infoName').innerText = client.name;
                 document.getElementById('infoSessionCount').innerText = `${client.sessions.length}회차`;
@@ -794,29 +927,29 @@ ${customPain || '특이사항 없음'}
 
         function saveSessionRecord() {
             const id = document.getElementById('clientSelect').value;
-            if(!id) { alert('회원을 먼저 선택하세요.'); return; }
+            if (!id) { alert('회원을 먼저 선택하세요.'); return; }
             const vBefore = document.getElementById('vasBefore').value;
             const vAfter = document.getElementById('vasAfter').value;
             const memo = document.getElementById('sessionMemo').value;
 
-            let clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
-            let client = clients.find(c => c.id == id);
-            if(client) {
+            const clients = JSON.parse(localStorage.getItem('rehab_clients') || '[]');
+            const client = clients.find(c => c.id == id);
+            if (client) {
                 client.sessions.push({
                     date: new Date().toLocaleDateString(),
                     vasBefore: vBefore,
                     vasAfter: vAfter,
-                    memo: memo,
+                    memo,
                     report: currentReportText
                 });
                 localStorage.setItem('rehab_clients', JSON.stringify(clients));
-                alert('세션 기록이 안전하게 아카이브에 저장되었습니다.');
+                alert('세션 기록이 아카이브에 저장되었습니다.');
                 loadClientData();
             }
         }
 
         function copyReport() {
-            if(!currentReportText) return;
+            if (!currentReportText) return;
             navigator.clipboard.writeText(currentReportText);
             alert('리포트 내용이 클립보드에 복사되었습니다.');
         }
