@@ -56,6 +56,18 @@
             70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+        .overlay-badge {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            user-select: none;
+            z-index: 20;
+            transition: box-shadow 0.15s ease;
+        }
+        .overlay-badge:active {
+            cursor: grabbing;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.45);
+        }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
@@ -108,7 +120,7 @@
                 <div class="lg:col-span-7 space-y-6">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold tracking-wide">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 rehab-pulse-ring"></span>
-                        40가지 기능검사 · IndexedDB 저장 · 시연 영상 폴백 · 부착부위 확대 SVG 테이핑
+                        40가지 기능검사 · IndexedDB 저장 · 시연 영상 폴백 · 이미지 오버레이 테이핑
                     </div>
 
                     <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight text-white">
@@ -117,7 +129,7 @@
                     </h1>
 
                     <p class="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-                        40가지 기능검사, 자동 압축 체형 사진 분석, 4단계 소도구 컨디셔닝, 시연 영상 폴백 링크, 그리고 테이핑 부착 부위만 확대해 보여주는 1단계 단순 → 2단계 교차 → 3단계 다중 덧댐 SVG 가이드를 한 번에 생성합니다.
+                        40가지 기능검사, 자동 압축 체형 사진 분석, 4단계 소도구 컨디셔닝, 시연 영상 폴백 링크, 그리고 연결한 입체 해부학 이미지 위에 1단계 단순 → 2단계 교차 → 3단계 다중 덧댐 한글·앵커(0%)·텐션% 오버레이를 올리는 가이드를 제공합니다.
                     </p>
 
                     <div class="flex flex-wrap items-center gap-3 pt-1">
@@ -348,7 +360,7 @@
             <div id="reportBox" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-4 mb-4">
                     <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> [시각적 해부학 카드 리포트 · 시연 영상 · 스포츠 테이핑]
+                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> [시각적 해부학 카드 리포트 · 시연 영상 · 이미지 오버레이 테이핑]
                     </h3>
                     <div class="flex items-center gap-1.5">
                         <button onclick="copyReportAsText()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center gap-1 transition">
@@ -380,7 +392,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-800">회원 맞춤 시각적 리포트 대기 중</h3>
                 <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                    40가지 검사 항목을 체크하고 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span>을 누르면 4단계 컨디셔닝 카드, 시연 영상 링크, 부착부위 확대 SVG 스포츠 테이핑 가이드가 생성됩니다.
+                    40가지 검사 항목을 체크하고 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span>을 누르면 4단계 컨디셔닝 카드, 시연 영상 링크, 그리고 이미지 파일/URL 기반 1→2→3단계 오버레이 테이핑 가이드가 생성됩니다.
                 </p>
             </div>
 
@@ -621,11 +633,302 @@
             }
         };
 
+        // =========================================================================
+        // 4. 이미지 파일/URL 연결 + 1→2→3단계 한글/앵커(0%)/텐션% 오버레이 상태
+        // =========================================================================
+        const OVERLAY_STORAGE_KEY = 'rehab_taping_overlay_state_v1';
+        let tapingOverlayState = {
+            imageSrc: '',
+            imageLabel: '연결된 해부학 이미지 (파일 또는 URL)',
+            steps: {
+                step1: {
+                    title: '1단계: 단순 적용 (단일 스트립 기본 라인)',
+                    tensionLabel: '텐션 15~25%',
+                    area: '상부승모근·어깨 부착 부위 확대 구간',
+                    position: '양끝 앵커(3~5cm) 무텐션 밀착, 중앙 직선 부착',
+                    direction: '시작 앵커(0%) 고정 → 근육 주행 방향 진행',
+                    tensionDesc: '앵커 0% / 본체 텐션 15~25%',
+                    anchorPos: { x: 24, y: 42 },
+                    tensionPos: { x: 56, y: 54 }
+                },
+                step2: {
+                    title: '2단계: 교차 적용 (분지·교차 정렬 라인)',
+                    tensionLabel: '텐션 25~35%',
+                    area: '1단계 라인 주변 관절 정렬 및 교차 부위',
+                    position: '기존 스트립 주변을 감싸며 교차 정렬 부착',
+                    direction: '시작 앵커(0%) 고정 → 교차 궤도로 확장 진행',
+                    tensionDesc: '앵커 0% / 교차 텐션 25~35%',
+                    anchorPos: { x: 24, y: 42 },
+                    tensionPos: { x: 58, y: 52 }
+                },
+                step3: {
+                    title: '3단계: 다중 덧댐 적용 (중첩 레이어링 지지)',
+                    tensionLabel: '텐션 35~50%',
+                    area: '부하 집중 관절 주변 및 1·2단계 교차 중심부',
+                    position: '기존 스트립 위에 중첩 덧댐으로 지지력 보강',
+                    direction: '기존 테이프 밖 피부 앵커(0%) 고정 → 다중 덧댐 진행',
+                    tensionDesc: '앵커 0% / 덧댐 텐션 35~50%',
+                    anchorPos: { x: 24, y: 42 },
+                    tensionPos: { x: 60, y: 50 }
+                }
+            }
+        };
+
+        function loadOverlayState() {
+            try {
+                const raw = localStorage.getItem(OVERLAY_STORAGE_KEY);
+                if (!raw) return;
+                const parsed = JSON.parse(raw);
+                if (parsed && parsed.steps) {
+                    tapingOverlayState = {
+                        ...tapingOverlayState,
+                        ...parsed,
+                        steps: {
+                            step1: { ...tapingOverlayState.steps.step1, ...(parsed.steps.step1 || {}) },
+                            step2: { ...tapingOverlayState.steps.step2, ...(parsed.steps.step2 || {}) },
+                            step3: { ...tapingOverlayState.steps.step3, ...(parsed.steps.step3 || {}) }
+                        }
+                    };
+                }
+            } catch (e) {}
+        }
+
+        function saveOverlayState() {
+            try {
+                localStorage.setItem(OVERLAY_STORAGE_KEY, JSON.stringify(tapingOverlayState));
+            } catch (e) {}
+        }
+
+        function applyImageUrlToOverlay() {
+            const input = document.getElementById('tapingImageUrlInput');
+            if (!input) return;
+            const url = input.value.trim();
+            if (!url) {
+                alert('이미지 URL을 입력해 주세요.');
+                return;
+            }
+            tapingOverlayState.imageSrc = url;
+            tapingOverlayState.imageLabel = url;
+            saveOverlayState();
+            refreshOverlayContainer();
+        }
+
+        async function handleTapingImageFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            try {
+                const compressedDataUrl = await compressImageFile(file, 900, 0.82);
+                tapingOverlayState.imageSrc = compressedDataUrl;
+                tapingOverlayState.imageLabel = file.name;
+                const urlInput = document.getElementById('tapingImageUrlInput');
+                if (urlInput) urlInput.value = file.name;
+                saveOverlayState();
+                refreshOverlayContainer();
+            } catch (err) {
+                alert('이미지 파일을 불러오는 중 오류가 발생했습니다.');
+            } finally {
+                event.target.value = '';
+            }
+        }
+
+        function clearTapingImage() {
+            tapingOverlayState.imageSrc = '';
+            tapingOverlayState.imageLabel = '이미지 미연결 (파일 또는 URL을 연결하세요)';
+            const urlInput = document.getElementById('tapingImageUrlInput');
+            if (urlInput) urlInput.value = '';
+            saveOverlayState();
+            refreshOverlayContainer();
+        }
+
+        function updateBadgeCoord(stepKey, kind, axis, value) {
+            const num = Math.max(5, Math.min(95, Number(value) || 50));
+            if (kind === 'anchor') {
+                tapingOverlayState.steps[stepKey].anchorPos[axis] = num;
+            } else {
+                tapingOverlayState.steps[stepKey].tensionPos[axis] = num;
+            }
+            saveOverlayState();
+            refreshOverlayContainer();
+        }
+
+        function resetBadgeCoords(stepKey) {
+            const defaults = {
+                step1: { anchorPos: { x: 24, y: 42 }, tensionPos: { x: 56, y: 54 } },
+                step2: { anchorPos: { x: 24, y: 42 }, tensionPos: { x: 58, y: 52 } },
+                step3: { anchorPos: { x: 24, y: 42 }, tensionPos: { x: 60, y: 50 } }
+            };
+            tapingOverlayState.steps[stepKey].anchorPos = { ...defaults[stepKey].anchorPos };
+            tapingOverlayState.steps[stepKey].tensionPos = { ...defaults[stepKey].tensionPos };
+            saveOverlayState();
+            refreshOverlayContainer();
+        }
+
+        function attachOverlayDragListeners() {
+            const boxes = document.querySelectorAll('.overlay-stage-box');
+            boxes.forEach(box => {
+                const stepKey = box.getAttribute('data-step-key');
+                const badges = box.querySelectorAll('.overlay-badge');
+                badges.forEach(badge => {
+                    const kind = badge.getAttribute('data-kind');
+                    badge.onpointerdown = (e) => {
+                        e.preventDefault();
+                        badge.setPointerCapture(e.pointerId);
+                        const onMove = (moveEvt) => {
+                            const rect = box.getBoundingClientRect();
+                            if (!rect.width || !rect.height) return;
+                            const px = Math.max(5, Math.min(95, Math.round(((moveEvt.clientX - rect.left) / rect.width) * 100)));
+                            const py = Math.max(5, Math.min(95, Math.round(((moveEvt.clientY - rect.top) / rect.height) * 100)));
+                            badge.style.left = `${px}%`;
+                            badge.style.top = `${py}%`;
+                            if (kind === 'anchor') {
+                                tapingOverlayState.steps[stepKey].anchorPos = { x: px, y: py };
+                            } else {
+                                tapingOverlayState.steps[stepKey].tensionPos = { x: px, y: py };
+                            }
+                        };
+                        const onUp = () => {
+                            badge.releasePointerCapture(e.pointerId);
+                            badge.removeEventListener('pointermove', onMove);
+                            badge.removeEventListener('pointerup', onUp);
+                            saveOverlayState();
+                            const xInput = box.parentElement.querySelector(`.coord-x[data-kind="${kind}"]`);
+                            const yInput = box.parentElement.querySelector(`.coord-y[data-kind="${kind}"]`);
+                            const pos = kind === 'anchor' ? tapingOverlayState.steps[stepKey].anchorPos : tapingOverlayState.steps[stepKey].tensionPos;
+                            if (xInput) xInput.value = pos.x;
+                            if (yInput) yInput.value = pos.y;
+                        };
+                        badge.addEventListener('pointermove', onMove);
+                        badge.addEventListener('pointerup', onUp);
+                    };
+                });
+            });
+        }
+
+        function renderStepOverlayCard(stepKey, badgeToneClass) {
+            const st = tapingOverlayState.steps[stepKey];
+            const hasImg = Boolean(tapingOverlayState.imageSrc);
+            return `
+<div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <span class="text-xs font-extrabold text-slate-900">${st.title}</span>
+    <span class="text-[11px] font-bold ${badgeToneClass}">앵커 0% · ${st.tensionLabel}</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+    <div class="md:col-span-6 space-y-2">
+      <div class="overlay-stage-box relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-amber-200 bg-[#f5efe6] select-none" data-step-key="${stepKey}">
+        ${hasImg
+            ? `<img src="${tapingOverlayState.imageSrc}" alt="${st.title} 부착 부위 이미지" class="w-full h-full object-cover pointer-events-none">`
+            : `<div class="w-full h-full flex flex-col items-center justify-center p-4 text-center text-slate-500">
+                 <p class="text-xs font-bold text-slate-700">이미지 파일 또는 URL이 연결되지 않았습니다</p>
+                 <p class="text-[10px] mt-1">위 입력창에서 이미지 URL을 넣거나 파일을 선택하세요</p>
+               </div>`
+        }
+
+        <!-- 앵커 0% 오버레이 배지 -->
+        <div class="overlay-badge px-2.5 py-1 rounded-lg bg-slate-950/90 text-white text-[11px] font-extrabold shadow-md border border-white/20"
+             data-kind="anchor"
+             style="left: ${st.anchorPos.x}%; top: ${st.anchorPos.y}%;"
+             title="드래그하여 앵커(0%) 위치 이동">
+          앵커 0%
+        </div>
+
+        <!-- 텐션 수치 오버레이 배지 -->
+        <div class="overlay-badge px-2.5 py-1 rounded-lg bg-emerald-600/95 text-white text-[11px] font-extrabold shadow-md border border-white/30"
+             data-kind="tension"
+             style="left: ${st.tensionPos.x}%; top: ${st.tensionPos.y}%;"
+             title="드래그하여 텐션(%) 위치 이동">
+          ${st.tensionLabel}
+        </div>
+      </div>
+
+      <!-- 배지 좌표 미세조정 바 -->
+      <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
+        <span class="font-bold text-slate-700">배지 드래그 또는 위치(%):</span>
+        <div class="flex items-center gap-1">
+          <span>앵커 X</span>
+          <input type="number" min="5" max="95" value="${st.anchorPos.x}" data-kind="anchor" onchange="updateBadgeCoord('${stepKey}','anchor','x',this.value)" class="coord-x w-11 px-1 py-0.5 bg-white border border-slate-300 rounded text-slate-800 font-mono">
+          <span>Y</span>
+          <input type="number" min="5" max="95" value="${st.anchorPos.y}" data-kind="anchor" onchange="updateBadgeCoord('${stepKey}','anchor','y',this.value)" class="coord-y w-11 px-1 py-0.5 bg-white border border-slate-300 rounded text-slate-800 font-mono">
+        </div>
+        <div class="flex items-center gap-1">
+          <span>텐션 X</span>
+          <input type="number" min="5" max="95" value="${st.tensionPos.x}" data-kind="tension" onchange="updateBadgeCoord('${stepKey}','tension','x',this.value)" class="coord-x w-11 px-1 py-0.5 bg-white border border-slate-300 rounded text-slate-800 font-mono">
+          <span>Y</span>
+          <input type="number" min="5" max="95" value="${st.tensionPos.y}" data-kind="tension" onchange="updateBadgeCoord('${stepKey}','tension','y',this.value)" class="coord-y w-11 px-1 py-0.5 bg-white border border-slate-300 rounded text-slate-800 font-mono">
+        </div>
+        <button type="button" onclick="resetBadgeCoords('${stepKey}')" class="px-1.5 py-0.5 bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 rounded font-bold">초기화</button>
+      </div>
+    </div>
+
+    <div class="md:col-span-6 space-y-2 text-xs">
+      <p class="font-bold text-slate-900">• 적용부위: <span class="font-medium text-slate-700">${st.area}</span></p>
+      <p class="font-bold text-slate-900">• 부착위치: <span class="font-medium text-slate-700">${st.position}</span></p>
+      <p class="font-bold text-slate-900">• 시작방향: <span class="font-medium text-slate-700">${st.direction}</span></p>
+      <p class="font-bold ${badgeToneClass}">• 텐션정도: <span>${st.tensionDesc}</span></p>
+    </div>
+  </div>
+</div>`;
+        }
+
+        function buildTapingOverlayGuideHtml() {
+            const safeUrlValue = (tapingOverlayState.imageSrc && !tapingOverlayState.imageSrc.startsWith('data:'))
+                ? tapingOverlayState.imageSrc.replace(/"/g, '&quot;')
+                : (tapingOverlayState.imageLabel && !tapingOverlayState.imageSrc.startsWith('data:') ? tapingOverlayState.imageLabel.replace(/"/g, '&quot;') : '');
+
+            return `
+<div id="tapingOverlaySection" class="mt-5 p-4 rounded-2xl bg-[#faf6f0] border border-amber-200 space-y-4">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h4 class="text-sm font-extrabold text-slate-900">스포츠 테이핑 이미지 오버레이 가이드 (1단계 단순 → 2단계 교차 → 3단계 다중 덧댐)</h4>
+    <span class="text-[10px] font-bold text-amber-900 bg-white px-2.5 py-0.5 rounded-full border border-amber-200">이미지 파일/URL · 한글 · 앵커 0% · 텐션%</span>
+  </div>
+
+  <!-- 이미지 파일 또는 URL 연결 바 -->
+  <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-2">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <span class="text-[11px] font-extrabold text-slate-800">연결 이미지: <span id="tapingConnectedLabel" class="text-emerald-700">${tapingOverlayState.imageLabel}</span></span>
+      <div class="flex items-center gap-1.5">
+        <label class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[11px] font-bold cursor-pointer transition">
+          이미지 파일 선택
+          <input type="file" accept="image/*" onchange="handleTapingImageFileUpload(event)" class="hidden">
+        </label>
+        <button type="button" onclick="clearTapingImage()" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg text-[11px] font-bold transition">
+          이미지 해제
+        </button>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <input type="text" id="tapingImageUrlInput" value="${safeUrlValue}" placeholder="이미지 URL 입력 (예: https://.../shoulder-taping.png)"
+        class="flex-1 bg-slate-50 border border-slate-200 focus:border-emerald-500 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
+      <button type="button" onclick="applyImageUrlToOverlay()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition whitespace-nowrap">
+        URL 연결
+      </button>
+    </div>
+  </div>
+
+  <div id="tapingStepsList" class="space-y-4">
+    ${renderStepOverlayCard('step1', 'text-sky-700')}
+    ${renderStepOverlayCard('step2', 'text-indigo-700')}
+    ${renderStepOverlayCard('step3', 'text-amber-800')}
+  </div>
+</div>`;
+        }
+
+        function refreshOverlayContainer() {
+            const section = document.getElementById('tapingOverlaySection');
+            if (!section) return;
+            const temp = document.createElement('div');
+            temp.innerHTML = buildTapingOverlayGuideHtml();
+            section.replaceWith(temp.firstElementChild);
+            attachOverlayDragListeners();
+        }
+
         let currentRegion = 'scapula';
         let instantBase64Photo = null;
         let lastRawHtmlReport = '';
 
         window.onload = async function() {
+            loadOverlayState();
             lucide.createIcons();
             checkLicenseOnLoad();
             syncApiKeyStatusUI();
@@ -1028,132 +1331,6 @@
             }).join('');
         }
 
-        // 테이핑 부착 부위 확대 전용 SVG 가이드 (1단계 단순 → 2단계 교차 → 3단계 다중 덧댐)
-        function buildTapingVisualGuideHtml() {
-            return `
-<div class="mt-5 p-4 rounded-2xl bg-[#faf6f0] border border-amber-200 space-y-4">
-  <div class="flex flex-wrap items-center justify-between gap-2">
-    <h4 class="text-sm font-extrabold text-slate-900">스포츠 테이핑 부착 부위 확대 가이드 (1단계 단순 → 2단계 교차 → 3단계 다중 덧댐)</h4>
-    <span class="text-[10px] font-bold text-amber-900 bg-white px-2.5 py-0.5 rounded-full border border-amber-200">부착부위 확대 · 한글 · 앵커 0% · 텐션%</span>
-  </div>
-
-  <!-- 1단계: 단순 적용 (부착 부위 확대) -->
-  <div class="bg-white p-3.5 rounded-xl border border-amber-200 space-y-2">
-    <div class="flex flex-wrap items-center justify-between gap-1">
-      <span class="text-xs font-extrabold text-slate-900">1단계: 단순 적용 (어깨·상부 등 단일 스트립)</span>
-      <span class="text-[11px] font-bold text-sky-700">앵커 0% · 텐션 15~25%</span>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 165" width="100%" role="img" aria-label="1단계 단순 적용 부착 부위 확대: 앵커 0%, 텐션 15~25%">
-      <defs>
-        <marker id="arrStep1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
-        </marker>
-      </defs>
-      <!-- 부착 부위 확대 피부·골격 영역 -->
-      <rect x="4" y="4" width="672" height="157" rx="10" fill="#f5efe6" stroke="#e2d5c3"/>
-      <path d="M 18 28 Q 145 14 256 44 L 244 142 Q 128 152 16 130 Z" fill="#f3d2b3" stroke="#d6ad88" stroke-width="1.5"/>
-      <!-- 반투명 골격 랜드마크(쇄골·견갑·척추 일부) -->
-      <path d="M 122 24 L 122 146 M 114 42 L 130 42 M 114 66 L 130 66 M 114 90 L 130 90" stroke="#8c7a6b" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/>
-      <ellipse cx="176" cy="78" rx="44" ry="26" fill="#fffaf2" fill-opacity="0.25" stroke="#8c7a6b" stroke-opacity="0.35" stroke-width="1.5"/>
-      <text x="136" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#57493d">부착 부위 확대 (상부승모근·어깨 라인)</text>
-
-      <!-- 앵커 0% -> 텐션 15~25% -> 앵커 0% -->
-      <rect x="34" y="56" width="56" height="26" rx="5" fill="#1e293b"/>
-      <text x="62" y="73" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">앵커 0%</text>
-
-      <rect x="90" y="56" width="112" height="26" rx="4" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.8"/>
-      <text x="146" y="73" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">텐션 15~25%</text>
-
-      <rect x="202" y="56" width="46" height="26" rx="5" fill="#1e293b"/>
-      <text x="225" y="73" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">앵커 0%</text>
-
-      <line x1="42" y1="98" x2="236" y2="98" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrStep1)"/>
-      <text x="136" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#0369a1">시작방향: 앵커(0%) 고정 → 주행 방향</text>
-
-      <text x="280" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 상부승모근·어깨 부착 부위 확대 구간</text>
-      <text x="280" y="68" font-size="12" fill="#334155">• 부착위치: 양끝 앵커(3~5cm) 무텐션 밀착, 중앙 직선 부착</text>
-      <text x="280" y="94" font-size="12" fill="#334155">• 시작방향: 시작 앵커 고정 후 근육 주행 방향 따라 진행</text>
-      <text x="280" y="120" font-size="12" font-weight="700" fill="#0369a1">• 텐션정도: 앵커 0% / 본체 텐션 15~25%</text>
-    </svg>
-  </div>
-
-  <!-- 2단계: 교차 적용 (부착 부위 확대) -->
-  <div class="bg-white p-3.5 rounded-xl border border-amber-200 space-y-2">
-    <div class="flex flex-wrap items-center justify-between gap-1">
-      <span class="text-xs font-extrabold text-slate-900">2단계: 교차 적용 (분지·교차 정렬 라인 확대)</span>
-      <span class="text-[11px] font-bold text-indigo-700">앵커 0% · 텐션 25~35%</span>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 165" width="100%" role="img" aria-label="2단계 교차 적용 부착 부위 확대: 앵커 0%, 텐션 25~35%">
-      <defs>
-        <marker id="arrStep2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5"/>
-        </marker>
-      </defs>
-      <rect x="4" y="4" width="672" height="157" rx="10" fill="#f5efe6" stroke="#e2d5c3"/>
-      <path d="M 18 28 Q 145 14 256 44 L 244 142 Q 128 152 16 130 Z" fill="#f3d2b3" stroke="#d6ad88" stroke-width="1.5"/>
-      <ellipse cx="176" cy="78" rx="44" ry="26" fill="#fffaf2" fill-opacity="0.25" stroke="#8c7a6b" stroke-opacity="0.35" stroke-width="1.5"/>
-      <text x="136" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#57493d">부착 부위 확대 (교차·분지 지지 라인)</text>
-
-      <!-- 교차 스트립 -->
-      <line x1="48" y1="46" x2="226" y2="106" stroke="#0ea5e9" stroke-width="8" stroke-linecap="round"/>
-      <line x1="48" y1="106" x2="226" y2="46" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
-
-      <rect x="30" y="64" width="56" height="24" rx="5" fill="#1e293b"/>
-      <text x="58" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">앵커 0%</text>
-
-      <rect x="94" y="64" width="104" height="24" rx="5" fill="#ffffff" stroke="#4f46e5" stroke-width="1.8"/>
-      <text x="146" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#4338ca">텐션 25~35%</text>
-
-      <line x1="168" y1="88" x2="222" y2="104" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrStep2)"/>
-      <text x="136" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#4338ca">시작방향: 앵커(0%) → 교차 확장</text>
-
-      <text x="280" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 1단계 라인 주변 관절 정렬 및 교차 부위</text>
-      <text x="280" y="68" font-size="12" fill="#334155">• 부착위치: 기존 스트립 주변을 감싸며 교차 정렬 부착</text>
-      <text x="280" y="94" font-size="12" fill="#334155">• 시작방향: 시작 앵커(0%) 고정 후 교차 궤도로 진행</text>
-      <text x="280" y="120" font-size="12" font-weight="700" fill="#4338ca">• 텐션정도: 앵커 0% / 교차 텐션 25~35%</text>
-    </svg>
-  </div>
-
-  <!-- 3단계: 다중 덧댐 적용 (부착 부위 확대) -->
-  <div class="bg-white p-3.5 rounded-xl border border-amber-200 space-y-2">
-    <div class="flex flex-wrap items-center justify-between gap-1">
-      <span class="text-xs font-extrabold text-slate-900">3단계: 다중 덧댐 적용 (중첩 레이어링 지지 확대)</span>
-      <span class="text-[11px] font-bold text-amber-800">앵커 0% · 텐션 35~50%</span>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 165" width="100%" role="img" aria-label="3단계 다중 덧댐 적용 부착 부위 확대: 앵커 0%, 텐션 35~50%">
-      <defs>
-        <marker id="arrStep3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
-        </marker>
-      </defs>
-      <rect x="4" y="4" width="672" height="157" rx="10" fill="#f5efe6" stroke="#e2d5c3"/>
-      <path d="M 18 28 Q 145 14 256 44 L 244 142 Q 128 152 16 130 Z" fill="#f3d2b3" stroke="#d6ad88" stroke-width="1.5"/>
-      <ellipse cx="176" cy="78" rx="44" ry="26" fill="#fffaf2" fill-opacity="0.25" stroke="#8c7a6b" stroke-opacity="0.35" stroke-width="1.5"/>
-      <text x="136" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#57493d">부착 부위 확대 (다중 덧댐 중첩 구간)</text>
-
-      <!-- 다중 덧댐 스트립 -->
-      <line x1="46" y1="48" x2="228" y2="104" stroke="#0284c7" stroke-width="9" stroke-linecap="round"/>
-      <line x1="46" y1="104" x2="228" y2="48" stroke="#0f172a" stroke-width="9" stroke-linecap="round"/>
-      <line x1="64" y1="76" x2="210" y2="76" stroke="#0ea5e9" stroke-width="7" stroke-linecap="round"/>
-
-      <rect x="30" y="64" width="56" height="24" rx="5" fill="#1e293b"/>
-      <text x="58" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">앵커 0%</text>
-
-      <rect x="94" y="64" width="104" height="24" rx="5" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
-      <text x="146" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">텐션 35~50%</text>
-
-      <line x1="172" y1="88" x2="224" y2="103" stroke="#b45309" stroke-width="2" marker-end="url(#arrStep3)"/>
-      <text x="136" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">시작방향: 앵커(0%) → 다중 덧댐 중첩</text>
-
-      <text x="280" y="42" font-size="12" font-weight="700" fill="#0f172a">• 적용부위: 부하가 집중되는 관절 주변 및 1·2단계 교차 중심부</text>
-      <text x="280" y="68" font-size="12" fill="#334155">• 부착위치: 기존 스트립 위에 중첩 덧댐으로 지지력 보강</text>
-      <text x="280" y="94" font-size="12" fill="#334155">• 시작방향: 기존 테이프 밖 피부 앵커(0%) 고정 후 덧댐 진행</text>
-      <text x="280" y="120" font-size="12" font-weight="700" fill="#92400e">• 텐션정도: 앵커 0% / 덧댐 텐션 35~50%</text>
-    </svg>
-  </div>
-</div>`;
-        }
-
         async function generateAiProtocol() {
             const lic = getLicenseValidity();
             if (!lic.valid) {
@@ -1194,7 +1371,7 @@
             reportPlaceholder.classList.add('hidden');
             reportBox.classList.remove('hidden');
             renderFallbackVideoLinks(checkedNames, customPain);
-            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">시각적 해부학 카드·시연 영상·부착부위 확대 SVG 테이핑 가이드를 생성 중입니다...</p></div>`;
+            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">시각적 해부학 카드·시연 영상·이미지 오버레이 테이핑 가이드를 생성 중입니다...</p></div>`;
             lucide.createIcons();
 
             const promptText = `
@@ -1239,9 +1416,10 @@ ${customPain || '특이사항 없음'}
                     throw new Error(data.error?.message || 'API 응답이 비어 있습니다.');
                 }
                 const parsedHtml = extractModelHtml(rawText);
-                const finalHtml = parsedHtml + buildTapingVisualGuideHtml();
+                const finalHtml = parsedHtml + buildTapingOverlayGuideHtml();
                 reportContent.innerHTML = finalHtml;
                 lastRawHtmlReport = finalHtml;
+                attachOverlayDragListeners();
                 lucide.createIcons();
             } catch (err) {
                 reportContent.innerHTML = `<p class="text-rose-500 font-bold">AI 호출 실패: ${err.message}</p>`;
