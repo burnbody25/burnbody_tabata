@@ -120,7 +120,7 @@
                 <div class="lg:col-span-7 space-y-6">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold tracking-wide">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 rehab-pulse-ring"></span>
-                        40가지 기능검사 · IndexedDB 저장 · 시연 영상 폴백 · 이미지 오버레이 테이핑
+                        40가지 기능검사 · IndexedDB 저장 · 시연 영상 폴백 · 부위별 자동 기본이미지 오버레이
                     </div>
 
                     <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight text-white">
@@ -129,7 +129,7 @@
                     </h1>
 
                     <p class="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-                        40가지 기능검사, 자동 압축 체형 사진 분석, 4단계 소도구 컨디셔닝, 시연 영상 폴백 링크, 그리고 연결한 입체 해부학 이미지 위에 1단계 단순 → 2단계 교차 → 3단계 다중 덧댐 한글·앵커(0%)·텐션% 오버레이를 올리는 가이드를 제공합니다.
+                        40가지 기능검사, 자동 압축 체형 사진 분석, 누구나 쉽게 따라 하는 디테일 4단계 운동 가이드, 그리고 부위별 기본 해부학 이미지 위에 1단계 단순 → 2단계 교차 → 3단계 다중 덧댐 한글·앵커(0%)·텐션% 오버레이를 자동으로 띄워줍니다.
                     </p>
 
                     <div class="flex flex-wrap items-center gap-3 pt-1">
@@ -359,9 +359,12 @@
         <section class="lg:col-span-7 space-y-6">
             <div id="reportBox" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-4 mb-4">
-                    <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> [시각적 해부학 카드 리포트 · 시연 영상 · 이미지 오버레이 테이핑]
-                    </h3>
+                    <div>
+                        <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i> [시각적 해부학 카드 리포트 · 시연 영상 · 이미지 오버레이 테이핑]
+                        </h3>
+                        <p id="reportGeneratedDate" class="text-[11px] font-bold text-emerald-700 mt-1"></p>
+                    </div>
                     <div class="flex items-center gap-1.5">
                         <button onclick="copyReportAsText()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center gap-1 transition">
                             <i data-lucide="align-left" class="w-3.5 h-3.5"></i> 텍스트 복사
@@ -392,7 +395,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-800">회원 맞춤 시각적 리포트 대기 중</h3>
                 <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                    40가지 검사 항목을 체크하고 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span>을 누르면 4단계 컨디셔닝 카드, 시연 영상 링크, 그리고 이미지 파일/URL 기반 1→2→3단계 오버레이 테이핑 가이드가 생성됩니다.
+                    40가지 검사 항목을 체크하고 <span class="text-emerald-700 font-bold">[시각적 해부학 카드 리포트 생성]</span>을 누르면 현재 날짜 기준의 쉬운 운동 설명 카드, 시연 영상 링크, 그리고 선택한 부위 기본 이미지 위 1→2→3단계 오버레이 테이핑 가이드가 생성됩니다.
                 </p>
             </div>
 
@@ -437,6 +440,27 @@
     </div>
 
     <script>
+        // =========================================================================
+        // 0. 현재 시점 날짜/시간 포맷터 (항상 실시간 브라우저 시계 기준)
+        // =========================================================================
+        function getCurrentKoreanDateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            });
+            const timeStr = now.toLocaleTimeString('ko-KR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            return {
+                full: `${dateStr} ${timeStr}`,
+                dateOnly: dateStr
+            };
+        }
+
         // =========================================================================
         // 1. 라이센스 설정 복원 (영구권 + 기간제 구독권) & SHA-256 검증
         // =========================================================================
@@ -634,32 +658,202 @@
         };
 
         // =========================================================================
-        // 4. 이미지 파일/URL 연결 + 1→2→3단계 한글/앵커(0%)/텐션% 오버레이 상태
+        // 4. 부위별 기본 해부학 일러스트 SVG Data URL 생성기 (외부 네트워크 없이 즉시 표시)
         // =========================================================================
-        const OVERLAY_STORAGE_KEY = 'rehab_taping_overlay_state_v1';
+        function svgToDataUrl(svgString) {
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString.trim());
+        }
+
+        const DEFAULT_REGION_PRESETS = {
+            scapula: {
+                label: '기본 프리셋: 상체·어깨·견갑골 부착 부위 도식',
+                area: '상부승모근 · 삼각근 · 견갑골 주변 부착 부위',
+                position: '양끝 앵커(3~5cm) 무텐션 밀착 후 어깨·날개뼈 라인 부착',
+                direction: '목·어깨 위쪽 앵커(0%) 고정 → 어깨 바깥쪽 및 견갑골 방향 진행',
+                imgUrl: svgToDataUrl(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480">
+  <defs>
+    <radialGradient id="skinS" cx="48%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#f7dec6"/>
+      <stop offset="65%" stop-color="#eab892"/>
+      <stop offset="100%" stop-color="#d2966d"/>
+    </radialGradient>
+    <linearGradient id="bgS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6f1e7"/>
+      <stop offset="100%" stop-color="#ebe2d3"/>
+    </linearGradient>
+    <linearGradient id="tapeBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="tapeDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bgS)"/>
+  <!-- 어깨·상부 등 실루엣 -->
+  <path d="M 110 40 C 165 65 215 95 270 115 C 375 135 470 185 515 280 L 545 470 L 85 470 L 95 165 Z" fill="url(#skinS)" stroke="#b8805a" stroke-width="2.5"/>
+  <!-- 반투명 척추·견갑골 투시 -->
+  <g stroke="#7c6654" stroke-opacity="0.38" fill="#fffaf0" fill-opacity="0.22" stroke-width="2">
+    <path d="M 175 75 L 175 455" stroke-dasharray="6 4"/>
+    <ellipse cx="175" cy="120" rx="18" ry="10"/><ellipse cx="175" cy="155" rx="20" ry="11"/>
+    <ellipse cx="175" cy="190" rx="21" ry="11"/><ellipse cx="175" cy="225" rx="21" ry="11"/>
+    <ellipse cx="175" cy="260" rx="20" ry="11"/><ellipse cx="175" cy="295" rx="19" ry="11"/>
+    <path d="M 225 165 L 365 150 L 315 315 C 295 330 250 325 235 295 Z" stroke-width="2.4"/>
+    <path d="M 228 188 L 385 152" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- 입체 테이프 라인 (검정 + 파랑 Y/교차) -->
+  <path d="M 225 110 C 275 190 345 275 425 340" stroke="url(#tapeDark)" stroke-width="24" stroke-linecap="round" fill="none" opacity="0.92"/>
+  <path d="M 275 102 C 335 165 395 245 430 355" stroke="url(#tapeBlue)" stroke-width="26" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <path d="M 380 158 C 445 205 462 275 432 355" stroke="url(#tapeBlue)" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <!-- 견갑골 안정화 교차 패치 -->
+  <g opacity="0.94">
+    <rect x="135" y="232" width="115" height="18" rx="6" transform="rotate(14 192 241)" fill="url(#tapeBlue)"/>
+    <rect x="132" y="264" width="115" height="18" rx="6" transform="rotate(14 189 273)" fill="url(#tapeBlue)"/>
+    <rect x="164" y="205" width="18" height="108" rx="6" transform="rotate(10 173 259)" fill="#0369a1"/>
+    <rect x="196" y="208" width="18" height="108" rx="6" transform="rotate(10 205 262)" fill="#0369a1"/>
+  </g>
+  <text x="320" y="34" text-anchor="middle" font-size="16" font-weight="800" fill="#4a3b2c">상체·어깨·견갑골 부착 부위 도식</text>
+</svg>`)
+            },
+            pelvis: {
+                label: '기본 프리셋: 골반·요추·둔부 부착 부위 도식',
+                area: '요방형근 · 장골능 · 천장관절 및 중둔근 부착 부위',
+                position: '척추 기립근 양옆 및 골반 능선 위 무텐션 앵커 후 횡·대각 부착',
+                direction: '천골·골반 하단 앵커(0%) 고정 → 요추 상방 및 측면 골반 방향 진행',
+                imgUrl: svgToDataUrl(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480">
+  <defs>
+    <radialGradient id="skinP" cx="50%" cy="48%" r="58%">
+      <stop offset="0%" stop-color="#f7dec6"/>
+      <stop offset="68%" stop-color="#eab892"/>
+      <stop offset="100%" stop-color="#d2966d"/>
+    </radialGradient>
+    <linearGradient id="bgP" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6f1e7"/>
+      <stop offset="100%" stop-color="#ebe2d3"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bgP)"/>
+  <path d="M 150 45 L 490 45 C 515 165 535 280 510 445 L 130 445 C 105 280 125 165 150 45 Z" fill="url(#skinP)" stroke="#b8805a" stroke-width="2.5"/>
+  <!-- 반투명 요추·장골익·천골 투시 -->
+  <g stroke="#7c6654" stroke-opacity="0.38" fill="#fffaf0" fill-opacity="0.24" stroke-width="2.2">
+    <ellipse cx="320" cy="95" rx="24" ry="13"/><ellipse cx="320" cy="135" rx="26" ry="14"/>
+    <ellipse cx="320" cy="175" rx="28" ry="14"/><ellipse cx="320" cy="215" rx="28" ry="14"/>
+    <path d="M 285 245 L 355 245 L 335 335 L 305 335 Z"/>
+    <path d="M 285 245 C 215 210 165 255 185 335 C 205 385 265 375 295 320 Z"/>
+    <path d="M 355 245 C 425 210 475 255 455 335 C 435 385 375 375 345 320 Z"/>
+  </g>
+  <!-- 요추·골반 교차 테이핑 -->
+  <line x1="255" y1="100" x2="255" y2="330" stroke="#0284c7" stroke-width="24" stroke-linecap="round"/>
+  <line x1="385" y1="100" x2="385" y2="330" stroke="#0284c7" stroke-width="24" stroke-linecap="round"/>
+  <line x1="215" y1="225" x2="425" y2="310" stroke="#1e293b" stroke-width="22" stroke-linecap="round" opacity="0.9"/>
+  <line x1="425" y1="225" x2="215" y2="310" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" opacity="0.92"/>
+  <text x="320" y="34" text-anchor="middle" font-size="16" font-weight="800" fill="#4a3b2c">골반·요추·둔부 부착 부위 도식</text>
+</svg>`)
+            },
+            ankle: {
+                label: '기본 프리셋: 무릎·종아리·발목 부착 부위 도식',
+                area: '슬개골 주변 · 비복근 · 내/외측 복사뼈 및 발바닥 아치 부위',
+                position: '발바닥 또는 정강이 하단 앵커(3~5cm) 고정 후 복사뼈 감싸 상방 부착',
+                direction: '발바닥·발목 앵커(0%) 고정 → 종아리 및 무릎 정렬 방향 진행',
+                imgUrl: svgToDataUrl(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480">
+  <defs>
+    <radialGradient id="skinA" cx="48%" cy="48%" r="60%">
+      <stop offset="0%" stop-color="#f7dec6"/>
+      <stop offset="68%" stop-color="#eab892"/>
+      <stop offset="100%" stop-color="#d2966d"/>
+    </radialGradient>
+    <linearGradient id="bgA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6f1e7"/>
+      <stop offset="100%" stop-color="#ebe2d3"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bgA)"/>
+  <!-- 하퇴·발목·발 실루엣 -->
+  <path d="M 245 45 L 375 45 C 385 155 370 255 365 325 C 405 355 475 375 510 405 C 515 430 475 442 405 442 L 235 442 C 210 438 205 405 225 365 C 242 325 245 215 245 45 Z" fill="url(#skinA)" stroke="#b8805a" stroke-width="2.5"/>
+  <!-- 반투명 경골·비골·거골·종골 투시 -->
+  <g stroke="#7c6654" stroke-opacity="0.38" fill="#fffaf0" fill-opacity="0.24" stroke-width="2.2">
+    <rect x="286" y="60" width="32" height="265" rx="12"/>
+    <rect x="330" y="75" width="16" height="255" rx="8"/>
+    <circle cx="315" cy="345" r="24"/>
+    <path d="M 245 385 L 330 370 L 345 422 L 235 422 Z"/>
+    <path d="M 350 375 L 485 408 L 475 426 L 350 415 Z"/>
+  </g>
+  <!-- 발목·아킬레스·아치 교차 테이핑 -->
+  <path d="M 295 115 L 295 365 C 295 405 355 415 435 415" stroke="#0284c7" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <path d="M 248 395 C 295 345 345 320 368 235" stroke="#1e293b" stroke-width="20" stroke-linecap="round" fill="none" opacity="0.9"/>
+  <path d="M 235 355 L 395 375" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" fill="none" opacity="0.94"/>
+  <text x="320" y="34" text-anchor="middle" font-size="16" font-weight="800" fill="#4a3b2c">하지·무릎·발목 부착 부위 도식</text>
+</svg>`)
+            },
+            integrated: {
+                label: '기본 프리셋: 흉추·코어·통합 사슬 부착 부위 도식',
+                area: '흉요추 연결부 · 광배근 · 복사근 통합 안정화 라인',
+                position: '흉추 중앙 및 갈비뼈 하단 앵커(3~5cm) 고정 후 대각선 사슬 부착',
+                direction: '척추 중심 앵커(0%) 고정 → 견갑골 및 반대측 골반 사슬 방향 진행',
+                imgUrl: svgToDataUrl(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480">
+  <defs>
+    <radialGradient id="skinI" cx="50%" cy="48%" r="60%">
+      <stop offset="0%" stop-color="#f7dec6"/>
+      <stop offset="68%" stop-color="#eab892"/>
+      <stop offset="100%" stop-color="#d2966d"/>
+    </radialGradient>
+    <linearGradient id="bgI" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6f1e7"/>
+      <stop offset="100%" stop-color="#ebe2d3"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bgI)"/>
+  <path d="M 125 65 C 225 45 415 45 515 65 L 485 435 L 155 435 Z" fill="url(#skinI)" stroke="#b8805a" stroke-width="2.5"/>
+  <!-- 반투명 흉곽·척추 투시 -->
+  <g stroke="#7c6654" stroke-opacity="0.36" fill="#fffaf0" fill-opacity="0.22" stroke-width="2">
+    <line x1="320" y1="60" x2="320" y2="425" stroke-width="5"/>
+    <path d="M 320 115 C 245 110 195 140 185 175"/><path d="M 320 115 C 395 110 445 140 455 175"/>
+    <path d="M 320 165 C 235 160 185 195 175 235"/><path d="M 320 165 C 405 160 455 195 465 235"/>
+    <path d="M 320 215 C 240 210 195 245 185 285"/><path d="M 320 215 C 400 210 445 245 455 285"/>
+  </g>
+  <!-- 전신 통합 X-사슬 테이핑 -->
+  <line x1="185" y1="115" x2="455" y2="375" stroke="#0284c7" stroke-width="26" stroke-linecap="round"/>
+  <line x1="455" y1="115" x2="185" y2="375" stroke="#1e293b" stroke-width="24" stroke-linecap="round" opacity="0.9"/>
+  <line x1="195" y1="245" x2="445" y2="245" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" opacity="0.95"/>
+  <text x="320" y="34" text-anchor="middle" font-size="16" font-weight="800" fill="#4a3b2c">흉추·코어·통합 사슬 부착 부위 도식</text>
+</svg>`)
+            }
+        };
+
+        // =========================================================================
+        // 5. 이미지 파일/URL 연결 + 1→2→3단계 한글/앵커(0%)/텐션% 오버레이 상태
+        // =========================================================================
+        const OVERLAY_STORAGE_KEY = 'rehab_taping_overlay_state_v2';
         let tapingOverlayState = {
-            imageSrc: '',
-            imageLabel: '연결된 해부학 이미지 (파일 또는 URL)',
+            activePresetRegion: 'scapula',
+            isCustomImage: false,
+            imageSrc: DEFAULT_REGION_PRESETS.scapula.imgUrl,
+            imageLabel: DEFAULT_REGION_PRESETS.scapula.label,
             steps: {
                 step1: {
                     title: '1단계: 단순 적용 (단일 스트립 기본 라인)',
                     tensionLabel: '텐션 15~25%',
-                    area: '상부승모근·어깨 부착 부위 확대 구간',
-                    position: '양끝 앵커(3~5cm) 무텐션 밀착, 중앙 직선 부착',
-                    direction: '시작 앵커(0%) 고정 → 근육 주행 방향 진행',
+                    area: DEFAULT_REGION_PRESETS.scapula.area,
+                    position: DEFAULT_REGION_PRESETS.scapula.position,
+                    direction: DEFAULT_REGION_PRESETS.scapula.direction,
                     tensionDesc: '앵커 0% / 본체 텐션 15~25%',
-                    anchorPos: { x: 24, y: 42 },
-                    tensionPos: { x: 56, y: 54 }
+                    anchorPos: { x: 35, y: 26 },
+                    tensionPos: { x: 64, y: 52 }
                 },
                 step2: {
                     title: '2단계: 교차 적용 (분지·교차 정렬 라인)',
                     tensionLabel: '텐션 25~35%',
-                    area: '1단계 라인 주변 관절 정렬 및 교차 부위',
+                    area: '1단계 라인 주변 관절 정렬 및 교차 지지 부위',
                     position: '기존 스트립 주변을 감싸며 교차 정렬 부착',
                     direction: '시작 앵커(0%) 고정 → 교차 궤도로 확장 진행',
                     tensionDesc: '앵커 0% / 교차 텐션 25~35%',
-                    anchorPos: { x: 24, y: 42 },
-                    tensionPos: { x: 58, y: 52 }
+                    anchorPos: { x: 32, y: 48 },
+                    tensionPos: { x: 62, y: 58 }
                 },
                 step3: {
                     title: '3단계: 다중 덧댐 적용 (중첩 레이어링 지지)',
@@ -668,11 +862,45 @@
                     position: '기존 스트립 위에 중첩 덧댐으로 지지력 보강',
                     direction: '기존 테이프 밖 피부 앵커(0%) 고정 → 다중 덧댐 진행',
                     tensionDesc: '앵커 0% / 덧댐 텐션 35~50%',
-                    anchorPos: { x: 24, y: 42 },
-                    tensionPos: { x: 60, y: 50 }
+                    anchorPos: { x: 28, y: 54 },
+                    tensionPos: { x: 58, y: 64 }
                 }
             }
         };
+
+        function applyPresetForRegion(regionKey, forceOverride = false) {
+            const preset = DEFAULT_REGION_PRESETS[regionKey] || DEFAULT_REGION_PRESETS.scapula;
+            tapingOverlayState.activePresetRegion = regionKey;
+            if (!tapingOverlayState.isCustomImage || forceOverride) {
+                tapingOverlayState.isCustomImage = false;
+                tapingOverlayState.imageSrc = preset.imgUrl;
+                tapingOverlayState.imageLabel = preset.label;
+            }
+            tapingOverlayState.steps.step1.area = preset.area;
+            tapingOverlayState.steps.step1.position = preset.position;
+            tapingOverlayState.steps.step1.direction = preset.direction;
+            saveOverlayState();
+            refreshOverlayContainer();
+        }
+
+        function detectDominantCheckedRegion() {
+            const counts = { scapula: 0, pelvis: 0, ankle: 0, integrated: 0 };
+            ALL_REGIONS.forEach(reg => {
+                evaluationData[reg].questions.forEach(q => {
+                    const el = document.getElementById(q.id);
+                    if (el && el.checked) counts[reg]++;
+                });
+            });
+            let bestRegion = currentRegion || 'scapula';
+            let maxCount = 0;
+            ALL_REGIONS.forEach(reg => {
+                if (counts[reg] > maxCount) {
+                    maxCount = counts[reg];
+                    bestRegion = reg;
+                }
+            });
+            return bestRegion;
+        }
 
         function loadOverlayState() {
             try {
@@ -689,6 +917,11 @@
                             step3: { ...tapingOverlayState.steps.step3, ...(parsed.steps.step3 || {}) }
                         }
                     };
+                }
+                if (!tapingOverlayState.imageSrc) {
+                    const preset = DEFAULT_REGION_PRESETS[tapingOverlayState.activePresetRegion || 'scapula'];
+                    tapingOverlayState.imageSrc = preset.imgUrl;
+                    tapingOverlayState.imageLabel = preset.label;
                 }
             } catch (e) {}
         }
@@ -707,6 +940,7 @@
                 alert('이미지 URL을 입력해 주세요.');
                 return;
             }
+            tapingOverlayState.isCustomImage = true;
             tapingOverlayState.imageSrc = url;
             tapingOverlayState.imageLabel = url;
             saveOverlayState();
@@ -718,10 +952,9 @@
             if (!file) return;
             try {
                 const compressedDataUrl = await compressImageFile(file, 900, 0.82);
+                tapingOverlayState.isCustomImage = true;
                 tapingOverlayState.imageSrc = compressedDataUrl;
                 tapingOverlayState.imageLabel = file.name;
-                const urlInput = document.getElementById('tapingImageUrlInput');
-                if (urlInput) urlInput.value = file.name;
                 saveOverlayState();
                 refreshOverlayContainer();
             } catch (err) {
@@ -731,13 +964,9 @@
             }
         }
 
-        function clearTapingImage() {
-            tapingOverlayState.imageSrc = '';
-            tapingOverlayState.imageLabel = '이미지 미연결 (파일 또는 URL을 연결하세요)';
-            const urlInput = document.getElementById('tapingImageUrlInput');
-            if (urlInput) urlInput.value = '';
-            saveOverlayState();
-            refreshOverlayContainer();
+        function restoreDefaultPresetImage() {
+            const region = detectDominantCheckedRegion();
+            applyPresetForRegion(region, true);
         }
 
         function updateBadgeCoord(stepKey, kind, axis, value) {
@@ -753,9 +982,9 @@
 
         function resetBadgeCoords(stepKey) {
             const defaults = {
-                step1: { anchorPos: { x: 24, y: 42 }, tensionPos: { x: 56, y: 54 } },
-                step2: { anchorPos: { x: 24, y: 42 }, tensionPos: { x: 58, y: 52 } },
-                step3: { anchorPos: { x: 24, y: 42 }, tensionPos: { x: 60, y: 50 } }
+                step1: { anchorPos: { x: 35, y: 26 }, tensionPos: { x: 64, y: 52 } },
+                step2: { anchorPos: { x: 32, y: 48 }, tensionPos: { x: 62, y: 58 } },
+                step3: { anchorPos: { x: 28, y: 54 }, tensionPos: { x: 58, y: 64 } }
             };
             tapingOverlayState.steps[stepKey].anchorPos = { ...defaults[stepKey].anchorPos };
             tapingOverlayState.steps[stepKey].tensionPos = { ...defaults[stepKey].tensionPos };
@@ -806,7 +1035,7 @@
 
         function renderStepOverlayCard(stepKey, badgeToneClass) {
             const st = tapingOverlayState.steps[stepKey];
-            const hasImg = Boolean(tapingOverlayState.imageSrc);
+            const imgSrc = tapingOverlayState.imageSrc || DEFAULT_REGION_PRESETS.scapula.imgUrl;
             return `
 <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
   <div class="flex flex-wrap items-center justify-between gap-2">
@@ -817,13 +1046,7 @@
   <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
     <div class="md:col-span-6 space-y-2">
       <div class="overlay-stage-box relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-amber-200 bg-[#f5efe6] select-none" data-step-key="${stepKey}">
-        ${hasImg
-            ? `<img src="${tapingOverlayState.imageSrc}" alt="${st.title} 부착 부위 이미지" class="w-full h-full object-cover pointer-events-none">`
-            : `<div class="w-full h-full flex flex-col items-center justify-center p-4 text-center text-slate-500">
-                 <p class="text-xs font-bold text-slate-700">이미지 파일 또는 URL이 연결되지 않았습니다</p>
-                 <p class="text-[10px] mt-1">위 입력창에서 이미지 URL을 넣거나 파일을 선택하세요</p>
-               </div>`
-        }
+        <img src="${imgSrc}" alt="${st.title} 부착 부위 이미지" class="w-full h-full object-cover pointer-events-none">
 
         <!-- 앵커 0% 오버레이 배지 -->
         <div class="overlay-badge px-2.5 py-1 rounded-lg bg-slate-950/90 text-white text-[11px] font-extrabold shadow-md border border-white/20"
@@ -872,36 +1095,42 @@
         }
 
         function buildTapingOverlayGuideHtml() {
-            const safeUrlValue = (tapingOverlayState.imageSrc && !tapingOverlayState.imageSrc.startsWith('data:'))
+            const safeUrlValue = (tapingOverlayState.isCustomImage && tapingOverlayState.imageSrc && !tapingOverlayState.imageSrc.startsWith('data:'))
                 ? tapingOverlayState.imageSrc.replace(/"/g, '&quot;')
-                : (tapingOverlayState.imageLabel && !tapingOverlayState.imageSrc.startsWith('data:') ? tapingOverlayState.imageLabel.replace(/"/g, '&quot;') : '');
+                : '';
+            const activeReg = tapingOverlayState.activePresetRegion || 'scapula';
 
             return `
 <div id="tapingOverlaySection" class="mt-5 p-4 rounded-2xl bg-[#faf6f0] border border-amber-200 space-y-4">
   <div class="flex flex-wrap items-center justify-between gap-2">
     <h4 class="text-sm font-extrabold text-slate-900">스포츠 테이핑 이미지 오버레이 가이드 (1단계 단순 → 2단계 교차 → 3단계 다중 덧댐)</h4>
-    <span class="text-[10px] font-bold text-amber-900 bg-white px-2.5 py-0.5 rounded-full border border-amber-200">이미지 파일/URL · 한글 · 앵커 0% · 텐션%</span>
+    <span class="text-[10px] font-bold text-amber-900 bg-white px-2.5 py-0.5 rounded-full border border-amber-200">부위별 기본이미지 · 한글 · 앵커 0% · 텐션%</span>
   </div>
 
-  <!-- 이미지 파일 또는 URL 연결 바 -->
-  <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-2">
+  <!-- 부위별 기본 이미지 프리셋 & 커스텀 파일/URL 연결 바 -->
+  <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-2.5">
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <span class="text-[11px] font-extrabold text-slate-800">연결 이미지: <span id="tapingConnectedLabel" class="text-emerald-700">${tapingOverlayState.imageLabel}</span></span>
-      <div class="flex items-center gap-1.5">
-        <label class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[11px] font-bold cursor-pointer transition">
-          이미지 파일 선택
-          <input type="file" accept="image/*" onchange="handleTapingImageFileUpload(event)" class="hidden">
-        </label>
-        <button type="button" onclick="clearTapingImage()" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg text-[11px] font-bold transition">
-          이미지 해제
-        </button>
+      <span class="text-[11px] font-extrabold text-slate-800">현재 이미지: <span id="tapingConnectedLabel" class="text-emerald-700">${tapingOverlayState.imageLabel}</span></span>
+      <div class="flex flex-wrap items-center gap-1">
+        <button type="button" onclick="applyPresetForRegion('scapula', true)" class="px-2 py-1 rounded-lg text-[10px] font-bold border ${activeReg === 'scapula' && !tapingOverlayState.isCustomImage ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}">상체/어깨 기본</button>
+        <button type="button" onclick="applyPresetForRegion('pelvis', true)" class="px-2 py-1 rounded-lg text-[10px] font-bold border ${activeReg === 'pelvis' && !tapingOverlayState.isCustomImage ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}">골반/허리 기본</button>
+        <button type="button" onclick="applyPresetForRegion('ankle', true)" class="px-2 py-1 rounded-lg text-[10px] font-bold border ${activeReg === 'ankle' && !tapingOverlayState.isCustomImage ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}">무릎/발목 기본</button>
+        <button type="button" onclick="applyPresetForRegion('integrated', true)" class="px-2 py-1 rounded-lg text-[10px] font-bold border ${activeReg === 'integrated' && !tapingOverlayState.isCustomImage ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}">통합사슬 기본</button>
       </div>
     </div>
-    <div class="flex gap-2">
-      <input type="text" id="tapingImageUrlInput" value="${safeUrlValue}" placeholder="이미지 URL 입력 (예: https://.../shoulder-taping.png)"
-        class="flex-1 bg-slate-50 border border-slate-200 focus:border-emerald-500 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
-      <button type="button" onclick="applyImageUrlToOverlay()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition whitespace-nowrap">
+
+    <div class="flex flex-wrap items-center gap-2">
+      <label class="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[11px] font-bold cursor-pointer transition whitespace-nowrap">
+        내 이미지 파일 선택
+        <input type="file" accept="image/*" onchange="handleTapingImageFileUpload(event)" class="hidden">
+      </label>
+      <input type="text" id="tapingImageUrlInput" value="${safeUrlValue}" placeholder="또는 외부 이미지 URL 입력 (https://...)"
+        class="flex-1 min-w-[180px] bg-slate-50 border border-slate-200 focus:border-emerald-500 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
+      <button type="button" onclick="applyImageUrlToOverlay()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition whitespace-nowrap">
         URL 연결
+      </button>
+      <button type="button" onclick="restoreDefaultPresetImage()" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg text-[11px] font-bold transition whitespace-nowrap">
+        기본이미지 복귀
       </button>
     </div>
   </div>
@@ -1208,6 +1437,7 @@
                     : 'py-2 rounded-lg text-slate-500 hover:text-slate-900';
             });
             renderEvaluationForm(prevChecks);
+            applyPresetForRegion(region, false);
         }
 
         function renderEvaluationForm(savedChecks = {}) {
@@ -1321,9 +1551,9 @@
         function renderFallbackVideoLinks(checkedNames, customPain) {
             const listEl = document.getElementById('fallbackVideoLinksList');
             const queries = [];
-            checkedNames.slice(0, 3).forEach(name => queries.push(`${name} 컨디셔닝 운동`));
-            if (customPain) queries.push(`${customPain} 움직임 운동`);
-            if (queries.length === 0) queries.push('코어 견갑 안정화 컨디셔닝');
+            checkedNames.slice(0, 3).forEach(name => queries.push(`${name} 쉬운 스트레칭 운동`));
+            if (customPain) queries.push(`${customPain} 따라하기 운동`);
+            if (queries.length === 0) queries.push('어깨 골반 코어 쉬운 교정 운동');
 
             listEl.innerHTML = queries.map(q => {
                 const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
@@ -1364,6 +1594,17 @@
                 return;
             }
 
+            // 체크된 주 부위에 맞춰 기본 이미지 프리셋 자동 업데이트
+            const dominantRegion = detectDominantCheckedRegion();
+            applyPresetForRegion(dominantRegion, false);
+
+            // 현재 날짜/시간 실시간 동기화
+            const currentDt = getCurrentKoreanDateTime();
+            const dateHeaderEl = document.getElementById('reportGeneratedDate');
+            if (dateHeaderEl) {
+                dateHeaderEl.innerText = `📅 리포트 작성일시: ${currentDt.full}`;
+            }
+
             const reportBox = document.getElementById('reportBox');
             const reportPlaceholder = document.getElementById('reportPlaceholder');
             const reportContent = document.getElementById('reportContent');
@@ -1371,12 +1612,14 @@
             reportPlaceholder.classList.add('hidden');
             reportBox.classList.remove('hidden');
             renderFallbackVideoLinks(checkedNames, customPain);
-            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">시각적 해부학 카드·시연 영상·이미지 오버레이 테이핑 가이드를 생성 중입니다...</p></div>`;
+            reportContent.innerHTML = `<div class="text-center py-12"><i data-lucide="loader" class="w-8 h-8 animate-spin text-emerald-600 mx-auto mb-3"></i><p class="text-xs text-slate-500 font-bold">회원님 눈높이에 맞춘 쉽고 디테일한 운동 가이드와 부위별 테이핑 오버레이를 생성 중입니다...</p></div>`;
             lucide.createIcons();
 
             const promptText = `
-당신은 리햅프로(Rehab Pro)의 수석 기능운동학 컨디셔닝 에이전트입니다.
-선택된 40가지 기능평가 소견 및 첨부된 체형 사진을 바탕으로 다음을 포함한 Tailwind CSS HTML 카드 리포트를 작성하십시오.
+당신은 리햅프로(Rehab Pro)의 수석 운동 컨디셔닝 코치입니다.
+오늘 날짜는 반드시 "${currentDt.full}"입니다. 리포트 상단과 본문에 다른 연도나 과거 날짜를 절대 적지 말고 반드시 "${currentDt.dateOnly}" 기준으로 작성하십시오.
+
+선택된 40가지 기능평가 소견 및 첨부된 체형 사진을 바탕으로 일반 회원도 집에서 혼자 바로 따라 할 수 있을 만큼 **쉽고 아주 상세한(디테일한) 한국어 HTML 카드 리포트**를 작성하십시오.
 
 [평가 소견]
 ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '선택 항목 없음'}
@@ -1384,17 +1627,24 @@ ${evaluatedItems.length > 0 ? evaluatedItems.join('\n') : '선택 항목 없음'
 [추가 통증/동작 특이사항]
 ${customPain || '특이사항 없음'}
 
-[필수 구성 및 작성 규칙]
-1. NASM, FMS, Neumann Kinesiology 기능운동학 관점으로 작성할 것.
-2. '진단', '처방', '치료' 용어를 쓰지 말고 '기능적 패턴', '컨디셔닝 프로토콜', '움직임 개선', '지지 보조'로 표현할 것.
-3. 4단계(1. MFR, 2. Mobility, 3. Active, 4. Passive) 소도구 컨디셔닝과 각 단계별 YouTube 검색 링크(https://www.youtube.com/results?search_query=...)를 포함할 것.
-4. [스포츠 테이핑 단계별 적용 가이드] 섹션을 반드시 포함하되, [1단계: 단순 기본 적용(단일 스트립)] → [2단계: 교차 확장 적용] → [3단계: 다중 덧댐 지지 적용(교차·중첩 레이어링)] 순서로 구성할 것.
-5. 각 테이핑 단계마다 반드시 다음 4항목을 빠짐없이 명시할 것:
-   - 적용부위
-   - 부착위치
-   - 시작방향 (앵커 3~5cm 무텐션 구간 명시 포함)
-   - 텐션정도 (앵커 0% 및 단계별 수치 명시 포함)
-6. 가급적 \`\`\`html ... \`\`\` 코드블록 안에 깔끔한 HTML 카드로 출력할 것.
+[필수 작성 원칙 - 어려운 용어 금지 & 초디테일 설명]
+1. **어려운 영어/의학 약어 금지**: MFR, Mobility, Active, Passive, 발구스(Valgus), 배측굴곡, 상방회전 같은 딱딱한 용어만 던지지 말고, 모든 용어를 일상적인 쉬운 우리말로 풀어서 설명하십시오.
+   - 예: "상부승모근 TP" → "목과 어깨가 만나는 위쪽 근육이 뭉쳐서 딱딱해진 상태"
+   - 예: "발목 배측굴곡 제한" → "발목을 정강이 쪽으로 당기는 각도가 뻣뻣해서 쪼그려 앉을 때 뒤꿈치가 들리는 상태"
+2. **4단계 맞춤 운동법 (초보 회원도 100% 이해하도록 5가지 항목으로 아주 자세히 서술)**:
+   - 1단계: 뭉친 곳 부드럽게 풀기 (마사지볼·폼롤러 이완)
+   - 2단계: 굳은 관절 부드럽게 늘리기 (가동성 스트레칭)
+   - 3단계: 약해진 속근육 깨우기 (안정화 기초 근력)
+   - 4단계: 바른 자세로 움직임 익히기 (전신 협응 동작)
+   - **각 단계마다 반드시 아래 5가지를 구체적으로 적어줄 것**:
+     ① **준비물 및 시작 자세**: 어떤 도구를 몸의 정확히 어느 위치(예: 날개뼈 안쪽 벽과 등 사이)에 대고 어떤 자세로 서거나 눕는지
+     ② **세부 동작 순서 (1→2→3단계)**: 팔·다리·몸통을 어느 방향으로 얼마나 천천히 움직이는지
+     ③ **호흡법과 속도**: 코로 몇 초 들이마시고 입으로 몇 초 내쉬며 움직이는지
+     ④ **느껴져야 하는 정상 자극 vs 멈춰야 할 신호**: 어디가 시원하게 당기거나 힘이 들어가야 맞는지, 어떤 통증이 나면 즉시 멈춰야 하는지
+     ⑤ **권장 횟수·세트 및 시연 영상 링크**: 정확한 초/횟수/세트와 YouTube 검색 링크(https://www.youtube.com/results?search_query=...)
+3. **법적·안전 표현**: '진단', '처방', '치료' 단어를 쓰지 말고 '체형 패턴 분석', '맞춤 운동 가이드', '움직임 개선', '지지 보조'로 표현하십시오.
+4. **스포츠 테이핑 요약 안내**: 하단에 자동 첨부되는 1단계(단순, 텐션 15~25%) → 2단계(교차, 텐션 25~35%) → 3단계(다중 덧댐, 텐션 35~50%) 이미지 오버레이와 연결되도록, 회원이 테이핑을 붙일 때 주의할 점(피부 땀·유분기 닦기, 양끝 앵커 3~5cm는 절대 당기지 않고 0%로 붙이기, 가려우면 즉시 떼기)을 쉽게 설명하십시오.
+5. 출력은 반드시 \`\`\`html ... \`\`\` 코드블록 안에 깔끔한 Tailwind CSS 카드 형태로 작성하십시오.
 `;
 
             let contentsParts = [{ text: promptText }];
@@ -1416,7 +1666,11 @@ ${customPain || '특이사항 없음'}
                     throw new Error(data.error?.message || 'API 응답이 비어 있습니다.');
                 }
                 const parsedHtml = extractModelHtml(rawText);
-                const finalHtml = parsedHtml + buildTapingOverlayGuideHtml();
+                const dateBannerHtml = `<div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <span class="font-extrabold text-emerald-900">📅 평가 및 리포트 생성 시점: ${currentDt.full}</span>
+                    <span class="text-[11px] font-bold text-emerald-700">리햅프로(REHAB PRO) 맞춤 컨디셔닝 가이드</span>
+                </div>`;
+                const finalHtml = dateBannerHtml + parsedHtml + buildTapingOverlayGuideHtml();
                 reportContent.innerHTML = finalHtml;
                 lastRawHtmlReport = finalHtml;
                 attachOverlayDragListeners();
@@ -1481,8 +1735,9 @@ ${customPain || '특이사항 없음'}
             const client = clients.find(c => String(c.id) === String(id));
             if (!client) return;
 
+            const currentDt = getCurrentKoreanDateTime();
             client.sessions.push({
-                date: new Date().toLocaleDateString(),
+                date: currentDt.full,
                 vasBefore: document.getElementById('vasBefore').value,
                 vasAfter: document.getElementById('vasAfter').value,
                 memo: document.getElementById('sessionMemo').value.trim(),
